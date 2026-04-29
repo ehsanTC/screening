@@ -2,31 +2,22 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:utu="using:Uno.Toolkit.UI"
-      xmlns:views="using:Screening.Presentation.QuestionViews"
-      xmlns:presentation="clr-namespace:Screening.Presentation"
+      xmlns:presentation="using:Screening.Presentation"
+      xmlns:rx="using:Uno.Extensions.Reactive.UI"
       xmlns:views1="clr-namespace:Screening.Presentation.Views"
       Background="{ThemeResource BackgroundBrush}">
 
     <Page.Resources>
-        <!-- Question Template Selector -->
+
         <presentation:QuestionTemplateSelector x:Key="QuestionTemplateSelector">
             <presentation:QuestionTemplateSelector.TextInputTemplate>
                 <DataTemplate>
                     <views1:TextInputQuestionView />
                 </DataTemplate>
             </presentation:QuestionTemplateSelector.TextInputTemplate>
-
-            <!-- Add more templates in future -->
-            <!--
-            <views:QuestionTemplateSelector.PhotoTemplate>
-                <DataTemplate>
-                    <views:PhotoQuestionView />
-                </DataTemplate>
-            </views:QuestionTemplateSelector.PhotoTemplate>
-            -->
         </presentation:QuestionTemplateSelector>
-    </Page.Resources>
 
+    </Page.Resources>
 
     <Grid utu:SafeArea.Insets="VisibleBounds">
         <Grid.RowDefinitions>
@@ -35,16 +26,16 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Top Navigation Bar -->
         <utu:NavigationBar Content="Questions" />
 
-        <!-- Question Content -->
+        <!-- Main Question Area -->
         <ContentControl Grid.Row="1"
-                        Content="{Binding CurrentQuestion}"
+                        Content="{Binding State, Mode=OneWay}"
                         ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Margin="16" />
+
 
         <!-- Navigation Buttons -->
         <StackPanel Grid.Row="2"
@@ -55,14 +46,13 @@
 
             <Button Content="Back"
                     Margin="0,0,8,0"
-                    Command="{Binding BackCommand}"
-                    IsEnabled="{Binding CanGoBack}" />
+                    IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
+                    Command="{Binding Back}" />
 
             <Button Content="Next"
-                    Command="{Binding NextCommand}"
-                    IsEnabled="{Binding CanGoNext}" />
+                    IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
+                    Command="{Binding Next}" />
+
         </StackPanel>
     </Grid>
 </Page>
-
-

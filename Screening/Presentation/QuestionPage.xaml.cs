@@ -1,8 +1,8 @@
 ﻿namespace Screening.Presentation;
 
-public sealed partial class SecondPage : Page
+public sealed partial class QuestionPage : Page
 {
-    public SecondPage()
+    public QuestionPage()
     {
         this.InitializeComponent();
     }

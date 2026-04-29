@@ -18,19 +18,8 @@ public partial record MainModel
     public string? Title { get; }
 
     public IState<string> Name => State<string>.Value(this, () => string.Empty);
-
-    public Task GoToSecond1()
+    public async Task GoToQuestions()
     {
-        return GoToSecond("Diabetes type 2");
-    }
-
-    public Task GoToSecond2()
-    {
-        return GoToSecond("Cardiovascular");
-    }
-
-    private async Task GoToSecond(string screeningType)
-    {
-        await _navigator.NavigateViewModelAsync<SecondModel>(this, data: new Entity(screeningType));
+        await _navigator.NavigateViewModelAsync<QuestionModel>(this, data: null);
     }
 }

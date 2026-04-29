@@ -71,7 +71,6 @@ public partial class App : Application
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    // TODO: Register your services
                     services.AddSingleton<IQuestionProvider, DiabetesQuestionProvider>();
                 })
                 
@@ -92,7 +91,7 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
-            new DataViewMap<SecondPage, SecondModel, Entity>()
+            new ViewMap<QuestionPage, QuestionModel>()
         );
 
         routes.Register(
@@ -100,7 +99,7 @@ public partial class App : Application
                 Nested:
                 [
                     new("Main", View: views.FindByViewModel<MainModel>(), IsDefault: true),
-                    new("Second", View: views.FindByViewModel<SecondModel>()),
+                    new("Questions", View: views.FindByViewModel<QuestionModel>()),
                 ]
             )
         );
