@@ -1,11 +1,13 @@
+using Screening.Domain.Answers;
+
 namespace Screening.Domain.Questions;
 
 public class TextInputQuestion : IQuestion
 {
-    public string Text { get; init; }
-    public string Value { get; init; }
+    public string Text { get; init; } = string.Empty;
+    public string Value { get; set; } = string.Empty;
     public IAnswer Answer => new TextAnswer() { Text = Value };
-    public bool IsNumeric { get; init; } // e.g., for age
+    public bool IsNumeric { get; init; }
     public double? MinValue { get; init; }
     public double? MaxValue { get; init; }
 

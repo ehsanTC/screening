@@ -1,3 +1,5 @@
+using Screening.Domain.Answers;
+
 namespace Screening.Domain.Questions;
 
 public class SingleChoiceQuestion : IQuestion
@@ -7,8 +9,9 @@ public class SingleChoiceQuestion : IQuestion
     public string SelectedOption { get; init; }
 
     public bool IsAnswered => !string.IsNullOrEmpty(SelectedOption);
-    public IAnswer Answer { get; }
 
+    public IAnswer Answer => new TextAnswer { Text = SelectedOption };
+    
     public void Validate()
     {
         if (!IsAnswered)

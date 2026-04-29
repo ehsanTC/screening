@@ -1,3 +1,5 @@
+using Screening.Domain.Answers;
+
 namespace Screening.Domain.Questions;
 
 public class MultipleChoiceQuestion : IQuestion
@@ -7,7 +9,8 @@ public class MultipleChoiceQuestion : IQuestion
     public List<string> SelectedOptions { get; init; } = [];
 
     public bool IsAnswered => SelectedOptions.Count > 0;
-    public IAnswer Answer { get; }
+    
+    public IAnswer Answer => new MultipleChoiceAnswer() { SelectedOptions = SelectedOptions };
 
     public void Validate()
     {

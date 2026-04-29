@@ -1,3 +1,5 @@
+using Screening.Domain.Answers;
+
 namespace Screening.Domain.Questions;
 
 public interface IQuestion
@@ -7,13 +9,3 @@ public interface IQuestion
     IAnswer Answer { get; }
     void Validate();
 }
-
-public interface IAnswer
-{ }
-
-public class TextAnswer : IAnswer
-{
-    public string Text { get; init; }
-}
-
-
