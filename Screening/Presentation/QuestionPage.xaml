@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:utu="using:Uno.Toolkit.UI"
       xmlns:presentation="using:Screening.Presentation"
-      xmlns:rx="using:Uno.Extensions.Reactive.UI"
       xmlns:views1="clr-namespace:Screening.Presentation.Views"
       Background="{ThemeResource BackgroundBrush}">
 
@@ -30,7 +29,7 @@
 
         <!-- Main Question Area -->
         <ContentControl Grid.Row="1"
-                        Content="{Binding State, Mode=OneWay}"
+                        Content="{Binding State.CurrentQuestion, Mode=OneWay}"
                         ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
