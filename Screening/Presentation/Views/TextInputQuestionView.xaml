@@ -13,7 +13,7 @@
                    FontSize="20"
                    TextWrapping="Wrap" />
 
-        <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox Text="{Binding Answer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  TextChanged="OnTextChanged" />
     </StackPanel>
 

@@ -4,5 +4,5 @@ namespace Screening.Infrastructure.Abstractions;
 
 public interface IQuestionProvider
 {
-    List<IQuestion> GetQuestions();
+    QuestionnaireViewModel GetQuestionnaire();
 }

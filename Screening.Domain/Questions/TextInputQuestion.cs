@@ -1,18 +1,16 @@
 using Screening.Domain.Answers;
+using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public class TextInputQuestion : IQuestion
+public class TextInputQuestion : IQuestionViewModel
 {
-    public string Text { get; init; } = string.Empty;
-    public string Value { get; set; } = string.Empty;
-    public IAnswer Answer => new TextAnswer() { Text = Value };
+    public required YamlQuestion Question { get; init; }
+    public string Response { get; set; } = string.Empty;
+    public IAnswer Answer => new TextAnswer() { Text = Response };
     public bool IsNumeric { get; init; }
-    public double? MinValue { get; init; }
-    public double? MaxValue { get; init; }
 
-    public bool IsAnswered => !string.IsNullOrEmpty(Value);
-    
+    public bool IsAnswered => !string.IsNullOrEmpty(Response);
 
     public void Validate()
     {
@@ -20,20 +18,10 @@ public class TextInputQuestion : IQuestion
         {
             throw new InvalidOperationException("Text input question must have a value.");
         }
-        if (IsNumeric)
+
+        if (IsNumeric && !double.TryParse(Response, out _))
         {
-            if (!double.TryParse(Value, out var numValue))
-            {
-                throw new InvalidOperationException("Value must be numeric.");
-            }
-            if (numValue < MinValue)
-            {
-                throw new InvalidOperationException($"Value must be at least {MinValue.Value}.");
-            }
-            if (numValue > MaxValue)
-            {
-                throw new InvalidOperationException($"Value must be at most {MaxValue.Value}.");
-            }
+            throw new InvalidOperationException("Answer must be numeric.");
         }
     }
 }

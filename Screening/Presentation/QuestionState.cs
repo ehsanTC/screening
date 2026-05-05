@@ -4,7 +4,7 @@ using Screening.Domain.Questions;
 namespace Screening.Presentation;
 
 public record QuestionState(
-    IQuestion? CurrentQuestion,
+    IQuestionViewModel? CurrentQuestion,
     bool CanGoNext,
     bool CanGoBack
 );

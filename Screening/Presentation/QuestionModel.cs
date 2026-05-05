@@ -5,7 +5,7 @@ namespace Screening.Presentation;
 
 public partial record QuestionModel
 {
-    private readonly List<IQuestion> _questions;
+    private readonly List<IQuestionViewModel> _questions;
     private int _index;
 
     public IState<QuestionState> State => _state;
@@ -13,8 +13,10 @@ public partial record QuestionModel
 
     public QuestionModel(IQuestionProvider provider)
     {
+        ArgumentNullException.ThrowIfNull(provider);
+
         _index = 0;
-        _questions = provider.GetQuestions();
+        _questions = provider.GetQuestionnaire()?.Questions?.ToList();
 
         _state = State<QuestionState>.Value(this, CreateState);
     }
@@ -41,7 +43,7 @@ public partial record QuestionModel
     {
         if (_questions[_index] is TextInputQuestion question)
         {
-            question.Value = value;
+            question.Response = value;
             RefreshState();
         }
     }

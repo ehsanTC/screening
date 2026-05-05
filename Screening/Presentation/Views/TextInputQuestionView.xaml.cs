@@ -13,7 +13,7 @@ public sealed partial class TextInputQuestionView : UserControl
             return;
         }
 
-        question.Value = textBox.Text;
+        question.Response = textBox.Text;
             
         var page = FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)

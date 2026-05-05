@@ -72,6 +72,7 @@ public partial class App : Application
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<IQuestionProvider, DiabetesQuestionProvider>();
+                    services.AddSingleton<IQuestionnaireParser, YamlQuestionnaireParser>();
                 })
                 
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
