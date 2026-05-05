@@ -9,38 +9,59 @@
 - Date: ____________________
 
 ### Your Information
+Q: Question
+AT: Answer Type (TextInputQuestion|SingleChoiceQuestion|MultipleChoiceQuestion)
+Cs: Choices
+InF: Input Format (Number|string|DateTime)
+C2S: Condition to Show
+CR: Calculation Role
 
-1. What is your age?
-   ________ years
-   (Points: <40 = 0 | 40–49 = 1 | 50–59 = 2 | 60+ = 3)
+1. Q: What is your age?
+   AT: TextInputQuestion
+   InF: Number
+   CR: Points: <40 = 0 | 40–49 = 1 | 50–59 = 2 | 60+ = 3
 
-2. What is your gender?
-   [ ] Female
-   [ ] Male
-   (Men receive 1 point)
+2. Q: What is your gender?
+   AT: SingleChoiceQuestion
+   Cs:
+     - Female
+     - Male
+   CR: Men receive 1 point
 
-3. Have you ever had gestational diabetes OR given birth to a baby weighing 9 pounds or more?
-   (Women only; leave blank if male)
-   [ ] Yes (1 point)
-   [ ] No
+3. Q: Have you ever had gestational diabetes OR given birth to a baby weighing 9 pounds or more?
+   C2S: Women only; leave blank if male
+   AT: SingleChoiceQuestion
+   Cs:
+      - Yes
+      - No
+   CR:  Yes (1 point)
 
-4. Do you have a parent, brother, or sister with diabetes?
-   [ ] Yes (1 point)
-   [ ] No
+4. Q: Do you have a parent, brother, or sister with diabetes?
+   AT: SingleChoiceQuestion
+   Cs:
+     - Yes
+     - No
+   CR:  Yes (1 point)
 
-5. Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?
-   [ ] Yes (1 point)
-   [ ] No
+5. Q: Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?
+   AT: SingleChoiceQuestion
+   Cs:
+     - Yes
+     - No
+   CR:  Yes (1 point)
 
-6. Are you physically active?
+6. Q: Are you physically active?
    (Examples: at least 150 minutes per week of moderate activity like brisk walking)
-   [ ] Yes
-   [ ] No (1 point)
+   AT: SingleChoiceQuestion
+   Cs:
+     - Yes
+     - No
+   CR:  Yes (1 point)
 
-7. What is your height and weight?
-   Height: ________ feet ________ inches   OR   ________ cm
-   Weight: ________ pounds   OR   ________ kg
-   (Points based on body weight status:
+7. Q: What is your height and weight? (I am not sure about which QT should I choose)
+   Height: ________ cm
+   Weight: ________ kg
+   CR: (Points based on body weight status:
     - If you are overweight (BMI 25–29.9): 1 point
     - If you are obese (BMI 30–34.9): 2 points
     - If you are severely obese (BMI 35+): 3 points
@@ -55,8 +76,6 @@ Total points: ________
 
 **Recommendations** (if high risk):
 Lifestyle changes like healthy eating, regular physical activity, and weight management can prevent or delay type 2 diabetes in many people.
-
-**Signature**: ______________________________        Date: ________________
 
 **For healthcare provider use only**
 Calculated score: ________
