@@ -21,7 +21,6 @@ public partial class App : Application
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         var builder = this.CreateBuilder(args)
-            // Add navigation support for toolkit controls such as TabBar and NavigationView
             .UseToolkitNavigation()
             .Configure(host => host
 #if DEBUG
@@ -65,7 +64,6 @@ public partial class App : Application
                 .UseHttp((context, services) =>
                 {
 #if DEBUG
-                    // DelegatingHandler will be automatically injected
                     services.AddTransient<DelegatingHandler, DebugHttpHandler>();
 #endif
                 })
@@ -76,6 +74,8 @@ public partial class App : Application
                 })
                 
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
+                // When need persisting data, get IStorage via DI
+                .UseStorage()
             );
         MainWindow = builder.Window;
 
