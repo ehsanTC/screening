@@ -1,3 +1,3 @@
 global using FluentAssertions;
-global using Screening.Models;
-global using NUnit.Framework;
+global using Xunit;
+global using NSubstitute;

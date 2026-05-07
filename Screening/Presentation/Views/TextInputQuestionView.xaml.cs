@@ -8,7 +8,7 @@ public sealed partial class TextInputQuestionView : UserControl
 
     private void OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (sender is not TextBox textBox || DataContext is not TextInputQuestion question)
+        if (sender is not TextBox textBox || DataContext is not TextInputDisplayableQuestion question)
         {
             return;
         }

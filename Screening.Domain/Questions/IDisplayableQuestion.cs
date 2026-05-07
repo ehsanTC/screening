@@ -3,7 +3,7 @@ using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public interface IQuestionViewModel
+public interface IDisplayableQuestion
 {
     public YamlQuestion  Question { get; }
     bool IsAnswered { get; }

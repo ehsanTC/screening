@@ -3,7 +3,7 @@ using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public class SingleChoiceQuestion : IQuestionViewModel
+public class SingleChoiceDisplayableQuestion : IDisplayableQuestion
 {
     public List<string> Options { get; init; } = [];
     public string? SelectedOption { get; set; }

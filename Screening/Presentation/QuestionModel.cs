@@ -5,7 +5,7 @@ namespace Screening.Presentation;
 
 public partial record QuestionModel
 {
-    private readonly List<IQuestionViewModel> _questions;
+    private readonly List<IDisplayableQuestion> _questions;
     private int _index;
 
     public IState<QuestionState> State => _state;
@@ -41,7 +41,7 @@ public partial record QuestionModel
 
     public void UpdateCurrentTextAnswer(string value)
     {
-        if (_questions[_index] is TextInputQuestion question)
+        if (_questions[_index] is TextInputDisplayableQuestion question)
         {
             question.Response = value;
             RefreshState();

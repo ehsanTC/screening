@@ -9,7 +9,7 @@ public class QuestionTemplateSelector : DataTemplateSelector
     protected override DataTemplate SelectTemplateCore(object item) =>
         (item switch
         {
-            TextInputQuestion => TextInputTemplate,
+            TextInputDisplayableQuestion => TextInputTemplate,
             // other questions here
             _ => null
         })!;

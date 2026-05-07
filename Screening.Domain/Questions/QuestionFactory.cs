@@ -4,7 +4,7 @@ namespace Screening.Domain.Questions;
 
 public static class QuestionFactory
 {
-    public static IQuestionViewModel CreateQuestion(YamlQuestion yamlQuestion)
+    public static IDisplayableQuestion CreateQuestion(YamlQuestion yamlQuestion)
     {
         if (yamlQuestion is null)
             throw new ArgumentException("The question type is null.");
@@ -27,22 +27,22 @@ public static class QuestionFactory
         };
     }
 
-    private static IQuestionViewModel CreateMultiChoice(YamlQuestion question) =>
-        new MultiChoiceQuestion()
+    private static IDisplayableQuestion CreateMultiChoice(YamlQuestion question) =>
+        new MultiChoiceDisplayableQuestion()
         {
             Question = question,
             Options = question.Choices
         };
 
-    private static IQuestionViewModel CreateSingleChoice(YamlQuestion question) =>
-        new SingleChoiceQuestion()
+    private static IDisplayableQuestion CreateSingleChoice(YamlQuestion question) =>
+        new SingleChoiceDisplayableQuestion()
         {
             Question = question,
             Options = question.Choices,
         };
 
-    private static IQuestionViewModel CreateTextInput(YamlQuestion question, bool isNumeric) =>
-        new TextInputQuestion()
+    private static IDisplayableQuestion CreateTextInput(YamlQuestion question, bool isNumeric) =>
+        new TextInputDisplayableQuestion()
         {
             Question = question,
             IsNumeric = isNumeric

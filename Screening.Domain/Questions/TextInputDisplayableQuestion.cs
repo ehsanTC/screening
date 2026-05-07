@@ -3,7 +3,7 @@ using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public class TextInputQuestion : IQuestionViewModel
+public class TextInputDisplayableQuestion : IDisplayableQuestion
 {
     public required YamlQuestion Question { get; init; }
     public string Response { get; set; } = string.Empty;
