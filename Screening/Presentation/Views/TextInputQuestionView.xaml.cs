@@ -14,12 +14,27 @@ public sealed partial class TextInputQuestionView : UserControl
         }
 
         question.Response = textBox.Text;
+        ShowValidationError(question);
             
         var page = FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)
         {
             viewModel.Model.RefreshState(); 
         }
+    }
+
+    private void ShowValidationError(TextInputDisplayableQuestion question)
+    {
+        var error = question.IsNumeric &&
+                    !string.IsNullOrWhiteSpace(question.Response) &&
+                    !int.TryParse(question.Response, out _)
+            ? "Enter a whole number."
+            : string.Empty;
+
+        ErrorTextBlock.Text = error;
+        ErrorTextBlock.Visibility = string.IsNullOrEmpty(error)
+            ? Visibility.Collapsed
+            : Visibility.Visible;
     }
 
     private static T? FindAncestor<T>(DependencyObject child) 

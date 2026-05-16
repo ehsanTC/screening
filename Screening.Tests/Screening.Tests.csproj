@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\RiskCalculator\RiskCalculator.csproj" />
+        <ProjectReference Include="..\Screening.Domain\Screening.Domain.csproj" />
         <ProjectReference Include="..\Screening\Screening.csproj"/>
     </ItemGroup>
 </Project>

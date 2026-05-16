@@ -1,6 +1,5 @@
-using RiskCalculator;
-using RiskCalculator.Models;
-using Xunit;
+using Screening.Domain.RiskCalculator;
+using Screening.Domain.RiskCalculator.Models;
 
 namespace Screening.Tests.Calculators;
 

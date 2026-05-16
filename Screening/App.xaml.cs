@@ -1,6 +1,5 @@
-using Screening.Infrastructure.Abstractions;
-using Screening.Infrastructure.Services;
-using Uno.Resizetizer;
+using Screening.Domain.Infrastructure.Abstractions;
+using Screening.Domain.Infrastructure.Services;
 
 namespace Screening;
 

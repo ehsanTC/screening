@@ -2,8 +2,47 @@
 
 public sealed partial class QuestionPage : Page
 {
+    private CancellationTokenSource? _toastCancellation;
+
     public QuestionPage()
     {
         this.InitializeComponent();
+    }
+
+    private void OnNextClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not QuestionViewModel viewModel)
+        {
+            return;
+        }
+
+        try
+        {
+            viewModel.Model.Next();
+        }
+        catch (InvalidOperationException exception)
+        {
+            ShowToast(exception.Message);
+        }
+    }
+
+    private async void ShowToast(string message)
+    {
+        _toastCancellation?.Cancel();
+        _toastCancellation = new CancellationTokenSource();
+        var token = _toastCancellation.Token;
+
+        ValidationToastText.Text = message;
+        ValidationToast.Visibility = Visibility.Visible;
+
+        try
+        {
+            await Task.Delay(TimeSpan.FromSeconds(3), token);
+            ValidationToast.Visibility = Visibility.Collapsed;
+        }
+        catch (TaskCanceledException)
+        {
+            // A newer toast replaced this one.
+        }
     }
 }

@@ -1,4 +1,3 @@
-
 using Screening.Domain.Questions;
 
 namespace Screening.Presentation;

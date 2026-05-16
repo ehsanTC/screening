@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Assets\DiabatesType2-questionnaire.yaml" />
+      <EmbeddedResource Include="Infrastructure\Assets\Diabetes-Type2-questionnaire.yaml" LogicalName="Screening.Infrastructure.Assets.DiabatesType2-questionnaire.yaml" />
     </ItemGroup>
 
 </Project>

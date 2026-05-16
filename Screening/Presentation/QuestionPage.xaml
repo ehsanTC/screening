@@ -50,8 +50,22 @@
 
             <Button Content="Next"
                     IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
-                    Command="{Binding Next}" />
+                    Click="OnNextClicked" />
 
         </StackPanel>
+
+        <Border x:Name="ValidationToast"
+                Grid.RowSpan="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="16,16,16,84"
+                Padding="16,12"
+                CornerRadius="8"
+                Background="{ThemeResource SystemFillColorCriticalBrush}"
+                Visibility="Collapsed">
+            <TextBlock x:Name="ValidationToastText"
+                       Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                       TextWrapping="Wrap" />
+        </Border>
     </Grid>
 </Page>

@@ -1,4 +1,3 @@
-using YamlDotNet.Core.Tokens;
 using YamlDotNet.Serialization;
 
 namespace Screening.Domain.Parser.Models;

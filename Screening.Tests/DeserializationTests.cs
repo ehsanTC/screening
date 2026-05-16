@@ -1,6 +1,6 @@
 using Screening.Domain.Parser.Models;
-using Xunit;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Screening.Tests;
 
@@ -11,7 +11,7 @@ public class DeserializationTests
     {
         // Arrange
         var deserializer = new DeserializerBuilder()
-            .WithNamingConvention(YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention.Instance)
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
             .IgnoreUnmatchedProperties()
             .Build();
         
@@ -28,7 +28,7 @@ public class DeserializationTests
     private const string YamlContent =
         """
         title: "Diabetes Risk Assessment"
-
+        
         questions:
           - id: 1
             text: "What is your age?"
@@ -94,7 +94,8 @@ public class DeserializationTests
             type: Number
             showIf:
               - questionId: 9
-                operator: contains
+                operator: equals
                 value: Smoking
+        
         """;
 }

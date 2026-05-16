@@ -8,7 +8,7 @@ public class QuestionnaireViewModel
     public string? Title { get; set; }
     public IReadOnlyList<IDisplayableQuestion> Questions { get; set; } = [];
 
-    public bool ShowQuestionByIndex(int questionIndex)
+    public bool ShowQuestionAtIndex(int questionIndex)
     {
         if (questionIndex < 0 || questionIndex >= Questions.Count)
             throw new ArgumentOutOfRangeException(nameof(questionIndex));
@@ -18,8 +18,7 @@ public class QuestionnaireViewModel
 
     public bool ShowQuestionById(int questionId)
     {
-        if (questionId < 0)
-            throw new ArgumentOutOfRangeException(nameof(questionId));
+        ArgumentOutOfRangeException.ThrowIfNegative(questionId);
 
         var sourceQuestion = Questions.SingleOrDefault(x => x.Question?.Id == questionId);
 

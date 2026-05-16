@@ -49,6 +49,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Screening.Infrastructure\Screening.Infrastructure.csproj" />
+      <ProjectReference Include="..\Screening.Domain\Screening.Domain.csproj" />
     </ItemGroup>
 </Project>

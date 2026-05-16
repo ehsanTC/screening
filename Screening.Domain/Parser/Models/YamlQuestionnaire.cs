@@ -8,5 +8,5 @@ public class YamlQuestionnaire
     public string Title { get; set; }
  
     [YamlMember(Alias = "questions")]
-    public IReadOnlyCollection<YamlQuestion> Questions { get; set; }
+    public List<YamlQuestion> Questions { get; set; }
 }

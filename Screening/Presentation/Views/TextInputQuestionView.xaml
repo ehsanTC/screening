@@ -9,12 +9,19 @@
     d:DesignWidth="400">
 
     <StackPanel Spacing="12">
-        <TextBlock Text="{Binding Text}"
+        <TextBlock Text="{Binding Question.Text}"
                    FontSize="20"
                    TextWrapping="Wrap" />
 
-        <TextBox Text="{Binding Answer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox Text="{Binding Response, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  TextChanged="OnTextChanged" />
+
+        <TextBlock x:Name="ErrorTextBlock"
+                   Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                   FontSize="14"
+                   Visibility="Collapsed"
+                   TextWrapping="Wrap" />
+
     </StackPanel>
 
 </UserControl>

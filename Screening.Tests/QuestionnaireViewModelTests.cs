@@ -236,7 +236,7 @@ public class QuestionnaireViewModelTests
         };
 
         // Act
-        var result = viewModel.ShowQuestionByIndex(2);
+        var result = viewModel.ShowQuestionAtIndex(2);
 
         // Assert
         result.Should().BeFalse();
@@ -265,7 +265,7 @@ public class QuestionnaireViewModelTests
         };
 
         // Act
-        Action act = () => viewModel.ShowQuestionByIndex(0);
+        Action act = () => viewModel.ShowQuestionAtIndex(0);
 
         // Assert
         act.Should().Throw<InvalidYamlDataException>();
@@ -337,7 +337,7 @@ public class QuestionnaireViewModelTests
         };
 
         // Act
-        var act = () => viewModel.ShowQuestionByIndex(index);
+        var act = () => viewModel.ShowQuestionAtIndex(index);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();
@@ -367,7 +367,7 @@ public class QuestionnaireViewModelTests
         };
 
         // Act
-        Action act = () => viewModel.ShowQuestionByIndex(0);
+        Action act = () => viewModel.ShowQuestionAtIndex(0);
 
         // Assert
         act.Should().Throw<NotSupportedException>()
@@ -422,7 +422,7 @@ public class QuestionnaireViewModelTests
         };
 
         // Act
-        Action act = () => viewModel.ShowQuestionByIndex(1);
+        Action act = () => viewModel.ShowQuestionAtIndex(1);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();

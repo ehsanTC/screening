@@ -8,5 +8,6 @@ global using Screening.Models;
 global using Screening.Presentation;
 global using Screening.Services.Endpoints;
 global using ApplicationExecutionState = Windows.ApplicationModel.Activation.ApplicationExecutionState;
+using Uno.Extensions.Reactive.Config;
 
-[assembly: Uno.Extensions.Reactive.Config.BindableGenerationTool(3)]
+[assembly: BindableGenerationTool(3)]

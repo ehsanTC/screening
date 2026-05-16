@@ -19,9 +19,9 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion
             throw new InvalidOperationException("Text input question must have a value.");
         }
 
-        if (IsNumeric && !double.TryParse(Response, out _))
+        if (IsNumeric && !int.TryParse(Response, out _))
         {
-            throw new InvalidOperationException("Answer must be numeric.");
+            throw new InvalidOperationException("Answer must be a whole number.");
         }
     }
 }
