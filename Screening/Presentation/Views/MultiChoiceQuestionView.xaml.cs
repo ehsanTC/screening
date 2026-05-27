@@ -1,27 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+﻿using Screening.Domain.Questions;
+using Screening.Presentation.Utility;
 
 namespace Screening.Presentation.Views;
 
 public sealed partial class MultiChoiceQuestionView : UserControl
 {
-    public MultiChoiceQuestionView()
+    public MultiChoiceQuestionView() => InitializeComponent();
+
+    private void OnOptionLoaded(object sender, RoutedEventArgs e)
     {
-        this.InitializeComponent();
+        if (sender is not CheckBox checkBox ||
+            checkBox.DataContext is not string option ||
+            DataContext is not MultiChoiceDisplayableQuestion question)
+        {
+            return;
+        }
+
+        // Check if the current option is already in the selected list
+        checkBox.IsChecked = question.SelectedOptions.Contains(option);
+    }
+
+    private void OnOptionChecked(object sender, RoutedEventArgs e)
+    {
+        if (sender is not CheckBox checkBox ||
+            checkBox.DataContext is not string option ||
+            DataContext is not MultiChoiceDisplayableQuestion question)
+        {
+            return;
+        }
+
+        // Add or remove based on current state
+        if (checkBox.IsChecked == true)
+        {
+            if (!question.SelectedOptions.Contains(option))
+                question.SelectedOptions.Add(option);
+        }
+        else
+        {
+            question.SelectedOptions.Remove(option);
+        }
+
+        var page = ControlUtility.FindAncestor<QuestionPage>(this);
+        if (page?.DataContext is QuestionViewModel viewModel)
+        {
+            viewModel.Model.RefreshState();
+        }
     }
 }
 

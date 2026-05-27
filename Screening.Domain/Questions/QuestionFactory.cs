@@ -11,16 +11,16 @@ public static class QuestionFactory
 
         return yamlQuestion.Type switch
         {
-            var t when t.Equals("string", StringComparison.OrdinalIgnoreCase) =>
+            var questionType when questionType.Equals("string", StringComparison.OrdinalIgnoreCase) =>
                 CreateTextInput(yamlQuestion, false),
 
-            var t when t.Equals("number", StringComparison.OrdinalIgnoreCase) =>
+            var questionType when questionType.Equals("number", StringComparison.OrdinalIgnoreCase) =>
                 CreateTextInput(yamlQuestion, true),
 
-            var t when t.Equals("singlechoice", StringComparison.OrdinalIgnoreCase) =>
+            var questionType when questionType.Equals("singlechoice", StringComparison.OrdinalIgnoreCase) =>
                 CreateSingleChoice(yamlQuestion),
 
-            var t when t.Equals("multichoice", StringComparison.OrdinalIgnoreCase) =>
+            var questionType when questionType.Equals("multichoice", StringComparison.OrdinalIgnoreCase) =>
                 CreateMultiChoice(yamlQuestion),
 
             _ => throw new NotSupportedException("The question type is not supported.")

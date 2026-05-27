@@ -1,0 +1,67 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ✏️ Customize these to change the theme -->
+    <SolidColorBrush x:Key="OptionNormalBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="OptionNormalBorder" Color="Transparent" />
+    <SolidColorBrush x:Key="OptionHoverBackground" Color="#E8E3FF" />
+    <SolidColorBrush x:Key="OptionCheckedBackground" Color="#E8E3FF" />
+    <SolidColorBrush x:Key="OptionCheckedBorder" Color="#725BF5" />
+    <SolidColorBrush x:Key="OptionForeground" Color="#1A1A1A" />
+
+    <Style x:Key="OptionCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{StaticResource OptionForeground}" />
+        <Setter Property="MinHeight" Value="56" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border x:Name="RootBorder"
+                            CornerRadius="15"
+                            Background="{StaticResource OptionNormalBackground}"
+                            BorderThickness="2"
+                            BorderBrush="{StaticResource OptionNormalBorder}"
+                            Padding="16,12">
+                        <ContentPresenter  x:Name="ContentHost"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+
+                                        <Setter Target="RootBorder.Background" Value="{StaticResource OptionCheckedBackground}" />
+                                        <Setter Target="RootBorder.BorderBrush" Value="{StaticResource OptionCheckedBorder}" />
+
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootBorder.BorderThickness" Value="3" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootBorder.Opacity" Value="0.4" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

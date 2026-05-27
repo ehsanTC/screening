@@ -1,5 +1,5 @@
-using Screening.Domain.Infrastructure.Abstractions;
-using Screening.Domain.Infrastructure.Services;
+using Screening.Domain.Abstractions;
+using Screening.Domain.Services;
 
 namespace Screening;
 
@@ -82,7 +82,7 @@ public partial class App : Application
         MainWindow.UseStudio();
 #endif
         MainWindow.SetWindowIcon();
-
+        
         Host = await builder.NavigateAsync<Shell>();
     }
 

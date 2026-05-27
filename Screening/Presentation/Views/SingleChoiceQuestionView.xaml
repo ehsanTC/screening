@@ -2,7 +2,6 @@
     x:Class="Screening.Presentation.Views.SingleChoiceQuestionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Screening.Presentation.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -13,7 +12,7 @@
 
         <Border Grid.Row="0"
                 CornerRadius="10"
-                Background="Red"
+                Background="#FF0000"
                 HorizontalAlignment="Stretch"
                 MinHeight="200"
                 Margin="16,48,16,16">
@@ -25,21 +24,20 @@
                        TextAlignment="Center" />
         </Border>
 
-        <!-- * row: radio options centered in remaining space -->
         <Grid Grid.Row="1"
               RowDefinitions="*,Auto,*"
               HorizontalAlignment="Stretch">
 
             <ItemsControl Grid.Row="1"
                           ItemsSource="{Binding Options}"
-                          HorizontalAlignment="Center">
+                          HorizontalAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <RadioButton Content="{Binding}"
                                      GroupName="SingleChoiceOptions"
+                                     Style="{StaticResource OptionButtonStyle}"
                                      Loaded="OnOptionLoaded"
-                                     Checked="OnOptionChecked"
-                                     HorizontalAlignment="Stretch" />
+                                     Checked="OnOptionChecked" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

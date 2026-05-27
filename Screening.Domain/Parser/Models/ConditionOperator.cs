@@ -7,5 +7,6 @@ public enum ConditionOperator
     GreaterThan,
     GreaterThanOrEquals,
     LessThan,
-    LessThanOrEquals
+    LessThanOrEquals,
+    Contains
 }

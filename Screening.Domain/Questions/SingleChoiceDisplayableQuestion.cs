@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
 
@@ -11,7 +12,9 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion
     public required YamlQuestion Question { get; init; }
     public bool IsAnswered => !string.IsNullOrEmpty(SelectedOption);
 
-    public IAnswer? Answer => IsAnswered ? new TextAnswer { Text = SelectedOption } : null;
+    public IAnswer? Answer => IsAnswered 
+        ? new TextAnswer { Text = SelectedOption! } 
+        : null;
 
     public void Validate()
     {
@@ -20,7 +23,7 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion
             throw new InvalidOperationException("Single choice question must have a selected option.");
         }
 
-        if (!Options.Contains(SelectedOption))
+        if (!Options.Contains(SelectedOption!))
         {
             throw new InvalidOperationException("Selected option must be one of the available options.");
         }

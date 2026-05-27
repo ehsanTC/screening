@@ -1,4 +1,4 @@
-using Screening.Domain.Infrastructure.Abstractions;
+using Screening.Domain.Abstractions;
 using Screening.Domain.Questions;
 
 namespace Screening.Presentation;
@@ -18,25 +18,32 @@ public partial record QuestionModel
         _index = 0;
         _questionnaire = provider.GetQuestionnaire();
 
-        _state = State<QuestionState>.Value(this, CreateState);
+        _state = State<QuestionState>.Value(this, () => CreateState());
     }
 
-    private QuestionState CreateState()
+    private QuestionState CreateState(MoveDirection direction = MoveDirection.None)
     {
-        var current = _questionnaire.ShowQuestionAtIndex(_index)
-            ? _questionnaire.Questions[_index]
-            : _questionnaire.Questions[--_index];
+        if (direction != MoveDirection.None && !_questionnaire.ShowQuestionAtIndex(_index))
+        {
+            _index += direction == MoveDirection.Forward ? 1 : -1;
+        }
+
+        var current = _questionnaire.Questions[_index];
 
         return new QuestionState(
             CurrentQuestion: current,
             CanGoNext: current.IsAnswered && _index < _questionnaire.Questions.Count - 1,
-            CanGoBack: _index > 0
+            CanGoBack: _index > 0,
+            Finished: _index == _questionnaire.Questions.Count
         );
     }
 
     public void RefreshState() => 
         _state?.Update(s => CreateState(), CancellationToken.None);
-
+    
+    private void RefreshState(MoveDirection direction) =>
+        _state?.Update(_ => CreateState(direction), CancellationToken.None);
+    
     public void AnswerUpdated() => RefreshState();
 
     public void UpdateCurrentTextAnswer(string value)
@@ -57,7 +64,7 @@ public partial record QuestionModel
         if (_index < questions.Count - 1)
         {
             _index++;
-            RefreshState();
+            RefreshState(MoveDirection.Forward);
         }
     }
 
@@ -68,7 +75,14 @@ public partial record QuestionModel
         if (_index > 0)
         {
             _index--;
-            RefreshState();
+            RefreshState(MoveDirection.Backward);
         }
+    }
+
+    private enum MoveDirection
+    {
+        None,
+        Forward,
+        Backward
     }
 }

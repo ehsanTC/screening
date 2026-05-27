@@ -50,37 +50,40 @@ public class QuestionnaireViewModel
     }
 
     private static bool CompareAnswerWithCondition(YamlCondition? condition, List<string>? answers)
+{
+    if (condition == null) throw new ArgumentNullException(nameof(condition));
+    if (answers == null)   throw new ArgumentNullException(nameof(answers));
+
+    var conditionValue = condition.ExpectedValue?.ToString() ?? string.Empty;
+
+    return condition.Operator switch
     {
-        if (condition == null)
-            throw new ArgumentNullException(nameof(condition));
+        ConditionOperator.Contains => answers.Any(a => a.Contains(conditionValue, StringComparison.OrdinalIgnoreCase)),
 
-        if (answers == null)
-            throw new ArgumentNullException(nameof(answers));
+        _ => answers.Count == 1 
+             ? CompareStrings(answers[0], conditionValue, condition.Operator)
+             : throw new NotSupportedException($"Operator {condition.Operator} is not supported for multiple answers.")
+    };
+}
 
-        if (answers.Count > 1)
-            throw new NotSupportedException("Multiple answers are not supported.");
+private static bool CompareStrings(string answer, string conditionValue, ConditionOperator @operator)
+{
+    var comparison = int.TryParse(answer, out var left) && int.TryParse(conditionValue, out var right)
+        ? left.CompareTo(right)
+        : string.Compare(answer, conditionValue, StringComparison.Ordinal);
 
-        var conditionValue = condition.ExpectedValue.ToString();
-        return CompareStrings(answers[0], conditionValue, condition.Operator);
-    }
-
-    private static bool CompareStrings(string answer, string? conditionValue, ConditionOperator @operator)
+    return @operator switch
     {
-        var comparison = int.TryParse(answer, out var left) && int.TryParse(conditionValue, out var right)
-            ? left.CompareTo(right)
-            : string.Compare(answer, conditionValue, StringComparison.Ordinal);
-
-        return @operator switch
-        {
-            ConditionOperator.Equals => comparison == 0,
-            ConditionOperator.NotEquals => comparison != 0,
-            ConditionOperator.GreaterThan => comparison > 0,
-            ConditionOperator.GreaterThanOrEquals => comparison >= 0,
-            ConditionOperator.LessThan => comparison < 0,
-            ConditionOperator.LessThanOrEquals => comparison <= 0,
-            _ => throw new ArgumentOutOfRangeException(nameof(@operator), @operator, null)
-        };
-    }
+        ConditionOperator.Equals              => comparison == 0,
+        ConditionOperator.NotEquals           => comparison != 0,
+        ConditionOperator.GreaterThan         => comparison >  0,
+        ConditionOperator.GreaterThanOrEquals => comparison >= 0,
+        ConditionOperator.LessThan            => comparison <  0,
+        ConditionOperator.LessThanOrEquals    => comparison <= 0,
+        ConditionOperator.Contains            => answer.Contains(conditionValue, StringComparison.OrdinalIgnoreCase),
+        _ => throw new ArgumentOutOfRangeException(nameof(@operator), @operator, null)
+    };
+}
 
     private void CheckConditionQuestion(int questionId)
     {

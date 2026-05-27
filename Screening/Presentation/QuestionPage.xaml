@@ -14,6 +14,16 @@
                     <views1:TextInputQuestionView />
                 </DataTemplate>
             </presentation:QuestionTemplateSelector.TextInputTemplate>
+            <presentation:QuestionTemplateSelector.SingleChoiceTemplate>
+                <DataTemplate>
+                    <views1:SingleChoiceQuestionView />
+                </DataTemplate>
+            </presentation:QuestionTemplateSelector.SingleChoiceTemplate>
+            <presentation:QuestionTemplateSelector.MultiChoiceTemplate>
+                <DataTemplate>
+                    <views1:MultiChoiceQuestionView />
+                </DataTemplate>
+            </presentation:QuestionTemplateSelector.MultiChoiceTemplate>
         </presentation:QuestionTemplateSelector>
 
     </Page.Resources>
@@ -29,12 +39,12 @@
 
         <!-- Main Question Area -->
         <ContentControl Grid.Row="1"
-                        Content="{Binding State.CurrentQuestion, Mode=OneWay}"
-                        ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Margin="16" />
-
+                Content="{Binding State.CurrentQuestion, Mode=OneWay}"
+                ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Stretch" />
 
         <!-- Navigation Buttons -->
         <StackPanel Grid.Row="2"

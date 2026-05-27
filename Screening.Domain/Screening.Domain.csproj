@@ -7,11 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="YamlDotNet" />
+        <PackageReference Include="YamlDotNet"/>
+        
+        <EmbeddedResource Include="Assets\Diabetes-Type2-questionnaire.yaml"
+                          LogicalName="Assets.DiabetesType2-questionnaire.yaml"/>
     </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Include="Infrastructure\Assets\Diabetes-Type2-questionnaire.yaml" LogicalName="Screening.Infrastructure.Assets.DiabatesType2-questionnaire.yaml" />
-    </ItemGroup>
-
 </Project>

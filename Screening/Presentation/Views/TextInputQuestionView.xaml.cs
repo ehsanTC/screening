@@ -1,4 +1,5 @@
 ﻿using Screening.Domain.Questions;
+using Screening.Presentation.Utility;
 
 namespace Screening.Presentation.Views;
 
@@ -8,7 +9,8 @@ public sealed partial class TextInputQuestionView : UserControl
 
     private void OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (sender is not TextBox textBox || DataContext is not TextInputDisplayableQuestion question)
+        if (sender is not TextBox textBox || 
+            DataContext is not TextInputDisplayableQuestion question)
         {
             return;
         }
@@ -16,7 +18,7 @@ public sealed partial class TextInputQuestionView : UserControl
         question.Response = textBox.Text;
         ShowValidationError(question);
             
-        var page = FindAncestor<QuestionPage>(this);
+        var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)
         {
             viewModel.Model.RefreshState(); 
@@ -35,19 +37,5 @@ public sealed partial class TextInputQuestionView : UserControl
         ErrorTextBlock.Visibility = string.IsNullOrEmpty(error)
             ? Visibility.Collapsed
             : Visibility.Visible;
-    }
-
-    private static T? FindAncestor<T>(DependencyObject child) 
-        where T : class, DependencyObject
-    {
-        var parent = VisualTreeHelper.GetParent(child);
-        while (parent != null)
-        {
-            if (parent is T ancestor)
-                return ancestor;
-            parent = VisualTreeHelper.GetParent(parent);
-        }
-
-        return null;
     }
 }

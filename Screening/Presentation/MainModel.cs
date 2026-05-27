@@ -18,6 +18,7 @@ public partial record MainModel
     public string? Title { get; }
 
     public IState<string> Name => State<string>.Value(this, () => string.Empty);
+    
     public async Task GoToQuestions()
     {
         await _navigator.NavigateViewModelAsync<QuestionModel>(this, data: null);
