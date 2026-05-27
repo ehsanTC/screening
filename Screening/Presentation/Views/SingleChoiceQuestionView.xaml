@@ -6,11 +6,45 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
 
-    <Grid>
+    <Grid Margin="16,0" RowDefinitions="Auto,*">
+
+        <Border Grid.Row="0"
+                CornerRadius="10"
+                Background="Red"
+                HorizontalAlignment="Stretch"
+                MinHeight="200"
+                Margin="16,48,16,16">
+            <TextBlock Text="{Binding Question.Text}"
+                       FontSize="22"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center" />
+        </Border>
+
+        <!-- * row: radio options centered in remaining space -->
+        <Grid Grid.Row="1"
+              RowDefinitions="*,Auto,*"
+              HorizontalAlignment="Stretch">
+
+            <ItemsControl Grid.Row="1"
+                          ItemsSource="{Binding Options}"
+                          HorizontalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton Content="{Binding}"
+                                     GroupName="SingleChoiceOptions"
+                                     Loaded="OnOptionLoaded"
+                                     Checked="OnOptionChecked"
+                                     HorizontalAlignment="Stretch" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
 
     </Grid>
 </UserControl>
-
