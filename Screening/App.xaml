@@ -12,6 +12,7 @@
           ColorOverrideSource="ms-appx:///Styles/ColorPaletteOverride.xaml">
         </utum:MaterialToolkitTheme>
 
+        <ResourceDictionary Source="Styles/PageStyles.xaml" />
         <ResourceDictionary Source="Styles/OptionButtonStyle.xaml" />
         <ResourceDictionary Source="Styles/OptionCheckBoxStyle.xaml" />
 

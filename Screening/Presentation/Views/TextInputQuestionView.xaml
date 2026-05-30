@@ -8,18 +8,17 @@
 
         <Border Grid.Row="0"
                 CornerRadius="10"
-                Background="Red"
+                Background="#FFFFFF"
                 HorizontalAlignment="Stretch"
                 MinHeight="200"
                 Margin="16,48,16,48">
-            
+
             <TextBlock Text="{Binding Question.Text}"
                        FontSize="22"
                        TextWrapping="Wrap"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       />
+                       TextAlignment="Center" />
         </Border>
 
         <Grid Grid.Row="1"
@@ -31,7 +30,7 @@
                      TextChanged="OnTextChanged"
                      HorizontalAlignment="Stretch"
                      AcceptsReturn="False"
-                     TextAlignment="Center" 
+                     TextAlignment="Center"
                      TextWrapping="NoWrap" />
 
             <TextBlock Grid.Row="3"
@@ -41,6 +40,6 @@
                        Visibility="Collapsed"
                        TextWrapping="Wrap" />
         </Grid>
-        
+
     </Grid>
 </UserControl>
