@@ -3,7 +3,7 @@ using Screening.Domain.RiskCalculator.Models;
 
 namespace Screening.Tests.Calculators;
 
-public class PooledCohortEquationsTests
+public class AscvdRiskCalculatorTests
 {
     // ------------------------------------------------------------------------
     // White female – example directly from 2013 guideline appendix / table
@@ -197,7 +197,7 @@ public class PooledCohortEquationsTests
     }
 
     private double Calculate10YearAscvdRisk(RiskInput input) =>
-        PooledCohortEquations.Calculate10YearAscvdRiskPercentage(input.Age,
+        AscvdRiskCalculator.Calculate10YearAscvdRiskPercentage(input.Age,
             input.Sex,
             input.Race,
             input.TotalCholesterolMgDl,

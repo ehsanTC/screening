@@ -2,7 +2,7 @@ using Screening.Domain.RiskCalculator.Models;
 
 namespace Screening.Domain.RiskCalculator;
 
-public class PooledCohortEquations
+public static class AscvdRiskCalculator
 {
     public static double Calculate10YearAscvdRiskPercentage(
         int age,
