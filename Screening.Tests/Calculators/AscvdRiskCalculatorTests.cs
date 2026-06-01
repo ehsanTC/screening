@@ -182,6 +182,28 @@ public class AscvdRiskCalculatorTests
         // Assert
         riskPercent.Should().BeInRange(50.0, 53.0);
     }
+    
+    [Fact]
+    public void CalculateRisk_WhiteMale_Exactly40YearsOld()
+    {
+        var input = new RiskInput
+        {
+            Age = 40,
+            Sex = Sex.Male,
+            Race = Race.White,
+            TotalCholesterolMgDl = 170,
+            HdlCholesterolMgDl = 55,
+            SystolicBloodPressureMmHg = 110,
+            TreatedForHypertension = true,
+            CurrentSmoker = false,
+            HasDiabetes = true
+        };
+
+        double riskPercent = Calculate10YearAscvdRisk(input);
+
+        // Assert
+        riskPercent.Should().BeInRange(50.0, 53.0);
+    }
 
     internal class RiskInput
     {

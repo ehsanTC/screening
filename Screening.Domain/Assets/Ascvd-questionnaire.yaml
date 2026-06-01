@@ -1,0 +1,97 @@
+title: "10-Year Atherosclerotic Cardiovascular Disease (ASCVD) Risk Assessment"
+version: "1.0"
+purpose:
+  Estimates 10-year risk of a first heart attack, stroke, or related cardiovascular
+  event using the 2013 ACC/AHA Pooled Cohort Equations. Intended for adults aged
+  40–79 years without known cardiovascular disease.
+
+condition:
+  - question_id: 1
+    operator: greaterThan
+    value: 10
+  - question_id: 1
+    operator: lessThanOrEquals
+    value: 79
+
+questions:
+  - id: 1
+    text: "What is your age?"
+    type: Number
+    validation:
+      min: 10
+      max: 79
+    validation_error: "Age must be between 10 and 79 years"
+
+  - id: 2
+    text: "What is your gender?"
+    type: single_choice
+    options:
+      - Female
+      - Male
+
+  - id: 3
+    text: "Select your Race/Ethnicity"
+    type: single_choice
+    options:
+      - White
+      - African American / Black
+
+  - id: 4
+    text: "Total Cholesterol"
+    type: number
+    unit_options:
+      - mg/dL
+      - mmol/L
+
+  - id: 5
+    text: "HDL Cholesterol"
+    type: number
+    unit_options:
+      - mg/dL
+      - mmol/L
+
+  - id: 6
+    text: "Systolic Blood Pressure (top number)"
+    type: number
+    unit: mmHg
+
+  - id: 7
+    text: "Are you currently taking medication to treat high blood pressure?"
+    type: single_choice
+    options:
+      - Yes
+      - No
+
+  - id: 8
+    text: "Are you Smoking?"
+    type: single_choice
+    options:
+      - Yes
+      - No
+
+  - id: 9
+    text: "Do you have a history of diabetes?"
+    type: single_choice
+    options:
+      - Yes
+      - No
+
+provider_section:
+  title: "For Healthcare Provider Use Only"
+  fields:
+    - id: calculated_risk
+      text: "Calculated 10-year ASCVD risk"
+      type: number
+      unit: "%"
+    - id: risk_category
+      text: "Risk Category"
+      type: single_choice
+      options:
+        - value: low
+          text: "Low (<5%)"
+        - value: borderline
+          text: "Borderline (5–7.4%)"
+        - value: intermediate
+          text: "Intermediate (7.5–19.9%)"
+        - value: high
+          text: "High (≥20%)"

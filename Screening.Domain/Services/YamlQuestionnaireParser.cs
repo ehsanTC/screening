@@ -8,6 +8,7 @@ public class YamlQuestionnaireParser : IQuestionnaireParser
 {
     private readonly IDeserializer _deserializer = new DeserializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .WithTypeConverter(new UnitYamlTypeConverter())
         .IgnoreUnmatchedProperties()
         .Build();
     

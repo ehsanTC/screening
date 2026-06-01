@@ -1,61 +1,82 @@
 title: "Diabetes Risk Assessment"
+version: "1.0"
 
 questions:
   - id: 1
     text: "What is your age?"
     type: Number
+    save:
+      path: "age"
+      cast: "int"
 
   - id: 2
     text: "What is your gender?"
-    type: SingleChoice
-    choices:
+    type: single_choice
+    options:
       - Female
       - Male
+    save:
+      path: "gender"
+      cast: "string"
 
   - id: 3
     text: "Have you ever had gestational diabetes OR given birth to a baby weighing 9 pounds or more?"
-    type: SingleChoice
+    type: single_choice
     showIf:
-      - questionId: 2
+      - question_id: 2
         operator: equals
         value: Female
-    choices:
+    options:
       - "Yes"
       - "No"
+    save:
+      path: "gestational-diabetes"
+      cast: "bool"
 
   - id: 4
     text: "Do you have a parent, brother, or sister with diabetes?"
-    type: SingleChoice
-    choices:
+    type: single_choice
+    options:
       - "Yes"
       - "No"
 
   - id: 5
     text: "Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?"
-    type: SingleChoice
-    choices:
+    type: single_choice
+    options:
       - "Yes"
       - "No"
+    save:
+      path: "blood-pressure"
+      cast: "float"
 
   - id: 6
     text: "Are you physically active?"
-    type: SingleChoice
-    choices:
+    type: single_choice
+    options:
       - "Yes"
       - "No"
 
   - id: 7
     text: "What is your height (cm)?"
     type: Number
+    save:
+      path: "height"
+      cast: int
+      unit: "cm"
 
   - id: 8
     text: "What is your weight (kg)?"
     type: Number
+    save:
+      path: "weight"
+      cast: int
+      unit: "kg"
 
   - id: 9
     text: "Which of the following do you use?"
     type: MultiChoice
-    choices:
+    options:
       - Smoking
       - Alcohol
       - Aspirin
@@ -64,6 +85,6 @@ questions:
     text: "How many cigarettes per day?"
     type: Number
     showIf:
-      - questionId: 9
+      - question_id: 9
         operator: contains
         value: Smoking

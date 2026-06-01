@@ -1,6 +1,8 @@
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Services;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Unit = Screening.Domain.Parser.Models.Unit;
 
 namespace Screening.Tests;
 
@@ -23,6 +25,35 @@ public class DeserializationTests
         var questionnaire = act();
         questionnaire.Title.Should().Be("Diabetes Risk Assessment");
         questionnaire.Questions.Should().HaveCount(10);
+    }
+
+    [Theory]
+    [InlineData("cm", Unit.Centimeter)]
+    [InlineData("Cm", Unit.Centimeter)]
+    [InlineData("centimeter", Unit.Centimeter)]
+    [InlineData("Centimeter", Unit.Centimeter)]
+    [InlineData("m", Unit.Meter)]
+    [InlineData("meter", Unit.Meter)]
+    [InlineData("kg", Unit.KiloGrams)]
+    [InlineData("kilogram", Unit.KiloGrams)]
+    [InlineData("kilograms", Unit.KiloGrams)]
+    public void Deserialization_ShouldDeserializeUnitsCorrectly_UsingYamlDeserializer(
+        string unit, Unit expectedUnit)
+    {
+        // Arrange
+        var content = $"unit: {unit}";
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .WithTypeConverter(new UnitYamlTypeConverter())
+            .IgnoreUnmatchedProperties()
+            .Build();
+        
+        // Act
+        var actual = deserializer.Deserialize<YamlSaveConfig>(content);
+        
+        // Assert
+        actual.Should().NotBeNull();
+        actual.Unit.Should().Be(expectedUnit);
     }
 
     private const string YamlContent =

@@ -11,16 +11,16 @@ public static class QuestionFactory
 
         return yamlQuestion.Type switch
         {
+            var questionType when questionType.Equals("single_choice", StringComparison.OrdinalIgnoreCase) =>
+                CreateSingleChoice(yamlQuestion),
+
             var questionType when questionType.Equals("string", StringComparison.OrdinalIgnoreCase) =>
                 CreateTextInput(yamlQuestion, false),
 
             var questionType when questionType.Equals("number", StringComparison.OrdinalIgnoreCase) =>
                 CreateTextInput(yamlQuestion, true),
-
-            var questionType when questionType.Equals("singlechoice", StringComparison.OrdinalIgnoreCase) =>
-                CreateSingleChoice(yamlQuestion),
-
-            var questionType when questionType.Equals("multichoice", StringComparison.OrdinalIgnoreCase) =>
+            
+            var questionType when questionType.Equals("multi_choice", StringComparison.OrdinalIgnoreCase) =>
                 CreateMultiChoice(yamlQuestion),
 
             _ => throw new NotSupportedException("The question type is not supported.")
@@ -31,14 +31,14 @@ public static class QuestionFactory
         new MultiChoiceDisplayableQuestion()
         {
             Question = question,
-            Options = question.Choices
+            Options = question.Options
         };
 
     private static IDisplayableQuestion CreateSingleChoice(YamlQuestion question) =>
         new SingleChoiceDisplayableQuestion()
         {
             Question = question,
-            Options = question.Choices,
+            Options = question.Options,
         };
 
     private static IDisplayableQuestion CreateTextInput(YamlQuestion question, bool isNumeric) =>

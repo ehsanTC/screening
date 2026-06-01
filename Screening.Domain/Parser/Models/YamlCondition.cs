@@ -4,9 +4,9 @@ namespace Screening.Domain.Parser.Models;
 
 public class YamlCondition
 {
-    [YamlMember(Alias = "questionId")]
+    [YamlMember(Alias = "question_id")]
     public int QuestionId { get; set; }
-    
+
     [YamlMember(Alias = "operator")]
     public ConditionOperator Operator { get; set; } 
     
