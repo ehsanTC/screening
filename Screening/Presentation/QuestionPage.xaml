@@ -3,7 +3,26 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:utu="using:Uno.Toolkit.UI"
       xmlns:presentation="using:Screening.Presentation"
-      xmlns:views1="clr-namespace:Screening.Presentation.Views">
+      xmlns:views="using:Screening.Presentation.Views">
+
+    <Page.Resources>
+        <DataTemplate x:Key="TextInputQuestionTemplate">
+            <views:TextInputQuestionView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="SingleChoiceQuestionTemplate">
+            <views:SingleChoiceQuestionView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="MultiChoiceQuestionTemplate">
+            <views:MultiChoiceQuestionView />
+        </DataTemplate>
+
+        <presentation:QuestionTemplateSelector x:Key="QuestionTemplateSelector"
+                                               TextInputTemplate="{StaticResource TextInputQuestionTemplate}"
+                                               SingleChoiceTemplate="{StaticResource SingleChoiceQuestionTemplate}"
+                                               MultiChoiceTemplate="{StaticResource MultiChoiceQuestionTemplate}" />
+    </Page.Resources>
 
     <Grid utu:SafeArea.Insets="VisibleBounds">
         <Grid.RowDefinitions>
@@ -15,8 +34,11 @@
         <utu:NavigationBar Content="Diabetes Type 2" />
 
         <!-- Main Question Area -->
-        <!-- The custom views like TextInputQuestionView or SingleChoiceQuestionView or MultiChoiceQuestionView should be placed here based on a criteria -->
-
+        <ContentControl Grid.Row="1"
+                        Content="{Binding State.CurrentQuestion, Mode=OneWay}"
+                        ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch" />
 
         <!-- Navigation Buttons -->
         <StackPanel Grid.Row="2"

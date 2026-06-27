@@ -1,4 +1,5 @@
-﻿using Screening.Domain.Questions;
+﻿using Screening.Domain.Answers;
+using Screening.Domain.Questions;
 using Screening.Presentation.Utility;
 
 namespace Screening.Presentation.Views;
@@ -16,8 +17,7 @@ public sealed partial class MultiChoiceQuestionView : UserControl
             return;
         }
 
-        // Check if the current option is already in the selected list
-        checkBox.IsChecked = question.Options.Contains(option);
+        checkBox.IsChecked = question.Answer?.SelectedOptions.Contains(option) == true;
     }
 
     private void OnOptionChecked(object sender, RoutedEventArgs e)
@@ -29,18 +29,26 @@ public sealed partial class MultiChoiceQuestionView : UserControl
             return;
         }
 
-        // Add or remove based on current state
+        var selectedOptions = question.Answer?.SelectedOptions.ToList() ?? [];
+
         if (checkBox.IsChecked == true)
         {
-            if (!question.Options.Contains(option))
-                question.Options.Add(option);
+            if (!selectedOptions.Contains(option))
+            {
+                selectedOptions.Add(option);
+            }
         }
         else
         {
-            question.Options.Remove(option);
+            selectedOptions.Remove(option);
         }
 
+        question.Answer = new MultipleChoiceAnswer(selectedOptions);
+
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        page?.UpdateLayout(); // TODO ??
+        if (page?.DataContext is QuestionModel viewModel)
+        {
+            viewModel.Publish();
+        }
     }
 }

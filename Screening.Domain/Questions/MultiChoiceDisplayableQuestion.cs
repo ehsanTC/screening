@@ -9,15 +9,20 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
     
     public List<string> Options { get; set; } = [];
 
-    public bool IsAnswered => Options.Count > 0;
+    public bool IsAnswered => Answer?.SelectedOptions.Count > 0;
 
     Answer? IDisplayableQuestion.Answer => Answer;
     public MultipleChoiceAnswer? Answer { get; set; }
 
     public void Validate()
     {
-        var options = Answer?.SelectedOptions;
-        if (Options.Any(selected => options.Contains(selected)))
+        if (!IsAnswered)
+        {
+            throw new InvalidOperationException("Multi choice question must have at least one selected option.");
+        }
+
+        var selectedOptions = Answer?.SelectedOptions ?? [];
+        if (selectedOptions.Any(selected => !Options.Contains(selected)))
         {
             throw new InvalidOperationException("Selected options must be from the available options.");
         }

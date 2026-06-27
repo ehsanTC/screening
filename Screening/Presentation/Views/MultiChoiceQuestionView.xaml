@@ -43,6 +43,7 @@
                                   Style="{StaticResource OptionCheckBoxStyle}"
                                   Loaded="OnOptionLoaded"
                                   Checked="OnOptionChecked"
+                                  Unchecked="OnOptionChecked"
                                   />
 
                     </DataTemplate>
