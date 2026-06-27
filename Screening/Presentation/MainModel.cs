@@ -6,7 +6,6 @@ public partial record MainModel
 
     public MainModel(
         IStringLocalizer localizer,
-        IOptions<AppConfig> appInfo,
         INavigator navigator)
     {
         _navigator = navigator;

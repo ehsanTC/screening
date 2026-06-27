@@ -5,7 +5,7 @@ namespace Screening.Presentation;
 
 public partial record QuestionModel
 {
-    private readonly QuestionnaireViewModel _questionnaire;
+    private readonly QuestionnaireContext _questionnaire;
     private int _index;
 
     public IState<QuestionState> State => _state;
@@ -46,14 +46,7 @@ public partial record QuestionModel
     
     public void AnswerUpdated() => RefreshState();
 
-    public void UpdateCurrentTextAnswer(string value)
-    {
-        if (_questionnaire.Questions[_index] is not TextInputDisplayableQuestion question)
-            return;
-
-        question.Response = value;
-        RefreshState();
-    }
+    public void Publish() => AnswerUpdated();
 
     public void Next()
     {

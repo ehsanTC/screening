@@ -56,7 +56,6 @@ public partial class App : Application
                 .UseConfiguration(configure: configBuilder =>
                     configBuilder
                         .EmbeddedSource<App>()
-                        .Section<AppConfig>()
                 )
                 // Enable localization (see appsettings.json for supported languages)
                 .UseLocalization()

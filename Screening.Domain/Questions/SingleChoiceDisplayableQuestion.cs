@@ -1,20 +1,16 @@
-using System.ComponentModel;
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public class SingleChoiceDisplayableQuestion : IDisplayableQuestion
+public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoiceAnswer>
 {
     public List<string> Options { get; init; } = [];
-    public string? SelectedOption { get; set; }
-
     public required YamlQuestion Question { get; init; }
-    public bool IsAnswered => !string.IsNullOrEmpty(SelectedOption);
+    public bool IsAnswered => !string.IsNullOrEmpty(Answer?.SelectedOption);
+    Answer? IDisplayableQuestion.Answer => Answer;
 
-    public IAnswer? Answer => IsAnswered 
-        ? new TextAnswer { Text = SelectedOption! } 
-        : null;
+    public SingleChoiceAnswer? Answer { get; set; }
 
     public void Validate()
     {
@@ -23,9 +19,12 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion
             throw new InvalidOperationException("Single choice question must have a selected option.");
         }
 
-        if (!Options.Contains(SelectedOption!))
+        var selectedOption = Answer?.SelectedOption;
+        if (!Options.Contains(selectedOption!))
         {
             throw new InvalidOperationException("Selected option must be one of the available options.");
         }
     }
+
+    public void SetAnswer(SingleChoiceAnswer answer) => Answer = answer;
 }

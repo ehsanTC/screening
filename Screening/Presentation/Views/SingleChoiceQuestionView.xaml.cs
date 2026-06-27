@@ -1,4 +1,5 @@
-﻿using Screening.Domain.Questions;
+﻿using Screening.Domain.Answers;
+using Screening.Domain.Questions;
 using Screening.Presentation.Utility;
 
 namespace Screening.Presentation.Views;
@@ -17,7 +18,7 @@ public sealed partial class SingleChoiceQuestionView : UserControl
         }
 
         radioButton.IsChecked = 
-            option.Equals(question.SelectedOption, StringComparison.OrdinalIgnoreCase);
+            option.Equals(question?.Answer?.SelectedOption, StringComparison.OrdinalIgnoreCase);
     }
 
     private void OnOptionChecked(object sender, RoutedEventArgs e)
@@ -29,12 +30,12 @@ public sealed partial class SingleChoiceQuestionView : UserControl
             return;
         }
 
-        question.SelectedOption = option.Trim();
+        question.Answer = new SingleChoiceAnswer(option.Trim());
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        if (page?.DataContext is QuestionViewModel viewModel)
+        if (page?.DataContext is QuestionModel viewModel)
         {
-            viewModel.Model.RefreshState();
+            viewModel.Publish();
         }
     }
 }

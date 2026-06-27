@@ -1,4 +1,5 @@
-﻿using Screening.Domain.Questions;
+﻿using Screening.Domain.Answers;
+using Screening.Domain.Questions;
 using Screening.Presentation.Utility;
 
 namespace Screening.Presentation.Views;
@@ -15,21 +16,21 @@ public sealed partial class TextInputQuestionView : UserControl
             return;
         }
 
-        question.Response = textBox.Text;
+        question.Answer = new TextAnswer(textBox.Text);
         ShowValidationError(question);
             
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        if (page?.DataContext is QuestionViewModel viewModel)
+        if (page?.DataContext is QuestionModel viewModel)
         {
-            viewModel.Model.RefreshState(); 
+            viewModel.Publish(); 
         }
     }
 
     private void ShowValidationError(TextInputDisplayableQuestion question)
     {
         var error = question.IsNumeric &&
-                    !string.IsNullOrWhiteSpace(question.Response) &&
-                    !int.TryParse(question.Response, out _)
+                    !string.IsNullOrWhiteSpace(question?.Answer?.Text) &&
+                    !int.TryParse(question?.Answer?.Text, out _)
             ? "Enter a whole number."
             : string.Empty;
 

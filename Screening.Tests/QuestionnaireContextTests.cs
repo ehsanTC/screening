@@ -5,7 +5,7 @@ using Screening.Domain.Questions;
 
 namespace Screening.Tests;
 
-public class QuestionnaireViewModelTests
+public class QuestionnaireContextTests
 {
     [Fact]
     public void ShowQuestionById_ShouldReturnTrue_WhenNoDisplayConditionsExist()
@@ -14,7 +14,7 @@ public class QuestionnaireViewModelTests
         var questionViewModel = Substitute.For<IDisplayableQuestion>();
         questionViewModel.Question.Returns(new YamlQuestion { Id = 1, DisplayConditions = [] });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { questionViewModel }
         };
@@ -33,7 +33,7 @@ public class QuestionnaireViewModelTests
         var questionViewModel = Substitute.For<IDisplayableQuestion>();
         questionViewModel.Question.Returns(new YamlQuestion { Id = 1, DisplayConditions = null });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { questionViewModel }
         };
@@ -49,7 +49,7 @@ public class QuestionnaireViewModelTests
     public void ShowQuestionById_ShouldThrowArgumentOutOfRangeException_WhenIdIsNegative()
     {
         // Arrange
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion>()
         };
@@ -66,7 +66,7 @@ public class QuestionnaireViewModelTests
     {
         // Arrange
         var questionViewModel = Substitute.For<IDisplayableQuestion>();
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { questionViewModel }
         };
@@ -91,7 +91,7 @@ public class QuestionnaireViewModelTests
             { QuestionId = 1, Operator = ConditionOperator.Equals, ExpectedValue = "Yes" };
         currentQuestion.Question.Returns(new YamlQuestion { Id = 2, DisplayConditions = [condition] });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -121,7 +121,7 @@ public class QuestionnaireViewModelTests
         currentQuestion.Question.Returns(new YamlQuestion
             { Id = 2, DisplayConditions = new List<YamlCondition> { condition } });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -150,7 +150,7 @@ public class QuestionnaireViewModelTests
             { QuestionId = 1, Operator = ConditionOperator.Equals, ExpectedValue = "Yes" };
         currentQuestion.Question.Returns(new YamlQuestion { Id = 2, DisplayConditions = [condition] });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -190,7 +190,7 @@ public class QuestionnaireViewModelTests
         };
         currentQuestion.Question.Returns(new YamlQuestion { Id = 3, DisplayConditions = conditions });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion1, targetQuestion2, currentQuestion }
         };
@@ -230,7 +230,7 @@ public class QuestionnaireViewModelTests
         };
         currentQuestion.Question.Returns(new YamlQuestion { Id = 3, DisplayConditions = conditions });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion1, targetQuestion2, currentQuestion }
         };
@@ -259,7 +259,7 @@ public class QuestionnaireViewModelTests
             DisplayConditions = [condition]
         });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { currentQuestion }
         };
@@ -313,7 +313,7 @@ public class QuestionnaireViewModelTests
                 Id = question2Id, DisplayConditions = [condition]
             });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -331,7 +331,7 @@ public class QuestionnaireViewModelTests
     public void ShowQuestionByIndex_ShouldThrowException_WhenIndexIsOutOfRange(int index)
     {
         // Arrange
-        var viewModel = new QuestionnaireViewModel()
+        var viewModel = new QuestionnaireContext()
         {
             Questions = [Substitute.For<IDisplayableQuestion>()]
         };
@@ -361,7 +361,7 @@ public class QuestionnaireViewModelTests
         question.IsAnswered.Returns(true);
         question.Answer.Returns(answer);
 
-        var viewModel = new QuestionnaireViewModel()
+        var viewModel = new QuestionnaireContext()
         {
             Questions = [question]
         };
@@ -381,7 +381,7 @@ public class QuestionnaireViewModelTests
         var questionViewModel = Substitute.For<IDisplayableQuestion>();
         questionViewModel.Question.Returns((YamlQuestion) null);
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { questionViewModel }
         };
@@ -416,7 +416,7 @@ public class QuestionnaireViewModelTests
                 DisplayConditions = [condition]
             });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -461,7 +461,7 @@ public class QuestionnaireViewModelTests
         currentQuestion.Question.Returns(new YamlQuestion
             { Id = 2, DisplayConditions = new List<YamlCondition> { condition } });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -493,7 +493,7 @@ public class QuestionnaireViewModelTests
         var condition = new YamlCondition { QuestionId = 1, Operator = op, ExpectedValue = conditionValue };
         currentQuestion.Question.Returns(new YamlQuestion { Id = 2, DisplayConditions = [condition] });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -521,7 +521,7 @@ public class QuestionnaireViewModelTests
         currentQuestion.Question.Returns(new YamlQuestion
             { Id = 2, DisplayConditions = new List<YamlCondition> { condition } });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -549,7 +549,7 @@ public class QuestionnaireViewModelTests
         currentQuestion.Question.Returns(new YamlQuestion
             { Id = 2, DisplayConditions = new List<YamlCondition> { condition } });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };
@@ -578,7 +578,7 @@ public class QuestionnaireViewModelTests
         currentQuestion.Question.Returns(new YamlQuestion
             { Id = 2, DisplayConditions = new List<YamlCondition> { condition } });
 
-        var viewModel = new QuestionnaireViewModel
+        var viewModel = new QuestionnaireContext
         {
             Questions = new List<IDisplayableQuestion> { targetQuestion, currentQuestion }
         };

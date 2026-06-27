@@ -3,14 +3,14 @@ using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public class TextInputDisplayableQuestion : IDisplayableQuestion
+public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
 {
     public required YamlQuestion Question { get; init; }
-    public string Response { get; set; } = string.Empty;
-    public IAnswer Answer => new TextAnswer() { Text = Response };
     public bool IsNumeric { get; init; }
+    public bool IsAnswered => !string.IsNullOrEmpty(Answer?.Text);
 
-    public bool IsAnswered => !string.IsNullOrEmpty(Response);
+    Answer? IDisplayableQuestion.Answer => Answer;
+    public TextAnswer? Answer { get; set; }
 
     public void Validate()
     {
@@ -19,7 +19,8 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion
             throw new InvalidOperationException("Text input question must have a value.");
         }
 
-        if (IsNumeric && !int.TryParse(Response, out _))
+        var response = Answer?.Text;
+        if (IsNumeric && !int.TryParse(response, out _))
         {
             throw new InvalidOperationException("Answer must be a whole number.");
         }

@@ -3,27 +3,21 @@ using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions;
 
-public class MultiChoiceDisplayableQuestion : IDisplayableQuestion
+public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoiceAnswer>
 {
     public required YamlQuestion Question { get; init; }
     
-    public List<string> Options { get; init; } = [];
-    
-    public List<string> SelectedOptions { get; set; } = [];
+    public List<string> Options { get; set; } = [];
 
-    public bool IsAnswered => SelectedOptions.Count > 0;
-    
-    public IAnswer? Answer => 
-        IsAnswered ? new MultipleChoiceAnswer() { SelectedOptions = SelectedOptions } :  null;
+    public bool IsAnswered => Options.Count > 0;
+
+    Answer? IDisplayableQuestion.Answer => Answer;
+    public MultipleChoiceAnswer? Answer { get; set; }
 
     public void Validate()
     {
-        if (!IsAnswered)
-        {
-            throw new InvalidOperationException("Multiple choice question must have at least one selected option.");
-        }
-
-        if (SelectedOptions.Any(selected => !Options.Contains(selected)))
+        var options = Answer?.SelectedOptions;
+        if (Options.Any(selected => options.Contains(selected)))
         {
             throw new InvalidOperationException("Selected options must be from the available options.");
         }

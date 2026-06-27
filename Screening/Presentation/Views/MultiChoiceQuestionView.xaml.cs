@@ -17,7 +17,7 @@ public sealed partial class MultiChoiceQuestionView : UserControl
         }
 
         // Check if the current option is already in the selected list
-        checkBox.IsChecked = question.SelectedOptions.Contains(option);
+        checkBox.IsChecked = question.Options.Contains(option);
     }
 
     private void OnOptionChecked(object sender, RoutedEventArgs e)
@@ -32,19 +32,15 @@ public sealed partial class MultiChoiceQuestionView : UserControl
         // Add or remove based on current state
         if (checkBox.IsChecked == true)
         {
-            if (!question.SelectedOptions.Contains(option))
-                question.SelectedOptions.Add(option);
+            if (!question.Options.Contains(option))
+                question.Options.Add(option);
         }
         else
         {
-            question.SelectedOptions.Remove(option);
+            question.Options.Remove(option);
         }
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        if (page?.DataContext is QuestionViewModel viewModel)
-        {
-            viewModel.Model.RefreshState();
-        }
+        page?.UpdateLayout(); // TODO ??
     }
 }
-

@@ -11,14 +11,14 @@ public sealed partial class QuestionPage : Page
 
     private void OnNextClicked(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not QuestionViewModel viewModel)
+        if (DataContext is not QuestionModel viewModel)
         {
             return;
         }
 
         try
         {
-            viewModel.Model.Next();
+            viewModel.Next();
         }
         catch (InvalidOperationException exception)
         {
