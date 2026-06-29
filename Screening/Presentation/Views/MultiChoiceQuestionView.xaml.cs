@@ -46,9 +46,9 @@ public sealed partial class MultiChoiceQuestionView : UserControl
         question.Answer = new MultipleChoiceAnswer(selectedOptions);
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        if (page?.DataContext is QuestionViewModel model)
+        if (page?.DataContext is QuestionViewModel vm)
         {
-            model.Publish.Execute(null);
+            vm.Model.Publish();
         }
     }
 }

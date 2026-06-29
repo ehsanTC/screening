@@ -20,9 +20,9 @@ public sealed partial class TextInputQuestionView : UserControl
         ShowValidationError(question);
             
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        if (page?.DataContext is QuestionModel viewModel)
+        if (page?.DataContext is QuestionViewModel viewModel)
         {
-            viewModel.Publish(); 
+            viewModel.Model.Publish(); 
         }
     }
 

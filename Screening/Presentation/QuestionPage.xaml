@@ -49,11 +49,11 @@
 
             <Button Content="Back"
                     Margin="0,0,8,0"
-                    IsEnabled="{Binding CanGoBack, Mode=OneWay}"
+                    IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
                     Command="{Binding Back}" />
 
             <Button Content="Next"
-                    IsEnabled="{Binding CanGoNext, Mode=OneWay}"
+                    IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
                     Command="{Binding Next}" />
 
         </StackPanel>

@@ -33,9 +33,9 @@ public sealed partial class SingleChoiceQuestionView : UserControl
         question.Answer = new SingleChoiceAnswer(option.Trim());
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
-        if (page?.DataContext is QuestionModel viewModel)
+        if (page?.DataContext is QuestionViewModel viewModel)
         {
-            viewModel.Publish();
+            viewModel.Model.Publish();
         }
     }
 }
