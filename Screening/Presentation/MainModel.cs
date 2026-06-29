@@ -1,23 +1,30 @@
+using Screening.Domain.Services;
+using Screening.Models;
+
 namespace Screening.Presentation;
 
 public partial record MainModel
 {
-    private INavigator _navigator;
+    private readonly INavigator _navigator;
+    private readonly IQuestionnaireProviderFactory _questionnaireProviderFactory;
 
     public MainModel(
         IStringLocalizer localizer,
-        INavigator navigator)
+        INavigator navigator,
+        IQuestionnaireProviderFactory  questionnaireProviderFactory)
     {
         _navigator = navigator;
         Title += $"{localizer["ApplicationName"]}";
+        _questionnaireProviderFactory = questionnaireProviderFactory;
     }
 
     public string? Title { get; }
 
     public IState<string> Name => State<string>.Value(this, () => string.Empty);
     
-    public async Task GoToQuestions()
+    public async Task GoToDiabetesQuestionnaire()
     {
-        await _navigator.NavigateViewModelAsync<QuestionModel>(this, data: null);
+        await _navigator.NavigateViewModelAsync<QuestionModel>(this, 
+            data: QuestionnaireType.Test());
     }
 }

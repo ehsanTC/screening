@@ -2,7 +2,7 @@ using Screening.Domain.Questions;
 
 namespace Screening.Domain.Abstractions;
 
-public interface IQuestionProvider
+public interface IQuestionnaireProvider
 {
     QuestionnaireContext GetQuestionnaire();
 }

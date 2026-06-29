@@ -1,5 +1,6 @@
 using Screening.Domain.Abstractions;
 using Screening.Domain.Services;
+using Screening.Models;
 
 namespace Screening;
 
@@ -67,8 +68,8 @@ public partial class App : Application
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IQuestionProvider, DiabetesQuestionProvider>();
                     services.AddSingleton<IQuestionnaireParser, YamlQuestionnaireParser>();
+                    services.AddSingleton<IQuestionnaireProviderFactory, QuestionnaireProviderFactory>();
                 })
                 
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
@@ -90,15 +91,18 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
-            new ViewMap<QuestionPage, QuestionModel>()
+            new DataViewMap<QuestionPage, QuestionModel, QuestionnaireType>()
         );
 
         routes.Register(
             new RouteMap("", View: views.FindByViewModel<ShellModel>(),
                 Nested:
                 [
-                    new("Main", View: views.FindByViewModel<MainModel>(), IsDefault: true),
-                    new("Questions", View: views.FindByViewModel<QuestionModel>()),
+                    new("Main", 
+                        View: views.FindByViewModel<MainModel>(), 
+                        IsDefault: true),
+                    new RouteMap("Questions", 
+                        View: views.FindByViewModel<QuestionModel>())
                 ]
             )
         );

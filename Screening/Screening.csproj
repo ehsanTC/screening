@@ -53,8 +53,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Screening.Domain\Screening.Domain.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\" />
-    </ItemGroup>
 </Project>

@@ -4,10 +4,11 @@ using Screening.Domain.Questions;
 
 namespace Screening.Domain.Services;
 
-public class DiabetesQuestionProvider : IQuestionProvider
+public class DiabetesQuestionnaireProvider(IQuestionnaireParser parser) : IQuestionnaireProvider
 {
     private QuestionnaireContext? _questionnaire;
-    private readonly IQuestionnaireParser _parser;
+    private readonly IQuestionnaireParser _parser = parser 
+            ?? throw new ArgumentNullException(nameof(parser));
 
     private static readonly string DiabetesQuestionnaireFile =
         "Assets.DiabetesType2-questionnaire.yaml";
@@ -30,11 +31,6 @@ public class DiabetesQuestionProvider : IQuestionProvider
             Title = yamlQuestionnaire.Title,
             Questions = [..yamlQuestionnaire.Questions.Select(QuestionFactory.CreateQuestion)]
         };
-    }
-
-    public DiabetesQuestionProvider(IQuestionnaireParser parser)
-    {
-        _parser = parser ?? throw new ArgumentNullException(nameof(parser));
     }
 
     public QuestionnaireContext GetQuestionnaire()

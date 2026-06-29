@@ -31,14 +31,12 @@ public static class QuestionFactory
         new MultiChoiceDisplayableQuestion()
         {
             Question = question,
-            Options = question.Options
         };
 
     private static IDisplayableQuestion CreateSingleChoice(YamlQuestion question) =>
         new SingleChoiceDisplayableQuestion()
         {
             Question = question,
-            Options = question.Options,
         };
 
     private static IDisplayableQuestion CreateTextInput(YamlQuestion question, bool isNumeric) =>

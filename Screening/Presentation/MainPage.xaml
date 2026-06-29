@@ -19,7 +19,7 @@
 
         <Button Content="Diabetes Risk"
                 AutomationProperties.AutomationId="QuestionsPageButton"
-                Command="{Binding GoToQuestions}" />
+                Command="{Binding GoToDiabetesQuestionnaire}" />
 
       </StackPanel>
     </Grid>

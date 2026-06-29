@@ -5,7 +5,6 @@ namespace Screening.Domain.Questions;
 
 public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoiceAnswer>
 {
-    public List<string> Options { get; init; } = [];
     public required YamlQuestion Question { get; init; }
     public bool IsAnswered => !string.IsNullOrEmpty(Answer?.SelectedOption);
     Answer? IDisplayableQuestion.Answer => Answer;
@@ -19,8 +18,10 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoice
             throw new InvalidOperationException("Single choice question must have a selected option.");
         }
 
+        var options = Question.Options ?? [];
         var selectedOption = Answer?.SelectedOption;
-        if (!Options.Contains(selectedOption!))
+        
+        if (!options.Contains(selectedOption!))
         {
             throw new InvalidOperationException("Selected option must be one of the available options.");
         }

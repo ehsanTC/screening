@@ -4,7 +4,7 @@ using Screening.Domain.Questions;
 
 namespace Screening.Domain.Services;
 
-public class TestQuestionnaireProvider : IQuestionProvider
+public class TestQuestionnaireProvider : IQuestionnaireProvider
 {
     public QuestionnaireContext GetQuestionnaire()
     {
@@ -13,11 +13,28 @@ public class TestQuestionnaireProvider : IQuestionProvider
             Title = "Test questionnaire",
             Questions = new List<IDisplayableQuestion>()
             {
-                new TextInputDisplayableQuestion()
+                new MultiChoiceDisplayableQuestion()
                 {
                     Question = new YamlQuestion()
                     {
                         Id = 1,
+                        Text = "Which colours do you prefer?",
+                        Options = ["Blue", "Yellow", "Green"]
+                    },
+                },
+                new SingleChoiceDisplayableQuestion()
+                {
+                    Question = new YamlQuestion()
+                    {
+                        Id = 2,
+                        Text = "Which Semester?", Options = ["First", "Seconds"]
+                    },
+                },
+                new TextInputDisplayableQuestion()
+                {
+                    Question = new YamlQuestion()
+                    {
+                        Id = 3,
                         Text = "What is your name"
                     },
                 },
@@ -25,7 +42,7 @@ public class TestQuestionnaireProvider : IQuestionProvider
                 {
                     Question = new YamlQuestion()
                     {
-                        Id = 2, Text = "What is your age?"
+                        Id = 4, Text = "What is your age?"
                     },
                     IsNumeric = true
                 }

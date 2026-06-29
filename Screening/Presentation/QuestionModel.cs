@@ -1,6 +1,7 @@
 using Screening.Domain.Abstractions;
 using Screening.Domain.Questions;
 using Screening.Domain.Services;
+using Screening.Models;
 
 namespace Screening.Presentation;
 
@@ -12,13 +13,12 @@ public partial record QuestionModel
     public IState<QuestionState> State => _state;
     private readonly IState<QuestionState> _state;
 
-    public QuestionModel(IQuestionProvider provider)
+    public QuestionModel(IQuestionnaireProviderFactory factory, QuestionnaireType type)
     {
-        ArgumentNullException.ThrowIfNull(provider);
+        ArgumentNullException.ThrowIfNull(factory);
 
         _index = 0;
-        // _questionnaire = provider.GetQuestionnaire();
-        _questionnaire = new TestQuestionnaireProvider().GetQuestionnaire();
+        _questionnaire = factory.GetProvider(type.Name).GetQuestionnaire();
 
         _state = State<QuestionState>.Value(this, () => CreateState());
     }

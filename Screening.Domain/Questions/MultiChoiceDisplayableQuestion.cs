@@ -7,8 +7,6 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
 {
     public required YamlQuestion Question { get; init; }
     
-    public List<string> Options { get; set; } = [];
-
     public bool IsAnswered => Answer?.SelectedOptions.Count > 0;
 
     Answer? IDisplayableQuestion.Answer => Answer;
@@ -21,8 +19,10 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
             throw new InvalidOperationException("Multi choice question must have at least one selected option.");
         }
 
+        var options = Question.Options ?? [];
         var selectedOptions = Answer?.SelectedOptions ?? [];
-        if (selectedOptions.Any(selected => !Options.Contains(selected)))
+        
+        if (selectedOptions.Any(selected => options.Contains(selected)))
         {
             throw new InvalidOperationException("Selected options must be from the available options.");
         }
