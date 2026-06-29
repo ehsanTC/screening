@@ -6,6 +6,7 @@ namespace Screening.Domain.Questions;
 public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoiceAnswer>
 {
     public required YamlQuestion Question { get; init; }
+    public List<string> AvailableOptions => Question?.Options?.ToList() ?? [];
     public bool IsAnswered => !string.IsNullOrEmpty(Answer?.SelectedOption);
     Answer? IDisplayableQuestion.Answer => Answer;
 

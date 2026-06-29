@@ -33,7 +33,7 @@
               HorizontalAlignment="Stretch">
 
             <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding Options}"
+                          ItemsSource="{Binding AvailableOptions}"
                           HorizontalAlignment="Stretch">
 
                 <ItemsControl.ItemTemplate>

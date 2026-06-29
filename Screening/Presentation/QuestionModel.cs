@@ -1,4 +1,3 @@
-using Screening.Domain.Abstractions;
 using Screening.Domain.Questions;
 using Screening.Domain.Services;
 using Screening.Models;
@@ -50,6 +49,22 @@ public partial record QuestionModel
 
     public void Publish() => AnswerUpdated();
 
+    public bool CanGoNext {
+        get
+        {
+            var currentState = _questionnaire.Questions[_index];
+            return currentState.IsAnswered && _index < _questionnaire.Questions.Count - 1;;
+        }
+    }
+    
+    public bool CanGoBack {
+        get
+        {
+            var currentState = _questionnaire.Questions[_index];
+            return currentState.IsAnswered && _index > 0;
+        }
+    }
+    
     public void Next()
     {
         var questions = _questionnaire.Questions;

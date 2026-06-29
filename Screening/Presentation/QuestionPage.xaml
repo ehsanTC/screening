@@ -19,9 +19,9 @@
         </DataTemplate>
 
         <presentation:QuestionTemplateSelector x:Key="QuestionTemplateSelector"
-                                               TextInputTemplate="{StaticResource TextInputQuestionTemplate}"
-                                               SingleChoiceTemplate="{StaticResource SingleChoiceQuestionTemplate}"
-                                               MultiChoiceTemplate="{StaticResource MultiChoiceQuestionTemplate}" />
+               TextInputTemplate="{StaticResource TextInputQuestionTemplate}"
+               SingleChoiceTemplate="{StaticResource SingleChoiceQuestionTemplate}"
+               MultiChoiceTemplate="{StaticResource MultiChoiceQuestionTemplate}" />
     </Page.Resources>
 
     <Grid utu:SafeArea.Insets="VisibleBounds">
@@ -49,12 +49,12 @@
 
             <Button Content="Back"
                     Margin="0,0,8,0"
-                    IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
+                    IsEnabled="{Binding CanGoBack, Mode=OneWay}"
                     Command="{Binding Back}" />
 
             <Button Content="Next"
-                    IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
-                    Click="OnNextClicked" />
+                    IsEnabled="{Binding CanGoNext, Mode=OneWay}"
+                    Command="{Binding Next}" />
 
         </StackPanel>
 
