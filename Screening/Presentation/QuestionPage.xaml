@@ -52,7 +52,7 @@
                     IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
                     Command="{Binding Back}" />
 
-            <Button Content="Next"
+            <Button Content="{Binding State.NextButtonText, Mode=OneWay}"
                     IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
                     Command="{Binding Next}" />
 

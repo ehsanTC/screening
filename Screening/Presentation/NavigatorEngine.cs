@@ -14,14 +14,15 @@ public class NavigatorEngine(QuestionnaireContext questionnaireContext)
         new (_questionnaire.Questions[_index],
             CanGoNext,
             CanGoBack,
-            IsFinished);
+            IsLastQuestion,
+            IsLastQuestion ? "Calculate" : "Next");
 
     private bool CanGoNext =>
-        _questionnaire.Questions[_index].IsAnswered 
-        && _index < _questionnaire.Questions.Count - 1;
+        _questionnaire.Questions[_index].IsAnswered &&
+        (IsLastQuestion || _index < _questionnaire.Questions.Count - 1);
 
     private bool CanGoBack => _index > 0;
-    private bool IsFinished => _index == _questionnaire.Questions.Count - 1;
+    private bool IsLastQuestion => _index == _questionnaire.Questions.Count - 1;
 
     public bool TryGoNext()
     {

@@ -1,10 +1,12 @@
+using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Models;
+using Screening.Domain.RiskCalculator.Requests;
 
 namespace Screening.Domain.RiskCalculator;
 
-public static class AscvdRiskCalculator
+public class AscvdRiskCalculator : IRiskCalculator
 {
-    public static double Calculate10YearAscvdRiskPercentage(
+    private double Calculate10YearAscvdRiskPercentage(
         int age,
         Sex sex,
         Race race,
@@ -90,5 +92,17 @@ public static class AscvdRiskCalculator
         double riskPercentage = riskFraction * 100.0;
 
         return Math.Max(0.1, Math.Min(99.9, riskPercentage));
+    }
+
+    public object? Calculate(ICalculatorArg arg)
+    {
+        if (arg is not AscvdRiskArgs args)
+            return null;
+        
+        return Calculate10YearAscvdRiskPercentage(args.Age, 
+            args.Sex, args.Race, args.TotalCholesterolMgdl,
+            args.HdlCholesterolMgdl, args.SystolicBpMmHg, 
+            args.OnHypertensionTreatment,
+            args.IsCurrentSmoker, args.HasDiabetes);
     }
 }

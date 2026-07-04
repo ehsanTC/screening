@@ -1,9 +1,11 @@
+using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Common;
 using Screening.Domain.RiskCalculator.Models;
+using Screening.Domain.RiskCalculator.Requests;
 
 namespace Screening.Domain.RiskCalculator;
 
-public static class DiabetesRiskCalculator
+public class DiabetesRiskCalculator : IRiskCalculator
 {
     private const int MinAge = 18;
     private const int HighRiskThreshold = 5;
@@ -13,7 +15,7 @@ public static class DiabetesRiskCalculator
     /// This is a screening tool based on a simple point-based system, not a diagnostic test.
     /// High risk indicates need for formal testing (e.g., A1C, fasting glucose).
     /// </summary>
-    public static DiabetesRiskResult CalculateType2DiabetesRisk(
+    private DiabetesRiskResult CalculateType2DiabetesRisk(
         int age,
         Sex sex,
         bool? hadGestationalDiabetes,
@@ -109,5 +111,15 @@ public static class DiabetesRiskCalculator
             Recommendation: isHighRisk
                 ? "You are at increased risk for having prediabetes or type 2 diabetes. Talk to your doctor about getting tested (e.g., A1C or fasting blood glucose). Lifestyle changes can help prevent or delay type 2 diabetes."
                 : "You have a lower risk for type 2 diabetes at this time. Maintain a healthy lifestyle to keep your risk low.");
+    }
+
+    public object? Calculate(ICalculatorArg arg)
+    {
+        if (arg is not DiabetesRiskArgs args)
+            return null;
+        
+        return CalculateType2DiabetesRisk(args.Age, args.Sex, args.HadGestationalDiabetes,
+            args.HasFamilyHistory, args.HasHighBloodPressure, args.IsPhysicallyActive, 
+            args.HeightCm, args.WeightKg);
     }
 }

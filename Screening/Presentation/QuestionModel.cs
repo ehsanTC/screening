@@ -1,98 +1,56 @@
+using Screening.Domain.Models;
 using Screening.Domain.Questions;
+using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.Services;
-using Screening.Models;
 
 namespace Screening.Presentation;
 
 public partial record QuestionModel
 {
-    private readonly QuestionnaireContext _questionnaire;
-    private int _index;
+    private readonly NavigatorEngine _engine;
+    private readonly QuestionnaireType _type;
 
-    public IState<QuestionState> State => _state;
-    private readonly IState<QuestionState> _state;
+    public IState<QuestionState> State { get; }
 
     public QuestionModel(IQuestionnaireProviderFactory factory, QuestionnaireType type)
     {
         ArgumentNullException.ThrowIfNull(factory);
 
-        _index = 0;
-        _questionnaire = factory.GetProvider(type.Name).GetQuestionnaire();
-
-        _state = State<QuestionState>.Value(this, () => CreateState());
+        _type = type;
+        var provider = factory.GetProvider(_type.Name);
+        _engine = new NavigatorEngine(provider.GetQuestionnaire());
+        State = State<QuestionState>.Value(this, () => _engine.State);
     }
 
-    private QuestionState CreateState(MoveDirection direction = MoveDirection.None)
+    public void Publish() => State.Update(_ => _engine.State, CancellationToken.None);
+
+    private void Execute(Action command)
     {
-        if (direction != MoveDirection.None && !_questionnaire.ShowQuestionAtIndex(_index))
-        {
-            _index += direction == MoveDirection.Forward ? 1 : -1;
-        }
-
-        var current = _questionnaire.Questions[_index];
-
-        return new QuestionState(
-            CurrentQuestion: current,
-            CanGoNext: current.IsAnswered && _index < _questionnaire.Questions.Count - 1,
-            CanGoBack: _index > 0,
-            Finished: _index == _questionnaire.Questions.Count
-        );
+        command();
+        Publish();
     }
 
-    public void RefreshState() => 
-        _state?.Update(s => CreateState(), CancellationToken.None);
-    
-    private void RefreshState(MoveDirection direction) =>
-        _state?.Update(_ => CreateState(direction), CancellationToken.None);
-    
-    public void AnswerUpdated() => RefreshState();
+    public void UpdateCurrentTextAnswer(string value) => Execute(() => _engine.SetAnswer(value));
 
-    public void Publish() => AnswerUpdated();
-
-    public bool CanGoNext {
-        get
-        {
-            var currentState = _questionnaire.Questions[_index];
-            return currentState.IsAnswered && _index < _questionnaire.Questions.Count - 1;;
-        }
-    }
-    
-    public bool CanGoBack {
-        get
-        {
-            var currentState = _questionnaire.Questions[_index];
-            return currentState.IsAnswered && _index > 0;
-        }
-    }
-    
     public void Next()
     {
-        var questions = _questionnaire.Questions;
-        var q = questions[_index];
-        q.Validate();
-
-        if (_index < questions.Count - 1)
+        var currentState = _engine.State;
+        if (currentState.IsLastQuestion)
         {
-            _index++;
-            RefreshState(MoveDirection.Forward);
+            Calculate();
         }
+        else
+        {
+            Execute(() => _engine.TryGoNext());
+        }
+    }
+
+    private void Calculate()
+    {
+        throw new NotImplementedException();
     }
 
     // TODO: Fix the last question. When questions ended, the Next should become "calculate"
 
-    public void Back()
-    {
-        if (_index > 0)
-        {
-            _index--;
-            RefreshState(MoveDirection.Backward);
-        }
-    }
-
-    private enum MoveDirection
-    {
-        None,
-        Forward,
-        Backward
-    }
+    public void Back() => Execute(() => _engine.TryGoBack());
 }

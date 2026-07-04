@@ -9,23 +9,6 @@ public sealed partial class QuestionPage : Page
         this.InitializeComponent();
     }
 
-    private void OnNextClicked(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not QuestionModel viewModel)
-        {
-            return;
-        }
-
-        try
-        {
-            viewModel.Next();
-        }
-        catch (InvalidOperationException exception)
-        {
-            ShowToast(exception.Message);
-        }
-    }
-
     private async void ShowToast(string message)
     {
         _toastCancellation?.Cancel();

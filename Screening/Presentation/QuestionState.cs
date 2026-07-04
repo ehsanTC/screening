@@ -6,6 +6,6 @@ public record QuestionState(
     IDisplayableQuestion? CurrentQuestion,
     bool CanGoNext,
     bool CanGoBack,
-    bool Finished
+    bool IsLastQuestion,
+    string NextButtonText
 );
-

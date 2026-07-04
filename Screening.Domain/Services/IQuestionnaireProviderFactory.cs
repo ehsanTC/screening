@@ -1,10 +1,11 @@
 using Screening.Domain.Abstractions;
+using Screening.Domain.Models;
 
 namespace Screening.Domain.Services;
 
 public interface IQuestionnaireProviderFactory
 {
-    IQuestionnaireProvider GetProvider(string questionnaire);
+    IQuestionnaireProvider GetProvider(QuestionnaireType.Type questionnaire);
 }
 
 public class QuestionnaireProviderFactory(IQuestionnaireParser parser) : IQuestionnaireProviderFactory
@@ -12,12 +13,12 @@ public class QuestionnaireProviderFactory(IQuestionnaireParser parser) : IQuesti
     private readonly IQuestionnaireParser _parser = parser
         ?? throw new ArgumentNullException(nameof(parser));
 
-    public IQuestionnaireProvider GetProvider(string questionnaire) =>
-        questionnaire.Trim().ToLowerInvariant() switch
+    public IQuestionnaireProvider GetProvider(QuestionnaireType.Type questionnaire) =>
+        questionnaire switch
         {
-            "diabetes" => new DiabetesQuestionnaireProvider(_parser),
-            "test" => new TestQuestionnaireProvider(),
-            "ascvd" => throw new NotImplementedException(),
+            QuestionnaireType.Type.Diabetes => new DiabetesQuestionnaireProvider(_parser),
+            QuestionnaireType.Type.Test => new TestQuestionnaireProvider(),
+            QuestionnaireType.Type.Ascvd => throw new NotImplementedException(), // TODO
 
             _ => throw new NotImplementedException(),
         };

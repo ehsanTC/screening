@@ -1,6 +1,7 @@
 using Screening.Domain.Abstractions;
+using Screening.Domain.Models;
+using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.Services;
-using Screening.Models;
 
 namespace Screening;
 
