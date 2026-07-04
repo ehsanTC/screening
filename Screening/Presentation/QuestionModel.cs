@@ -2,22 +2,23 @@ using Screening.Domain.Models;
 using Screening.Domain.Questions;
 using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.Services;
+using Screening.Domain.Services.Abstraction;
 
 namespace Screening.Presentation;
 
 public partial record QuestionModel
 {
     private readonly NavigatorEngine _engine;
-    private readonly QuestionnaireType _type;
+    private readonly QuestionnairePageRequest _pageRequest;
 
     public IState<QuestionState> State { get; }
 
-    public QuestionModel(IQuestionnaireProviderFactory factory, QuestionnaireType type)
+    public QuestionModel(IQuestionnaireProviderFactory factory, QuestionnairePageRequest pageRequest)
     {
         ArgumentNullException.ThrowIfNull(factory);
 
-        _type = type;
-        var provider = factory.GetProvider(_type.Name);
+        _pageRequest = pageRequest;
+        var provider = factory.GetProvider(_pageRequest.Name);
         _engine = new NavigatorEngine(provider.GetQuestionnaire());
         State = State<QuestionState>.Value(this, () => _engine.State);
     }

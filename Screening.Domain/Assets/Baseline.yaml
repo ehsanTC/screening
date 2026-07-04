@@ -1,0 +1,34 @@
+title: "Baseline Assessment"
+version: "1.0"
+
+questions:
+  - id: 1
+    text: "What is your age?"
+    type: Number
+    save:
+      path: "age"
+      cast: int
+
+  - id: 2
+    text: "What is your gender?"
+    type: single_choice
+    options:
+      - Female
+      - Male
+    save:
+      path: "gender"
+      cast: string
+
+  - id: 3
+    text: "What is your height in meters?"
+    type: Number
+    Save:
+      path: "height"
+      cast: double
+
+  - id: 4
+    text: "What is your weight in Kilograms?"
+    type: Number
+    Save:
+      path: "weight"
+      cast: double

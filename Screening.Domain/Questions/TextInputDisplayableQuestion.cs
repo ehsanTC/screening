@@ -20,7 +20,7 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
         }
 
         var response = Answer?.Text;
-        if (IsNumeric && !int.TryParse(response, out _))
+        if (IsNumeric && !double.TryParse(response, out _))
         {
             throw new InvalidOperationException("Answer must be a whole number.");
         }

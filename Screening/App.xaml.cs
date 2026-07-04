@@ -2,6 +2,7 @@ using Screening.Domain.Abstractions;
 using Screening.Domain.Models;
 using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.Services;
+using Screening.Domain.Services.Abstraction;
 
 namespace Screening;
 
@@ -71,6 +72,7 @@ public partial class App : Application
                 {
                     services.AddSingleton<IQuestionnaireParser, YamlQuestionnaireParser>();
                     services.AddSingleton<IQuestionnaireProviderFactory, QuestionnaireProviderFactory>();
+                    services.AddSingleton<IQuestionnaireContentProvider, YamlQuestionnaireContentProvider>();
                 })
                 
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
@@ -92,7 +94,7 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
-            new DataViewMap<QuestionPage, QuestionModel, QuestionnaireType>()
+            new DataViewMap<QuestionPage, QuestionModel, QuestionnairePageRequest>()
         );
 
         routes.Register(

@@ -10,6 +10,10 @@
         <PackageReference Include="YamlDotNet"/>
         
         <EmbeddedResource Include="Assets\Diabetes-Type2-questionnaire.yaml"
-                          LogicalName="Assets.DiabetesType2-questionnaire.yaml"/>
+                          LogicalName="DiabetesType2-questionnaire.yaml"/>
+        <EmbeddedResource Include="Assets\Baseline.yaml"
+                          LogicalName="Baseline.yaml"/>
+        <EmbeddedResource Include="Assets\Ascvd-questionnaire.yaml"
+                          LogicalName="Ascvd-questionnaire.yaml"/>
     </ItemGroup>
 </Project>

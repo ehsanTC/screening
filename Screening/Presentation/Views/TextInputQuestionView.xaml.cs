@@ -30,7 +30,7 @@ public sealed partial class TextInputQuestionView : UserControl
     {
         var error = question.IsNumeric &&
                     !string.IsNullOrWhiteSpace(question?.Answer?.Text) &&
-                    !int.TryParse(question?.Answer?.Text, out _)
+                    !double.TryParse(question?.Answer?.Text, out _)
             ? "Enter a whole number."
             : string.Empty;
 

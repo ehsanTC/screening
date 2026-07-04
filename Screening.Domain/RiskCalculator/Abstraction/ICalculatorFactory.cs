@@ -5,18 +5,18 @@ namespace Screening.Domain.RiskCalculator.Abstraction;
 
 public interface ICalculatorFactory
 {
-    IRiskCalculator Create(QuestionnaireType questionnaireType);
+    IRiskCalculator Create(QuestionnairePageRequest questionnairePageRequest);
 }
 
 public class CalculatorFactory : ICalculatorFactory
 {
-    public IRiskCalculator Create(QuestionnaireType questionnaireType) =>
-        questionnaireType.Name switch
+    public IRiskCalculator Create(QuestionnairePageRequest questionnairePageRequest) =>
+        questionnairePageRequest.Name switch
         {
-            QuestionnaireType.Type.Diabetes => new DiabetesRiskCalculator(),
-            QuestionnaireType.Type.Ascvd => new AscvdRiskCalculator(),
-            QuestionnaireType.Type.Test  => new TestRiskRiskCalculator(),
+            QuestionnaireType.Diabetes => new DiabetesRiskCalculator(),
+            QuestionnaireType.Ascvd => new AscvdRiskCalculator(),
+            QuestionnaireType.Test  => new TestRiskRiskCalculator(),
             
-            _ => throw new NotSupportedException(nameof(questionnaireType.Name)),
+            _ => throw new NotSupportedException(nameof(questionnairePageRequest.Name)),
         };
 }

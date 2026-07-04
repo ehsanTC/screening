@@ -1,6 +1,7 @@
 using Screening.Domain.Models;
 using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.Services;
+using Screening.Domain.Services.Abstraction;
 
 namespace Screening.Presentation;
 
@@ -26,6 +27,6 @@ public partial record MainModel
     public async Task GoToDiabetesQuestionnaire()
     {
         await _navigator.NavigateViewModelAsync<QuestionModel>(this, 
-            data: new QuestionnaireType(QuestionnaireType.Type.Test));
+            data: new QuestionnairePageRequest(QuestionnaireType.Baseline));
     }
 }
