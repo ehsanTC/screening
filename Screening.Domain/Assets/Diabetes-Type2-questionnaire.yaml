@@ -23,7 +23,7 @@ questions:
     text: "Have you ever had gestational diabetes OR given birth to a baby weighing 9 pounds or more?"
     type: single_choice
     showIf:
-      - question_id: 2
+      - questionId: 2
         operator: equals
         value: Female
     options:
@@ -75,7 +75,7 @@ questions:
 
   - id: 9
     text: "Which of the following do you use?"
-    type: MultiChoice
+    type: multi_choice
     options:
       - Smoking
       - Alcohol
@@ -85,6 +85,6 @@ questions:
     text: "How many cigarettes per day?"
     type: Number
     showIf:
-      - question_id: 9
+      - questionId: 9
         operator: contains
         value: Smoking

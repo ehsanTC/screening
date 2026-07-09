@@ -1,9 +1,9 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
 
-namespace Screening.Domain.Questions;
+namespace Screening.Domain.Questions.Abstraction;
 
-public interface IDisplayableQuestion 
+public interface IDisplayableQuestion : IOptionalQuestion
 {
     public YamlQuestion  Question { get; }
     bool IsAnswered { get; }

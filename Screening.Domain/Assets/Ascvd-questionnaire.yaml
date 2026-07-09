@@ -6,10 +6,10 @@ purpose:
   40–79 years without known cardiovascular disease.
 
 condition:
-  - question_id: 1
+  - questionId: 1
     operator: greaterThan
     value: 10
-  - question_id: 1
+  - questionId: 1
     operator: lessThanOrEquals
     value: 79
 
