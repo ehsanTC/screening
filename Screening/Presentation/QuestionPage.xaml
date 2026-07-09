@@ -52,6 +52,8 @@
             <Button Grid.Column="0"
                     Content="Back"
                     CornerRadius="17"
+                    Height="60"
+                    FontSize="16"
                     HorizontalAlignment="Stretch"
                     IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
                     Command="{Binding Back}" />
@@ -59,6 +61,8 @@
             <Button Grid.Column="1"
                     Content="{Binding State.NextButtonText, Mode=OneWay}"
                     CornerRadius="17"
+                    Height="60"
+                    FontSize="16"
                     HorizontalAlignment="Stretch"
                     IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
                     Command="{Binding Next}" />
