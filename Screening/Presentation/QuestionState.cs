@@ -1,4 +1,4 @@
-using Screening.Domain.Questions;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Presentation;
 

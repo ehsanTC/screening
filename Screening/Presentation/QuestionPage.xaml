@@ -41,22 +41,28 @@
                         VerticalContentAlignment="Stretch" />
 
         <!-- Navigation Buttons -->
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Margin="16">
+        <Grid Grid.Row="2"
+              Margin="16"
+              ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <Button Content="Back"
-                    Margin="0,0,8,0"
+            <Button Grid.Column="0"
+                    Content="Back"
+                    CornerRadius="17"
+                    HorizontalAlignment="Stretch"
                     IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
                     Command="{Binding Back}" />
 
-            <Button Content="{Binding State.NextButtonText, Mode=OneWay}"
+            <Button Grid.Column="1"
+                    Content="{Binding State.NextButtonText, Mode=OneWay}"
+                    CornerRadius="17"
+                    HorizontalAlignment="Stretch"
                     IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
                     Command="{Binding Next}" />
-
-        </StackPanel>
+        </Grid>
 
         <Border x:Name="ValidationToast"
                 Grid.RowSpan="3"

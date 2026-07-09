@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       d:DesignHeight="300"
       d:DesignWidth="400">
-  <Border Background="{ThemeResource BackgroundBrush}">
+  <Border Background="{StaticResource AppPageBackgroundBrush}">
     <utu:ExtendedSplashScreen x:Name="Splash"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"

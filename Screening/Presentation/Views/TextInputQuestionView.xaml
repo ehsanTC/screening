@@ -7,11 +7,11 @@
     <Grid Margin="16,0" RowDefinitions="Auto,*,Auto">
 
         <Border Grid.Row="0"
-                CornerRadius="10"
+                CornerRadius="20"
                 Background="#FFFFFF"
                 HorizontalAlignment="Stretch"
                 MinHeight="200"
-                Margin="16,48,16,48">
+                Margin="0,48,0,48">
 
             <TextBlock Text="{Binding Question.Text}"
                        FontSize="22"
@@ -28,10 +28,12 @@
             <TextBox Grid.Row="1"
                      Text="{Binding Answer.Text, Mode=OneWay}"
                      TextChanged="OnTextChanged"
+                     Background="#FFFFFF"
                      HorizontalAlignment="Stretch"
                      AcceptsReturn="False"
                      TextAlignment="Center"
-                     TextWrapping="NoWrap" />
+                     TextWrapping="NoWrap"
+                     CornerRadius="20"/>
 
             <TextBlock Grid.Row="3"
                        x:Name="ErrorTextBlock"

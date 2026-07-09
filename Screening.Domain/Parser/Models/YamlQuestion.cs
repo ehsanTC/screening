@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using YamlDotNet.Serialization;
 
 namespace Screening.Domain.Parser.Models;
 
+[DebuggerDisplay("{Text}")]
 public class YamlQuestion
 {
     [YamlMember(Alias = "id")]

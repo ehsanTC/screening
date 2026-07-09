@@ -1,4 +1,5 @@
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 

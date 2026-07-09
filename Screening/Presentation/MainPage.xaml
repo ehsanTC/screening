@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:utu="using:Uno.Toolkit.UI"
       NavigationCacheMode="Required"
-      Background="{ThemeResource BackgroundBrush}">
+      Background="{StaticResource AppPageBackgroundBrush}">
   <ScrollViewer IsTabStop="True">
     <Grid utu:SafeArea.Insets="VisibleBounds">
       <Grid.RowDefinitions>

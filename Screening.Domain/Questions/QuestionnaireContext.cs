@@ -1,6 +1,7 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 
@@ -39,9 +40,11 @@ public class QuestionnaireContext
         // Condition exists
         foreach (var condition in conditions)
         {
-            CheckConditionQuestion(condition.QuestionId);
+            var conditionId = condition.QuestionId;
+            
+            CheckConditionQuestion(conditionId);
             IDisplayableQuestion targetQuestion = Questions
-                .First(q => q.Question.Id == condition.QuestionId);
+                .First(q => q.Question.Id == conditionId);
 
             if (!targetQuestion.IsAnswered)
                 return false;
