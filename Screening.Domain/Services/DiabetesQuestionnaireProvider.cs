@@ -9,7 +9,7 @@ public class DiabetesQuestionnaireProvider(IQuestionnaireContentProvider provide
     private QuestionnaireContext? _questionnaire;
 
     private static readonly string DiabetesQuestionnaireFile =
-        "Assets.DiabetesType2-questionnaire.yaml";
+        "DiabetesType2-questionnaire.yaml";
 
     public QuestionnaireContext GetQuestionnaire()
         => _questionnaire ??= provider.Read(DiabetesQuestionnaireFile);
