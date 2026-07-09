@@ -1,5 +1,6 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 
@@ -25,4 +26,6 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
             throw new InvalidOperationException("Answer must be a whole number.");
         }
     }
+
+    public bool IsOptional => false;
 }

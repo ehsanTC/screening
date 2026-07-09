@@ -1,5 +1,6 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 
@@ -28,4 +29,6 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
             throw new InvalidOperationException("Selected options must be from the available options.");
         }
     }
+
+    public bool IsOptional => true;
 }

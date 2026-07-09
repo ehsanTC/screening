@@ -1,5 +1,6 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 
@@ -29,4 +30,5 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoice
     }
 
     public void SetAnswer(SingleChoiceAnswer answer) => Answer = answer;
+    public bool IsOptional => false;
 }
