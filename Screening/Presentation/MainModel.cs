@@ -27,6 +27,7 @@ public partial record MainModel
     public async Task GoToDiabetesQuestionnaire()
     {
         await _navigator.NavigateViewModelAsync<QuestionModel>(this, 
-            data: new QuestionnairePageRequest(QuestionnaireType.Baseline));
+            data: new QuestionnairePageRequest(QuestionnaireType.Diabetes,
+                "Next", "Save"));
     }
 }

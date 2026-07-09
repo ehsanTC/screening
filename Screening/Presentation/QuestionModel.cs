@@ -9,7 +9,6 @@ namespace Screening.Presentation;
 public partial record QuestionModel
 {
     private readonly NavigatorEngine _engine;
-    private readonly QuestionnairePageRequest _pageRequest;
 
     public IState<QuestionState> State { get; }
 
@@ -17,9 +16,8 @@ public partial record QuestionModel
     {
         ArgumentNullException.ThrowIfNull(factory);
 
-        _pageRequest = pageRequest;
-        var provider = factory.GetProvider(_pageRequest.Name);
-        _engine = new NavigatorEngine(provider.GetQuestionnaire());
+        var provider = factory.GetProvider(pageRequest.Name);
+        _engine = new NavigatorEngine(factory, pageRequest);
         State = State<QuestionState>.Value(this, () => _engine.State);
     }
 

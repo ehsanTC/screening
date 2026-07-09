@@ -1,28 +1,48 @@
 using Screening.Domain.Answers;
+using Screening.Domain.Models;
 using Screening.Domain.Questions;
+using Screening.Domain.Services.Abstraction;
 
 namespace Screening.Presentation;
     
-public class NavigatorEngine(QuestionnaireContext questionnaireContext)
+public class NavigatorEngine
 {
     private int _index;
+    private readonly string _lastPageNextButtonText;
+    private readonly string _middlePageNextButtonText;
 
-    private readonly QuestionnaireContext _questionnaire =
-        questionnaireContext ?? throw new ArgumentNullException(nameof(questionnaireContext));
+    private readonly QuestionnaireContext _questionnaire;
+
+    public NavigatorEngine(IQuestionnaireProviderFactory factory, QuestionnairePageRequest request)
+    {
+        _questionnaire = factory?.GetProvider(request.Name)?.GetQuestionnaire() 
+                ?? throw new ArgumentNullException(nameof(factory));
+        _lastPageNextButtonText = request.LastPageNextButtonText;
+        _middlePageNextButtonText = request.MiddlePageNextButtonText;
+    }
 
     public QuestionState State =>
         new (_questionnaire.Questions[_index],
             CanGoNext,
             CanGoBack,
             IsLastQuestion,
-            IsLastQuestion ? "Calculate" : "Next");
+            GetNextButtonText());
 
-    private bool CanGoNext =>
-        _questionnaire.Questions[_index].IsAnswered &&
-        (IsLastQuestion || _index < _questionnaire.Questions.Count - 1);
+    private string GetNextButtonText() => 
+        !IsLastQuestion ? _middlePageNextButtonText : _lastPageNextButtonText;
+
+    private bool CanGoNext
+    {
+        get =>
+            _questionnaire.Questions[_index] is 
+                { IsOptional: true }  or 
+                { IsOptional: false, IsAnswered: true } &&
+            (IsLastQuestion || _index < _questionnaire.Questions.Count - 1);
+    }
 
     private bool CanGoBack => _index > 0;
-    private bool IsLastQuestion => _index == _questionnaire.Questions.Count - 1;
+    private bool IsLastQuestion => 
+        _questionnaire.Questions[_index].Question.Id == _questionnaire.Questions.Count - 1;
 
     public bool TryGoNext()
     {
