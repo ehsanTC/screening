@@ -2,6 +2,7 @@ using Screening.Domain.Answers;
 using Screening.Domain.Models;
 using Screening.Domain.Questions;
 using Screening.Domain.Services.Abstraction;
+using Screening.Presentation.Dtos;
 
 namespace Screening.Presentation;
     
@@ -17,16 +18,26 @@ public class NavigatorEngine
     {
         _questionnaire = factory?.GetProvider(request.Name)?.GetQuestionnaire() 
                 ?? throw new ArgumentNullException(nameof(factory));
+        
         _lastPageNextButtonText = request.LastPageNextButtonText;
         _middlePageNextButtonText = request.MiddlePageNextButtonText;
     }
 
     public QuestionState State =>
         new (_questionnaire.Questions[_index],
+            GetProgression(),
             CanGoNext,
             CanGoBack,
             IsLastQuestion,
             GetNextButtonText());
+
+    private double GetProgression()
+    {
+        var currentQuestion = _questionnaire.Questions[_index];
+        double position = currentQuestion.Question.Id;
+        
+        return (position + 1) / _questionnaire.Questions.Count * 100;
+    }
 
     private string GetNextButtonText() => 
         !IsLastQuestion ? _middlePageNextButtonText : _lastPageNextButtonText;

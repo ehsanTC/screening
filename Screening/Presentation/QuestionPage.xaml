@@ -26,24 +26,35 @@
 
     <Grid utu:SafeArea.Insets="VisibleBounds">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />   <!-- Nav bar -->
+            <RowDefinition Height="Auto" />   <!-- Progress bar -->
+            <RowDefinition />                 <!-- Question content -->
+            <RowDefinition Height="Auto" />   <!-- Nav buttons -->
         </Grid.RowDefinitions>
 
         <utu:NavigationBar Content="Diabetes Type 2" />
 
+        <!-- Progress of question -->
+        <ProgressBar
+            Grid.Row="1"
+            Margin="16,8"
+            HorizontalAlignment="Stretch"
+            Height="30"
+            Minimum="0"
+            Maximum="100"
+            Value="{Binding State.Progression}"/>
+
         <!-- Main Question Area -->
-        <ContentControl Grid.Row="1"
+        <ContentControl Grid.Row="2"
                         Content="{Binding State.CurrentQuestion, Mode=OneWay}"
                         ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch" />
 
         <!-- Navigation Buttons -->
-        <Grid Grid.Row="2"
+        <Grid Grid.Row="3"
               Margin="16"
-              ColumnSpacing="8">
+              ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
