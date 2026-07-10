@@ -94,8 +94,7 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
-            new DataViewMap<QuestionPage, QuestionModel, QuestionnairePageRequest>(),
-            new ViewMap<AskExitDuringQuestionnairePage, AskExitDuringQuestionnaireModel>()
+            new DataViewMap<QuestionPage, QuestionModel, QuestionnairePageRequest>()
         );
 
         routes.Register(
@@ -107,8 +106,6 @@ public partial class App : Application
                         IsDefault: true),
                     new RouteMap("Questions", 
                         View: views.FindByViewModel<QuestionModel>()),
-                    new RouteMap("AskExitDuringQuestionnaire", 
-                        View: views.FindByViewModel<AskExitDuringQuestionnaireModel>())
                 ]
             )
         );
