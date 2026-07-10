@@ -4,7 +4,7 @@ namespace Screening.Presentation.Dtos;
 
 public record QuestionState(
     IDisplayableQuestion? CurrentQuestion,
-    double Progression,
+    ProgressionState Progression,
     bool CanGoNext,
     bool CanGoBack,
     bool IsLastQuestion,

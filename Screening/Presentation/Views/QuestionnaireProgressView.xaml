@@ -1,0 +1,32 @@
+﻿<UserControl
+    x:Class="Screening.Presentation.Views.QuestionnaireProgressView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    HorizontalAlignment="Stretch">
+
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />   <!-- Progress bar -->
+            <RowDefinition Height="Auto" />   <!-- steps -->
+        </Grid.RowDefinitions>
+
+        <ProgressBar
+            Grid.Row="0"
+            Margin="16,8, 16, 0"
+            HorizontalAlignment="Stretch"
+            Height="30"
+            Minimum="0"
+            Maximum="100"
+            Value="{Binding Percent}" />
+
+        <TextBlock
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            Margin="0, 0, 0, 8"
+            Text="{Binding Display}" />
+    </Grid>
+
+</UserControl>

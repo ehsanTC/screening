@@ -31,12 +31,15 @@ public class NavigatorEngine
             IsLastQuestion,
             GetNextButtonText());
 
-    private double GetProgression()
+    private ProgressionState GetProgression()
     {
         var currentQuestion = _questionnaire.Questions[_index];
-        double position = currentQuestion.Question.Id;
+        int position = currentQuestion.Question.Id;
         
-        return (position + 1) / _questionnaire.Questions.Count * 100;
+        return new ProgressionState(
+            ((double)position + 1) / _questionnaire.Questions.Count * 100,
+            position,
+            _questionnaire.Questions.Count);
     }
 
     private string GetNextButtonText() => 

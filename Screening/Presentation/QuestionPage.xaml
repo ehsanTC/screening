@@ -35,14 +35,9 @@
         <utu:NavigationBar Content="Diabetes Type 2" />
 
         <!-- Progress of question -->
-        <ProgressBar
+        <views:QuestionnaireProgressView
             Grid.Row="1"
-            Margin="16,8"
-            HorizontalAlignment="Stretch"
-            Height="30"
-            Minimum="0"
-            Maximum="100"
-            Value="{Binding State.Progression}"/>
+            DataContext="{Binding State.Progression, Mode=OneWay}" />
 
         <!-- Main Question Area -->
         <ContentControl Grid.Row="2"
