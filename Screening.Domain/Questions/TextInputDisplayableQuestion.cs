@@ -10,7 +10,12 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
     public bool IsNumeric { get; init; }
     public bool IsAnswered => !string.IsNullOrEmpty(Answer?.Text);
 
-    Answer? IDisplayableQuestion.Answer => Answer;
+    Answer? IDisplayableQuestion.Answer
+    {
+        get => Answer;
+        set => Answer = (TextAnswer)value!;
+    }
+
     public TextAnswer? Answer { get; set; }
 
     public void Validate()

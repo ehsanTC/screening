@@ -9,7 +9,11 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoice
     public required YamlQuestion Question { get; init; }
     public List<string> AvailableOptions => Question?.Options?.ToList() ?? [];
     public bool IsAnswered => !string.IsNullOrEmpty(Answer?.SelectedOption);
-    Answer? IDisplayableQuestion.Answer => Answer;
+    Answer? IDisplayableQuestion.Answer
+    {
+        get => Answer;
+        set => Answer = (SingleChoiceAnswer)value!;
+    }
 
     public SingleChoiceAnswer? Answer { get; set; }
 

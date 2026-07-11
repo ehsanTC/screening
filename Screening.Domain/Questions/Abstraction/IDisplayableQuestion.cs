@@ -7,7 +7,7 @@ public interface IDisplayableQuestion : IOptionalQuestion
 {
     public YamlQuestion  Question { get; }
     bool IsAnswered { get; }
-    Answer? Answer { get;}
+    Answer? Answer { get; set; }
     void Validate();
 }
 

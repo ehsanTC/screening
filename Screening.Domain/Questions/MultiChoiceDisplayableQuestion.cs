@@ -11,7 +11,12 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
     public List<string> AvailableOptions => Question?.Options?.ToList() ?? [];
     public bool IsAnswered => Answer?.SelectedOptions.Count > 0;
 
-    Answer? IDisplayableQuestion.Answer => Answer;
+    Answer? IDisplayableQuestion.Answer
+    {
+        get => Answer;
+        set => Answer = (MultipleChoiceAnswer)value!;
+    }
+
     public MultipleChoiceAnswer? Answer { get; set; }
 
     public void Validate()
