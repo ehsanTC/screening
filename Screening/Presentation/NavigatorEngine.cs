@@ -108,9 +108,14 @@ public class NavigatorEngine
         
         return true;
     }
-
-    public void SetAnswer(string text)
+    
+    public void UpdateAnswer(Answer answer)
     {
-        ((TextInputDisplayableQuestion) State?.CurrentQuestion).Answer = new TextAnswer(text);
+        var current = State?.CurrentQuestion;
+        
+        if (current == null)
+            return;
+        
+        current.Answer = answer;
     }
 }

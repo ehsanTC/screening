@@ -43,12 +43,10 @@ public sealed partial class MultiChoiceQuestionView : UserControl
             selectedOptions.Remove(option);
         }
 
-        question.Answer = new MultipleChoiceAnswer(selectedOptions);
-
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel vm)
         {
-            vm.Model.Publish();
+            vm.Model.UpdateAnswer(new MultipleChoiceAnswer(selectedOptions));
         }
     }
 }

@@ -1,7 +1,5 @@
+using Screening.Domain.Answers;
 using Screening.Domain.Models;
-using Screening.Domain.Questions;
-using Screening.Domain.RiskCalculator.Models;
-using Screening.Domain.Services;
 using Screening.Domain.Services.Abstraction;
 using Screening.Presentation.Dtos;
 
@@ -30,7 +28,8 @@ public partial record QuestionModel
         Publish();
     }
 
-    public void UpdateCurrentTextAnswer(string value) => Execute(() => _engine.SetAnswer(value));
+    public void UpdateAnswer(Answer answer) => 
+        Execute(() => _engine.UpdateAnswer(answer));
 
     public void Next()
     {
@@ -49,8 +48,6 @@ public partial record QuestionModel
     {
         throw new NotImplementedException();
     }
-
-    // TODO: Fix the last question. When questions ended, the Next should become "calculate"
 
     public void Back() => Execute(() => _engine.TryGoBack());
 }

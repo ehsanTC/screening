@@ -30,12 +30,10 @@ public sealed partial class SingleChoiceQuestionView : UserControl
             return;
         }
 
-        question.Answer = new SingleChoiceAnswer(option.Trim());
-
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)
         {
-            viewModel.Model.Publish();
+            viewModel.Model.UpdateAnswer(new SingleChoiceAnswer(option.Trim()));
         }
     }
 }

@@ -16,21 +16,21 @@ public sealed partial class TextInputQuestionView : UserControl
             return;
         }
 
-        question.Answer = new TextAnswer(textBox.Text);
-        ShowValidationError(question);
+        var answer = new TextAnswer(textBox.Text);
+        ShowValidationError(question, answer);
             
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)
         {
-            viewModel.Model.Publish(); 
+            viewModel.Model.UpdateAnswer(answer);
         }
     }
 
-    private void ShowValidationError(TextInputDisplayableQuestion question)
+    private void ShowValidationError(TextInputDisplayableQuestion question, TextAnswer answer)
     {
         var error = question.IsNumeric &&
-                    !string.IsNullOrWhiteSpace(question?.Answer?.Text) &&
-                    !double.TryParse(question?.Answer?.Text, out _)
+                    !string.IsNullOrWhiteSpace(answer.Text) &&
+                    !double.TryParse(answer.Text, out _)
             ? "Enter a whole number."
             : string.Empty;
 
