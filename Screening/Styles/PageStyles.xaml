@@ -4,6 +4,7 @@
     xmlns:ui="clr-namespace:Uno.Toolkit.UI;assembly=Uno.Toolkit.WinUI">
 
     <SolidColorBrush x:Key="AppPageBackgroundBrush" Color="#F2F4F7" />
+    <SolidColorBrush x:Key="AppProgressBarColor" Color="#725BF5" />
 
     <Style TargetType="Page">
         <Setter Property="Background"

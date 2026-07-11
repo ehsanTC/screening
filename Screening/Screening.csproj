@@ -42,6 +42,9 @@
 
     <ItemGroup>
         <Content Include="Assets\Icons\logo.png" />
+        <Content Include="Assets\Icons\cardiovascular.png" />
+        <Content Include="Assets\Icons\diabetes.png" />
+        <Content Include="Assets\Icons\fracture.png" />
     </ItemGroup>
 
     <ItemGroup>
