@@ -17,10 +17,11 @@
             Grid.Row="0"
             Margin="16,8, 16, 0"
             HorizontalAlignment="Stretch"
-            Height="30"
+            Height="60"
             Minimum="0"
             Maximum="100"
-            Value="{Binding Percent}" />
+            Value="{Binding Percent}">
+        </ProgressBar>
 
         <TextBlock
             Grid.Row="1"
