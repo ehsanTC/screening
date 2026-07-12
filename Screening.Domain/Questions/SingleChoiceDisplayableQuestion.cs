@@ -35,4 +35,5 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoice
 
     public void SetAnswer(SingleChoiceAnswer answer) => Answer = answer;
     public bool IsOptional => false;
+    public bool HasSaveConfigs => Question.SaveConfig != null;
 }

@@ -27,6 +27,11 @@ public class QuestionnaireSession
     {
         var currentQuestion = _questionNavigator.CurrentQuestion;
         currentQuestion.Answer = answer;
+
+        if (currentQuestion.HasSaveConfigs)
+        {
+            // Save the question response in his profile
+        }
     }
 
     public bool TryGoNext() => _questionNavigator.TryGoNext();

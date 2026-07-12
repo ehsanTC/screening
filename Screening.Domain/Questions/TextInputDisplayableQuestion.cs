@@ -33,4 +33,5 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
     }
 
     public bool IsOptional => false;
+    public bool HasSaveConfigs => Question.SaveConfig != null;
 }

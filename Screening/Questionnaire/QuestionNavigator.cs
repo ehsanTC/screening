@@ -8,7 +8,7 @@ namespace Screening.Questionnaire;
 public class QuestionNavigator
 {
     private int _index;
-    private readonly QuestionnaireContext _questionnaire;
+    private readonly Domain.Questions.Questionnaire _questionnaire;
 
     public QuestionNavigator(IQuestionnaireProviderFactory factory, QuestionnairePageRequest request)
     {

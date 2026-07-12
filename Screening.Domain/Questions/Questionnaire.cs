@@ -6,12 +6,13 @@ using Screening.Domain.Questions.Abstraction;
 namespace Screening.Domain.Questions;
 
 /// <summary>
-/// This is an engine which decides what is the next/previous question.
+/// The questionnaire model containing questions and related data. 
 /// </summary>
-public class QuestionnaireContext
+public class Questionnaire
 {
     public string? Title { get; set; }
     public IReadOnlyList<IDisplayableQuestion> Questions { get; init; } = [];
+    public float Version { get; set; }
 
     public bool ShowQuestionAtIndex(int questionIndex)
     {

@@ -9,7 +9,7 @@ public class YamlQuestionnaireContentProvider(IQuestionnaireParser parser) : IQu
     private readonly IQuestionnaireParser _parser = parser 
         ?? throw new ArgumentNullException(nameof(parser));
    
-    public QuestionnaireContext Read(string questionnaireName)
+    public Questionnaire Read(string questionnaireName)
     {
         var assembly = Assembly.GetExecutingAssembly();
         using var stream = assembly.GetManifestResourceStream(questionnaireName);
@@ -22,9 +22,10 @@ public class YamlQuestionnaireContentProvider(IQuestionnaireParser parser) : IQu
 
         var yamlQuestionnaire = _parser.Parse(text);
         
-        return new QuestionnaireContext()
+        return new Questionnaire()
         {
             Title = yamlQuestionnaire.Title,
+            Version = yamlQuestionnaire.Version,
             Questions = [..yamlQuestionnaire.Questions.Select(QuestionFactory.CreateQuestion)]
         };
     }

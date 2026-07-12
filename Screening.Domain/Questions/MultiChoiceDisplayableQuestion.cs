@@ -36,4 +36,5 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
     }
 
     public bool IsOptional => true;
+    public bool HasSaveConfigs => Question.SaveConfig != null;
 }

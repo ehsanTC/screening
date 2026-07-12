@@ -7,6 +7,9 @@ public class YamlQuestionnaire
     [YamlMember(Alias = "title")]
     public string Title { get; set; }
  
+    [YamlMember(Alias = "version")]
+    public float Version { get; set; }
+    
     [YamlMember(Alias = "questions")]
     public List<YamlQuestion> Questions { get; set; }
 }

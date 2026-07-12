@@ -4,5 +4,5 @@ namespace Screening.Domain.Services.Abstraction;
 
 public interface IQuestionnaireContentProvider
 {
-    QuestionnaireContext Read(string questionnaireName);
+    Questionnaire Read(string questionnaireName);
 }

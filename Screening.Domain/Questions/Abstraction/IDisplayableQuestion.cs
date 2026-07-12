@@ -3,7 +3,7 @@ using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questions.Abstraction;
 
-public interface IDisplayableQuestion : IOptionalQuestion
+public interface IDisplayableQuestion : IOptionalQuestion, ISavable
 {
     public YamlQuestion  Question { get; }
     bool IsAnswered { get; }

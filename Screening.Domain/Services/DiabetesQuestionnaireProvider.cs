@@ -6,11 +6,11 @@ namespace Screening.Domain.Services;
 
 public class DiabetesQuestionnaireProvider(IQuestionnaireContentProvider provider) : IQuestionnaireProvider
 {
-    private QuestionnaireContext? _questionnaire;
+    private Questionnaire? _questionnaire;
 
     private static readonly string DiabetesQuestionnaireFile =
         "DiabetesType2-questionnaire.yaml";
 
-    public QuestionnaireContext GetQuestionnaire()
+    public Questionnaire GetQuestionnaire()
         => _questionnaire ??= provider.Read(DiabetesQuestionnaireFile);
 }
