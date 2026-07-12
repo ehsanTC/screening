@@ -35,6 +35,7 @@
             Serialization;
             Localization;
             Navigation;
+            Storage;
             ThemeService;
             SkiaRenderer;
         </UnoFeatures>

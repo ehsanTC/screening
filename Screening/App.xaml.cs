@@ -29,6 +29,7 @@ public partial class App : Application
                 // Switch to Development environment when running in DEBUG
                 .UseEnvironment(Environments.Development)
 #endif
+                .UseStorage()
                 .UseLogging(configure: (context, logBuilder) =>
                 {
                     // Configure log levels for different categories of logging
