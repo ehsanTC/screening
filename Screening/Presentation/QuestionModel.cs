@@ -2,12 +2,13 @@ using Screening.Domain.Answers;
 using Screening.Domain.Models;
 using Screening.Domain.Services.Abstraction;
 using Screening.Presentation.Dtos;
+using Screening.Questionnaire;
 
 namespace Screening.Presentation;
 
 public partial record QuestionModel
 {
-    private readonly NavigatorEngine _engine;
+    private readonly QuestionnaireSession _session;
 
     public IState<QuestionState> State { get; }
 
@@ -16,11 +17,11 @@ public partial record QuestionModel
         ArgumentNullException.ThrowIfNull(factory);
 
         var provider = factory.GetProvider(pageRequest.Name);
-        _engine = new NavigatorEngine(factory, pageRequest);
-        State = State<QuestionState>.Value(this, () => _engine.State);
+        _session = new QuestionnaireSession(factory, pageRequest);
+        State = State<QuestionState>.Value(this, () => _session.State);
     }
 
-    public void Publish() => State.Update(_ => _engine.State, CancellationToken.None);
+    public void Publish() => State.Update(_ => _session.State, CancellationToken.None);
 
     private void Execute(Action command)
     {
@@ -29,18 +30,18 @@ public partial record QuestionModel
     }
 
     public void UpdateAnswer(Answer answer) => 
-        Execute(() => _engine.UpdateAnswer(answer));
+        Execute(() => _session.UpdateAnswer(answer));
 
     public void Next()
     {
-        var currentState = _engine.State;
+        var currentState = _session.State;
         if (currentState.IsLastQuestion)
         {
             Calculate();
         }
         else
         {
-            Execute(() => _engine.TryGoNext());
+            Execute(() => _session.TryGoNext());
         }
     }
 
@@ -49,5 +50,5 @@ public partial record QuestionModel
         throw new NotImplementedException();
     }
 
-    public void Back() => Execute(() => _engine.TryGoBack());
+    public void Back() => Execute(() => _session.TryGoBack());
 }
