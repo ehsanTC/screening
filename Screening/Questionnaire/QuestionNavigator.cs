@@ -17,7 +17,7 @@ public class QuestionNavigator
     }
 
     public IDisplayableQuestion CurrentQuestion => _questionnaire.Questions[_index];
-    public int Position => _index;
+    public int Index => _index;
     public int TotalSteps => _questionnaire.Questions.Count;
     
     internal bool CanGoNext
