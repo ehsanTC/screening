@@ -33,13 +33,10 @@ public class QuestionStateBuilder
 
     private ProgressionState GetProgression(QuestionNavigator navigator)
     {
-        var currentQuestion = navigator.CurrentQuestion;
-        int position = navigator.Position;
+        int position = navigator.Index + 1;
 
-        return new ProgressionState(
-            ((double)position + 1) / navigator.TotalSteps * 100,
-            position,
-            navigator.TotalSteps);
+        var percent = (double)position / navigator.TotalSteps * 100;
+        return new ProgressionState(percent, position, navigator.TotalSteps);
     }
 
     public QuestionStateBuilder SetNavigator(QuestionNavigator questionNavigator)
