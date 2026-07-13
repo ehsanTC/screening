@@ -3,6 +3,7 @@ using Screening.Domain.Models;
 using Screening.Domain.Services.Abstraction;
 using Screening.Presentation.Dtos;
 using Screening.Questionnaire;
+using Screening.Services.Profile;
 
 namespace Screening.Presentation;
 
@@ -12,12 +13,13 @@ public partial record QuestionModel
 
     public IState<QuestionState> State { get; }
 
-    public QuestionModel(IQuestionnaireProviderFactory factory, QuestionnairePageRequest pageRequest)
+    public QuestionModel(IProfileService profileService, 
+        IQuestionnaireProviderFactory factory, 
+        QuestionnairePageRequest pageRequest)
     {
         ArgumentNullException.ThrowIfNull(factory);
 
-        var provider = factory.GetProvider(pageRequest.Name);
-        _session = new QuestionnaireSession(factory, pageRequest);
+        _session = new QuestionnaireSession(factory, pageRequest, profileService);
         State = State<QuestionState>.Value(this, () => _session.State);
     }
 
@@ -34,6 +36,10 @@ public partial record QuestionModel
 
     public void Next()
     {
+        //
+        // TODO: Move the logic to _session and decide the action there
+        //
+        
         var currentState = _session.State;
         if (currentState.IsLastQuestion)
         {
