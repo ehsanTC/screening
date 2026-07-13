@@ -44,15 +44,7 @@ public partial class App : Application
                     services.AddTransient<DelegatingHandler, DebugHttpHandler>();
 #endif
                 })
-                .ConfigureServices((context, services) =>
-                {
-                    services.AddSingleton<IQuestionnaireParser, YamlQuestionnaireParser>();
-                    services.AddSingleton<IQuestionnaireProviderFactory, QuestionnaireProviderFactory>();
-                    services.AddSingleton<IQuestionnaireContentProvider, YamlQuestionnaireContentProvider>();
-                    services.AddSingleton<ISessionStorageService, SessionStorageService>();
-                    services.AddSingleton<IProfileService, ProfileService>();
-                })
-                
+                .ConfigureServices((context, services) => services.ConfigureServices())
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
                 .UseStorage()
             );
