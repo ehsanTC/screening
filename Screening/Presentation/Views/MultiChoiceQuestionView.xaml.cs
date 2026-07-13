@@ -46,7 +46,7 @@ public sealed partial class MultiChoiceQuestionView : UserControl
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel vm)
         {
-            vm.Model.UpdateAnswer(new MultipleChoiceAnswer(selectedOptions));
+            vm.Model.UpdateAnswer(new MultiOptionAnswer(selectedOptions));
         }
     }
 }

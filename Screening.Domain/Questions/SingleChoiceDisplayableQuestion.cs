@@ -4,7 +4,7 @@ using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 
-public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoiceAnswer>
+public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleOptionAnswer>
 {
     public required YamlQuestion Question { get; init; }
     public List<string> AvailableOptions => Question?.Options?.ToList() ?? [];
@@ -12,10 +12,10 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoice
     Answer? IDisplayableQuestion.Answer
     {
         get => Answer;
-        set => Answer = (SingleChoiceAnswer)value!;
+        set => Answer = (SingleOptionAnswer)value!;
     }
 
-    public SingleChoiceAnswer? Answer { get; set; }
+    public SingleOptionAnswer? Answer { get; set; }
 
     public void Validate()
     {
@@ -33,7 +33,7 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleChoice
         }
     }
 
-    public void SetAnswer(SingleChoiceAnswer answer) => Answer = answer;
+    public void SetAnswer(SingleOptionAnswer answer) => Answer = answer;
     public bool IsOptional => false;
     public bool HasSaveConfigs => Question.SaveConfig != null;
 }

@@ -33,7 +33,7 @@ public sealed partial class SingleChoiceQuestionView : UserControl
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)
         {
-            viewModel.Model.UpdateAnswer(new SingleChoiceAnswer(option.Trim()));
+            viewModel.Model.UpdateAnswer(new SingleOptionAnswer(option.Trim()));
         }
     }
 }

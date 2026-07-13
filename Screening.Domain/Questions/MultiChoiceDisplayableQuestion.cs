@@ -4,7 +4,7 @@ using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questions;
 
-public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoiceAnswer>
+public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAnswer>
 {
     public required YamlQuestion Question { get; init; }
     
@@ -14,10 +14,10 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultipleChoic
     Answer? IDisplayableQuestion.Answer
     {
         get => Answer;
-        set => Answer = (MultipleChoiceAnswer)value!;
+        set => Answer = (MultiOptionAnswer)value!;
     }
 
-    public MultipleChoiceAnswer? Answer { get; set; }
+    public MultiOptionAnswer? Answer { get; set; }
 
     public void Validate()
     {

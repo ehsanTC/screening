@@ -61,8 +61,8 @@ public class Questionnaire
         targetQuestionAnswer switch
         {
             TextAnswer answer => [answer.Text],
-            SingleChoiceAnswer answer => [answer.SelectedOption],
-            MultipleChoiceAnswer answer => answer.SelectedOptions,
+            SingleOptionAnswer answer => [answer.SelectedOption],
+            MultiOptionAnswer answer => answer.SelectedOptions,
             
             _ => null
         };
