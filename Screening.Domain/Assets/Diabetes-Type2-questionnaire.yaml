@@ -72,19 +72,3 @@ questions:
       path: "weight"
       cast: int
       unit: "kg"
-
-  - id: 9
-    text: "Which of the following do you use?"
-    type: multi_choice
-    options:
-      - Smoking
-      - Alcohol
-      - Aspirin
-
-  - id: 10
-    text: "How many cigarettes per day?"
-    type: Number
-    showIf:
-      - questionId: 9
-        operator: contains
-        value: Smoking
