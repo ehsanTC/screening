@@ -3,6 +3,7 @@ version: "1.0"
 
 questions:
   - id: 1
+    code: "age"
     text: "What is your age?"
     type: Number
     save:
@@ -10,6 +11,7 @@ questions:
       cast: "int"
 
   - id: 2
+    code: "gender"
     text: "What is your gender?"
     type: single_choice
     options:
@@ -20,6 +22,7 @@ questions:
       cast: "string"
 
   - id: 3
+    code: "gdm-macrosomia"
     text: "Have you ever had gestational diabetes OR given birth to a baby weighing 9 pounds or more?"
     type: single_choice
     showIf:
@@ -34,6 +37,7 @@ questions:
       cast: "bool"
 
   - id: 4
+    code: "diabetes-family-history"
     text: "Do you have a parent, brother, or sister with diabetes?"
     type: single_choice
     options:
@@ -41,6 +45,7 @@ questions:
       - "No"
 
   - id: 5
+    code: "on-bp-med"
     text: "Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?"
     type: single_choice
     options:
@@ -51,6 +56,7 @@ questions:
       cast: "float"
 
   - id: 6
+    code: "active-lifestyle"
     text: "Are you physically active?"
     type: single_choice
     options:
@@ -58,17 +64,19 @@ questions:
       - "No"
 
   - id: 7
-    text: "What is your height (cm)?"
+    code: "height"
+    text: "What is your height in meters?"
     type: Number
     save:
       path: "height"
-      cast: int
-      unit: "cm"
+      cast: float
+      unit: "m"
 
   - id: 8
+    code: "weight"
     text: "What is your weight (kg)?"
     type: Number
     save:
       path: "weight"
-      cast: int
+      cast: float
       unit: "kg"

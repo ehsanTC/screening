@@ -15,6 +15,7 @@ condition:
 
 questions:
   - id: 1
+    code: "age"
     text: "What is your age?"
     type: Number
     validation:
@@ -23,6 +24,7 @@ questions:
     validation_error: "Age must be between 10 and 79 years"
 
   - id: 2
+    code: "gender"
     text: "What is your gender?"
     type: single_choice
     options:
@@ -30,6 +32,7 @@ questions:
       - Male
 
   - id: 3
+    code: "race"
     text: "Select your Race/Ethnicity"
     type: single_choice
     options:
@@ -37,6 +40,7 @@ questions:
       - African American / Black
 
   - id: 4
+    code: "cholesterol"
     text: "Total Cholesterol"
     type: number
     unit_options:
@@ -44,6 +48,7 @@ questions:
       - mmol/L
 
   - id: 5
+    code: "hdl"
     text: "HDL Cholesterol"
     type: number
     unit_options:
@@ -51,11 +56,13 @@ questions:
       - mmol/L
 
   - id: 6
+    code: "sbp"
     text: "Systolic Blood Pressure (top number)"
     type: number
     unit: mmHg
 
   - id: 7
+    code: "on-bp-med"
     text: "Are you currently taking medication to treat high blood pressure?"
     type: single_choice
     options:
@@ -63,6 +70,7 @@ questions:
       - No
 
   - id: 8
+    code: "smoking"
     text: "Are you Smoking?"
     type: single_choice
     options:
@@ -70,6 +78,7 @@ questions:
       - No
 
   - id: 9
+    code: "diabetes"
     text: "Do you have a history of diabetes?"
     type: single_choice
     options:
