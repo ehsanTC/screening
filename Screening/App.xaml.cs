@@ -1,8 +1,4 @@
 using Screening.Domain.Models;
-using Screening.Domain.Services;
-using Screening.Domain.Services.Abstraction;
-using Screening.Services.FileStorage;
-using Screening.Services.Profile;
 
 namespace Screening;
 
