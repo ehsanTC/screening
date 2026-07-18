@@ -7,7 +7,7 @@ namespace Screening.Domain.Services;
 
 public class TestQuestionnaireProvider : IQuestionnaireProvider
 {
-    public Questionnaire GetQuestionnaire()
+    public QuestionnaireEntity GetQuestionnaire()
     {
         return new()
         {

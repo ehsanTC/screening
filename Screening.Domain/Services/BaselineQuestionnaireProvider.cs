@@ -6,8 +6,8 @@ namespace Screening.Domain.Services;
 
 public class BaselineQuestionnaireProvider(IQuestionnaireContentProvider provider): IQuestionnaireProvider
 {
-    private Questionnaire? _questionnaire;
+    private QuestionnaireEntity? _questionnaire;
 
     private static readonly string FileName = "Baseline.yaml";
-    public Questionnaire GetQuestionnaire() => _questionnaire ??= provider.Read(FileName);
+    public QuestionnaireEntity GetQuestionnaire() => _questionnaire ??= provider.Read(FileName);
 }

@@ -8,7 +8,7 @@ namespace Screening.Domain.Questions;
 /// <summary>
 /// The questionnaire model containing questions and related data. 
 /// </summary>
-public class Questionnaire
+public class QuestionnaireEntity
 {
     public string? Title { get; set; }
     public IReadOnlyList<IDisplayableQuestion> Questions { get; init; } = [];

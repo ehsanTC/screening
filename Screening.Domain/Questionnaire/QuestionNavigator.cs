@@ -1,19 +1,16 @@
-using Screening.Domain.Models;
 using Screening.Domain.Questions;
 using Screening.Domain.Questions.Abstraction;
-using Screening.Domain.Services.Abstraction;
 
-namespace Screening.Questionnaire;
+namespace Screening.Domain.Questionnaire;
     
 public class QuestionNavigator
 {
     private int _index;
-    private readonly Domain.Questions.Questionnaire _questionnaire;
+    private readonly QuestionnaireEntity _questionnaire;
 
-    public QuestionNavigator(IQuestionnaireProviderFactory factory, QuestionnairePageRequest request)
+    public QuestionNavigator(QuestionnaireEntity questionnaireEntity)
     {
-        _questionnaire = factory?.GetProvider(request.Name)?.GetQuestionnaire() 
-                ?? throw new ArgumentNullException(nameof(factory));
+        _questionnaire = questionnaireEntity ?? throw new ArgumentNullException(nameof(questionnaireEntity));
     }
 
     public IDisplayableQuestion CurrentQuestion => _questionnaire.Questions[_index];
@@ -26,14 +23,16 @@ public class QuestionNavigator
             _questionnaire.Questions[_index] is 
                 { IsOptional: true }  or 
                 { IsOptional: false, IsAnswered: true } &&
-            (IsLastQuestion || _index < _questionnaire.Questions.Count - 1);
+            (Finished || _index < _questionnaire.Questions.Count - 1);
     }
 
     internal bool CanGoBack => _index > 0;
 
-    internal bool IsLastQuestion => 
-        _questionnaire.Questions[_index].Question.Id == _questionnaire.Questions.Count - 1;
-    
+    internal bool Finished => 
+        _questionnaire.Questions[_index].Question.Id >= _questionnaire.Questions.Count;
+
+    public QuestionnaireEntity Questionnaire => _questionnaire;
+
     public bool TryGoNext()
     {
         CurrentQuestion?.Validate();
