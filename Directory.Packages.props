@@ -4,11 +4,13 @@
   -->
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-    <PackageVersion Include="FluentAssertions" Version="8.8.0" /> <!-- convert to 7.2.2 -->
+    <PackageVersion Include="FluentAssertions" Version="8.8.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="NUnit" Version="4.1.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="Uno.Extensions.Storage" Version="7.0.17" />
+    <PackageVersion Include="Uno.WinRT" Version="6.4.229" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="YamlDotNet" Version="17.1.0" />
   </ItemGroup>

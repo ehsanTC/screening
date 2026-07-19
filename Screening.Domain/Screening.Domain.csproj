@@ -2,13 +2,18 @@
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
+        <DefineConstants>$(DefineConstants);DISABLE_GENERATED_UNHANDLED_EXCEPTION_HANDLER</DefineConstants>
+        <BreakOnUnhandledExceptions>true</BreakOnUnhandledExceptions>
+
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Uno.Extensions.Storage" />
+        <PackageReference Include="Uno.WinRT" />
         <PackageReference Include="YamlDotNet"/>
-        
+
         <EmbeddedResource Include="Assets\Diabetes-Type2-questionnaire.yaml"
                           LogicalName="DiabetesType2-questionnaire.yaml"/>
         <EmbeddedResource Include="Assets\Baseline.yaml"
