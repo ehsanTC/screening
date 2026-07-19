@@ -8,6 +8,13 @@ public class QuestionNavigator
     private int _index;
     private readonly QuestionnaireEntity _questionnaire;
 
+    public event EventHandler<SkipEventArgs> QuestionSkipped;
+
+    protected virtual void OnQuestionSkipped(SkipEventArgs e)
+    {
+        QuestionSkipped?.Invoke(this, e);
+    }
+
     public QuestionNavigator(QuestionnaireEntity questionnaireEntity)
     {
         _questionnaire = questionnaireEntity ?? throw new ArgumentNullException(nameof(questionnaireEntity));
@@ -54,7 +61,10 @@ public class QuestionNavigator
         var skipIndex = nextIndex + 1;
 
         if (skipIndex < _questionnaire.Questions.Count)
+        {
+            OnQuestionSkipped(new SkipEventArgs(nextIndex, _questionnaire.Questions[nextIndex]));
             _index = skipIndex;
+        }
         
         return true;
     }

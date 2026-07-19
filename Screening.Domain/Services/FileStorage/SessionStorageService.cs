@@ -1,6 +1,7 @@
 using System.Text.Json;
+using Windows.Storage;
 
-namespace Screening.Services.FileStorage;
+namespace Screening.Domain.Services.FileStorage;
 
 public class SessionStorageService : ISessionStorageService
 {

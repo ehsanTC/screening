@@ -7,6 +7,6 @@ public record SingleOptionAnswer(string SelectedOption) : Answer
     public override string TypeDiscriminator => nameof(SingleOptionAnswer);
     public override void WriteProperties(Utf8JsonWriter writer, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(SelectedOption);
+        writer.WriteString(nameof(SelectedOption), SelectedOption);
     }
 }

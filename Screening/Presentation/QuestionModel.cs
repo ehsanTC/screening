@@ -1,9 +1,10 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Models;
+using Screening.Domain.Models.Dtos;
+using Screening.Domain.Questionnaire;
+using Screening.Domain.RiskCalculator;
 using Screening.Domain.Services.Abstraction;
-using Screening.Presentation.Dtos;
-using Screening.Questionnaire;
-using Screening.Services.Profile;
+using Screening.Domain.Services.Profile;
 
 namespace Screening.Presentation;
 
@@ -13,13 +14,14 @@ public partial record QuestionModel
 
     public IState<QuestionState> State { get; }
 
-    public QuestionModel(IProfileService profileService, 
-        IQuestionnaireProviderFactory factory, 
-        QuestionnairePageRequest pageRequest)
+    public QuestionModel(IProfileService profileService,
+        IQuestionnaireProviderFactory factory,
+        QuestionnairePageRequest pageRequest,
+        IRiskEvaluatorFactory riskCalculatorFactory)
     {
         ArgumentNullException.ThrowIfNull(factory);
 
-        _session = new QuestionnaireSession(factory, pageRequest, profileService);
+        _session = new QuestionnaireSession(factory, pageRequest, profileService, riskCalculatorFactory);
         State = State<QuestionState>.Value(this, () => _session.State);
     }
 
@@ -31,30 +33,9 @@ public partial record QuestionModel
         Publish();
     }
 
-    public void UpdateAnswer(Answer answer) => 
-        Execute(() => _session.UpdateAnswer(answer));
+    public void UpdateAnswer(Answer answer) => Execute(() => _session.UpdateAnswer(answer));
 
-    public void Next()
-    {
-        //
-        // TODO: Move the logic to _session and decide the action there
-        //
-        
-        var currentState = _session.State;
-        if (currentState.IsLastQuestion)
-        {
-            Calculate();
-        }
-        else
-        {
-            Execute(() => _session.TryGoNext());
-        }
-    }
+    public void Next() => Execute(() => _session.GoForward());
 
-    private void Calculate()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Back() => Execute(() => _session.TryGoBack());
+    public void Back() => Execute(() => _session.GoBackward());
 }

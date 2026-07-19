@@ -3,7 +3,7 @@ using Screening.Domain.RiskCalculator.Models;
 
 namespace Screening.Domain.RiskCalculator.Requests;
 
-public class AscvdRiskArgs : ICalculatorArg
+public class AscvdRiskInput : IRiskEvaluatorInput
 {
     public int Age { get; set; }
     public Sex Sex { get; set; }

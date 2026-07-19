@@ -35,6 +35,13 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAn
         }
     }
 
+    public void OnSkipped()
+    {
+        Answer = (MultiOptionAnswer) GetDefaultAnswer();
+    }
+
+    public Answer? GetDefaultAnswer() => new MultiOptionAnswer([]);
+
     public bool IsOptional => true;
     public bool HasSaveConfigs => Question.SaveConfig != null;
 }

@@ -1,6 +1,6 @@
 using Screening.Domain.Parser.Models;
 
-namespace Screening.Services.Profile;
+namespace Screening.Domain.Services.Profile;
 
 public interface IProfileService
 {

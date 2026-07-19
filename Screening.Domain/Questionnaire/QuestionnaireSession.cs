@@ -1,27 +1,43 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Models;
+using Screening.Domain.Models.Dtos;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.RiskCalculator;
 using Screening.Domain.Services.Abstraction;
-using Screening.Presentation.Dtos;
-using Screening.Services.Profile;
+using Screening.Domain.Services.Profile;
 
-namespace Screening.Questionnaire;
+namespace Screening.Domain.Questionnaire;
 
 public class QuestionnaireSession
 {
+    private readonly QuestionNavigator _navigator;
     private readonly IProfileService _profileService;
     private readonly QuestionnairePageRequest _pageRequest;
-    private readonly QuestionNavigator _navigator;
+    private readonly IRiskEvaluatorFactory _riskEvaluatorFactory;
 
     public QuestionnaireSession(IQuestionnaireProviderFactory factory,
         QuestionnairePageRequest pageRequest,
-        IProfileService profileService)
+        IProfileService profileService,
+        IRiskEvaluatorFactory riskEvaluatorFactory)
     {
         _pageRequest = pageRequest ?? throw new ArgumentNullException(nameof(pageRequest));
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
-        _navigator = new QuestionNavigator(factory, pageRequest);
+        _riskEvaluatorFactory = riskEvaluatorFactory ?? throw new ArgumentNullException(nameof(riskEvaluatorFactory));
+
+        var questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType)?.GetQuestionnaire()
+                            ?? throw new ArgumentNullException(nameof(factory));
+        _navigator = new QuestionNavigator(questionnaire);
+        _navigator.QuestionSkipped += OnQuestionSkipped;
 
         OnCurrentQuestionChanged();
+    }
+
+    private void OnQuestionSkipped(object? sender, SkipEventArgs e)
+    {
+        // update the answer of skipped question.
+        // Why? set default value to it, in order to be used in the calculation
+        var skippedQuestion = e.Question;
+        skippedQuestion.OnSkipped();
     }
 
     private void OnCurrentQuestionChanged()
@@ -64,13 +80,31 @@ public class QuestionnaireSession
         currentQuestion.Answer = answer;
     }
 
-    public bool TryGoNext()
+    public void GoForward()
     {
-        if (!_navigator.TryGoNext())
-            return false;
+        if (_navigator.Finished)
+        {
+            var result = Calculate();
 
+            return;
+        }
+
+        _navigator.TryGoNext();
         OnCurrentQuestionChanged();
-        return true;
+    }
+
+    private object Calculate()
+    {
+        try
+        {
+            var riskEvaluator = _riskEvaluatorFactory.Create(_pageRequest.QuestionnaireType);
+
+            return riskEvaluator?.Evaluate(_navigator.Questionnaire);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private async Task<Answer?> TryLoadCurrentQuestionAnswerAsync()
@@ -85,5 +119,5 @@ public class QuestionnaireSession
         return savedAnswer?.Value;
     }
 
-    public bool TryGoBack() => _navigator.TryGoBack();
+    public void GoBackward() => _navigator.TryGoBack();
 }

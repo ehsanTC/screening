@@ -1,12 +1,46 @@
+using Screening.Domain.Models;
+using Screening.Domain.Questionnaire;
+using Screening.Domain.Questionnaire.Abstraction;
+using Screening.Domain.Questions;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.RiskCalculator.Requests;
 
 namespace Screening.Domain.RiskCalculator;
 
-public class AscvdRiskCalculator : IRiskCalculator
+public class AscvdRiskEvaluator : IRiskEvaluator
 {
-    private double Calculate10YearAscvdRiskPercentage(
+    private readonly IRiskInputBuilder<AscvdRiskInput> _inputBuilder;
+
+    public AscvdRiskEvaluator(IRiskInputBuilder<AscvdRiskInput> inputBuilder)
+    {
+        _inputBuilder = inputBuilder ?? throw new ArgumentNullException(nameof(inputBuilder));
+    }
+
+    public QuestionnaireType QuestionnaireType => QuestionnaireType.Ascvd;
+    public RiskResult? Evaluate(QuestionnaireEntity questionnaire)
+    { 
+        var riskInput = BuildInput(questionnaire);
+        var score = Calculate10YearAscvdRiskPercentage(riskInput.Age, 
+            riskInput.Sex, riskInput.Race, riskInput.TotalCholesterolMgdl,
+            riskInput.HdlCholesterolMgdl, riskInput.SystolicBpMmHg, 
+            riskInput.OnHypertensionTreatment,
+            riskInput.IsCurrentSmoker, riskInput.HasDiabetes);
+
+        var severity = GetSeverity(score);
+        return new RiskResult(score, severity, GetMessage(severity));
+    }
+
+    private AscvdRiskInput BuildInput(QuestionnaireEntity questionnaire)
+    {
+        var reader = new QuestionnaireAnswerReader(questionnaire);
+        var input = _inputBuilder.Build(reader);
+        return input;
+    }
+
+
+    // TODO: Replace formula with new csv prevent
+    private float Calculate10YearAscvdRiskPercentage(
         int age,
         Sex sex,
         Race race,
@@ -91,18 +125,24 @@ public class AscvdRiskCalculator : IRiskCalculator
         double riskFraction = 1.0 - Math.Pow(baselineSurvival, Math.Exp(exponent));
         double riskPercentage = riskFraction * 100.0;
 
-        return Math.Max(0.1, Math.Min(99.9, riskPercentage));
+        return (float) Math.Max(0.1, Math.Min(99.9, riskPercentage));
     }
 
-    public object? Calculate(ICalculatorArg arg)
-    {
-        if (arg is not AscvdRiskArgs args)
-            return null;
-        
-        return Calculate10YearAscvdRiskPercentage(args.Age, 
-            args.Sex, args.Race, args.TotalCholesterolMgdl,
-            args.HdlCholesterolMgdl, args.SystolicBpMmHg, 
-            args.OnHypertensionTreatment,
-            args.IsCurrentSmoker, args.HasDiabetes);
-    }
+    private RiskSeverity GetSeverity(float score) =>
+        score switch
+        {
+            < 5.0F => RiskSeverity.Low,
+            < 7.5F => RiskSeverity.BorderLine,
+            < 20.0F => RiskSeverity.Medium,
+            _ => RiskSeverity.High
+        };
+
+    private string GetMessage(RiskSeverity severity) =>
+        severity switch
+        {
+            RiskSeverity.Low => "Your 10-year heart disease risk is low. Keep up healthy habits like regular exercise and a balanced diet to stay this way.",
+            RiskSeverity.BorderLine => "Your risk is borderline. Small lifestyle changes now, like better diet and more activity, can help keep your risk low.",
+            RiskSeverity.Medium => "Your risk is medium. Talk to your doctor about lifestyle changes and whether medication could help lower your risk.",
+            RiskSeverity.High => "Your risk is high. Please see your doctor soon to discuss treatment options to help protect your heart health.",
+        };
 }

@@ -9,6 +9,8 @@ public interface IDisplayableQuestion : IOptionalQuestion, ISavable
     bool IsAnswered { get; }
     Answer? Answer { get; set; }
     void Validate();
+    void OnSkipped();
+    Answer? GetDefaultAnswer();
 }
 
 public interface IDisplayableQuestion<out TAnswer> : IDisplayableQuestion 

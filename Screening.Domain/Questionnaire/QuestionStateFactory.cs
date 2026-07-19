@@ -1,6 +1,6 @@
-using Screening.Presentation.Dtos;
+using Screening.Domain.Models.Dtos;
 
-namespace Screening.Questionnaire;
+namespace Screening.Domain.Questionnaire;
 
 public class QuestionStateFactory
 {
@@ -10,13 +10,13 @@ public class QuestionStateFactory
             GetProgression(navigator),
             navigator.CanGoNext,
             navigator.CanGoBack,
-            navigator.IsLastQuestion,
+            navigator.Finished,
             GetNextButtonText(navigator, middlePageNextButtonText, lastPageNextButtonText));
 
     private string GetNextButtonText(QuestionNavigator navigator, 
         string middlePageNextButtonText,
         string lastPageNextButtonText) =>
-        !navigator.IsLastQuestion ? middlePageNextButtonText : lastPageNextButtonText;
+        !navigator.Finished ? middlePageNextButtonText : lastPageNextButtonText;
 
     private ProgressionState GetProgression(QuestionNavigator navigator)
     {

@@ -1,4 +1,4 @@
-namespace Screening.Services.FileStorage;
+namespace Screening.Domain.Services.FileStorage;
 
 public static class ApplicationFiles
 {

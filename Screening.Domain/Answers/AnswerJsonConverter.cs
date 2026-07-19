@@ -6,7 +6,7 @@ namespace Screening.Domain.Answers;
 public class AnswerJsonConverter : JsonConverter<Answer>
 {
     private const string Discriminator = "type";
-    
+
     public override void Write(Utf8JsonWriter writer, Answer value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
@@ -19,15 +19,26 @@ public class AnswerJsonConverter : JsonConverter<Answer>
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        var type = root.GetProperty(Discriminator).GetString();
-        var rawText = root.GetRawText();
+
+        if (!root.TryGetProperty(Discriminator, out var typeProp))
+            throw new JsonException($"Missing '{Discriminator}' property.");
+
+        var type = typeProp.GetString();
+        if (string.IsNullOrWhiteSpace(type))
+            throw new JsonException($"'{Discriminator}' is null or empty.");
 
         return type switch
         {
-            nameof(TextAnswer) => JsonSerializer.Deserialize<TextAnswer>(rawText, options)!,
-            nameof(SingleOptionAnswer) => JsonSerializer.Deserialize<SingleOptionAnswer>(rawText, options)!,
-            nameof(MultiOptionAnswer) => JsonSerializer.Deserialize<MultiOptionAnswer>(rawText, options)!,
-            
+            nameof(TextAnswer) => new TextAnswer(
+                root.GetProperty(nameof(TextAnswer.Text)).GetString() ?? string.Empty),
+
+            nameof(SingleOptionAnswer) => new SingleOptionAnswer(
+                root.GetProperty(nameof(SingleOptionAnswer.SelectedOption)).GetString() ?? string.Empty),
+
+            nameof(MultiOptionAnswer) => new MultiOptionAnswer(
+                root.GetProperty(nameof(MultiOptionAnswer.SelectedOptions))
+                    .Deserialize<List<string>>(options) ?? new List<string>()),
+
             _ => throw new JsonException($"Unknown answer type discriminator: '{type}'")
         };
     }

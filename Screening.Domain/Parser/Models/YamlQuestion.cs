@@ -9,6 +9,9 @@ public class YamlQuestion
     [YamlMember(Alias = "id")]
     public int Id { get; set; }
     
+    [YamlMember(Alias = "code")]
+    public string Code { get; set; }
+
     [YamlMember(Alias = "text")]
     public string Text { get; set; }
     
@@ -17,6 +20,9 @@ public class YamlQuestion
     
     [YamlMember(Alias = "options")]
     public List<string>? Options { get; set; }
+    
+    [YamlMember(Alias = "defaultAnswer")]
+    public string? DefaultAnswer  { get; set; }
     
     [YamlMember(Alias = "showIf")]
     public List<YamlCondition>? DisplayConditions { get; set; }

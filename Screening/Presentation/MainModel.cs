@@ -1,23 +1,19 @@
 using Screening.Domain.Models;
 using Screening.Domain.RiskCalculator.Models;
 using Screening.Domain.Services;
-using Screening.Domain.Services.Abstraction;
 
 namespace Screening.Presentation;
 
 public partial record MainModel
 {
     private readonly INavigator _navigator;
-    private readonly IQuestionnaireProviderFactory _questionnaireProviderFactory;
 
     public MainModel(
         IStringLocalizer localizer,
-        INavigator navigator,
-        IQuestionnaireProviderFactory  questionnaireProviderFactory)
+        INavigator navigator)
     {
         _navigator = navigator;
         Title += $"{localizer["ApplicationName"]}";
-        _questionnaireProviderFactory = questionnaireProviderFactory;
     }
 
     public string? Title { get; }
@@ -28,6 +24,12 @@ public partial record MainModel
     {
         await _navigator.NavigateViewModelAsync<QuestionModel>(this, 
             data: new QuestionnairePageRequest(QuestionnaireType.Diabetes,
+                "Next", "Calculate"));
+    }
+    public async Task GoToBaseline()
+    {
+        await _navigator.NavigateViewModelAsync<QuestionModel>(this, 
+            data: new QuestionnairePageRequest(QuestionnaireType.Baseline,
                 "Next", "Save"));
     }
 }

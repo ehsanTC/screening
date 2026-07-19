@@ -7,8 +7,13 @@ public partial class App : Application
     public App()
     {
         this.InitializeComponent();
+        this.UnhandledException += OnUnhandledException;
     }
 
+    private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        e.Handled = false;
+    }
     protected Window? MainWindow { get; private set; }
     protected IHost? Host { get; private set; }
 

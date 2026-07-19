@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Text.Json;
 using Screening.Domain.Parser.Models;
-using Screening.Services.FileStorage;
+using Screening.Domain.Services.FileStorage;
 
-namespace Screening.Services.Profile;
+namespace Screening.Domain.Services.Profile;
 
 public class ProfileService(ISessionStorageService storage) : IProfileService
 {
@@ -53,5 +53,10 @@ public class ProfileService(ISessionStorageService storage) : IProfileService
         
         _profile.TryGetValue(key, out var value);
         return value;
+    }
+
+    public SavableAnswer? Load(string key)
+    {
+        throw new NotImplementedException();
     }
 }

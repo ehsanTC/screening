@@ -16,8 +16,6 @@
         <ApplicationVersion>1</ApplicationVersion>
         <!-- Package Publisher -->
         <ApplicationPublisher>O=Screening</ApplicationPublisher>
-        <!-- Package Description -->
-        <Description>Screening powered by Uno Platform.</Description>
 
         <!--
           UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.

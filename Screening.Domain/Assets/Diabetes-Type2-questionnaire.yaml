@@ -32,6 +32,7 @@ questions:
     options:
       - "Yes"
       - "No"
+    defaultAnswer: "No"
     save:
       path: "gestational-diabetes"
       cast: "bool"

@@ -1,6 +1,6 @@
 using Screening.Domain.Questions.Abstraction;
 
-namespace Screening.Presentation.Dtos;
+namespace Screening.Domain.Models.Dtos;
 
 public record QuestionState(
     IDisplayableQuestion? CurrentQuestion,

@@ -1,5 +1,3 @@
 namespace Screening.Domain.RiskCalculator.Abstraction;
 
-public interface ICalculatorArg
-{
-}
+public interface IRiskEvaluatorInput;

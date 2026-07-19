@@ -1,6 +1,6 @@
 namespace Screening.Domain.Models;
 
 public record QuestionnairePageRequest(
-    QuestionnaireType Name,
+    QuestionnaireType QuestionnaireType,
     string MiddlePageNextButtonText,
     string LastPageNextButtonText);

@@ -32,6 +32,13 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
         }
     }
 
+    public void OnSkipped()
+    {
+        Answer = (TextAnswer) GetDefaultAnswer();
+    }
+
+    public Answer? GetDefaultAnswer() => new TextAnswer(string.Empty);
+
     public bool IsOptional => false;
     public bool HasSaveConfigs => Question.SaveConfig != null;
 }

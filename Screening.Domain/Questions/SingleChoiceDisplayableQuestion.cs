@@ -33,6 +33,13 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleOption
         }
     }
 
+    public void OnSkipped()
+    {
+        Answer = (SingleOptionAnswer) GetDefaultAnswer();
+    }
+
+    public Answer? GetDefaultAnswer() => new SingleOptionAnswer(Question.DefaultAnswer);
+
     public void SetAnswer(SingleOptionAnswer answer) => Answer = answer;
     public bool IsOptional => false;
     public bool HasSaveConfigs => Question.SaveConfig != null;
