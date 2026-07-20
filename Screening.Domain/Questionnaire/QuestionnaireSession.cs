@@ -26,6 +26,7 @@ public class QuestionnaireSession
 
         var questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType)?.GetQuestionnaire()
                             ?? throw new ArgumentNullException(nameof(factory));
+        
         _navigator = new QuestionNavigator(questionnaire);
         _navigator.QuestionSkipped += OnQuestionSkipped;
 
@@ -34,8 +35,8 @@ public class QuestionnaireSession
 
     private void OnQuestionSkipped(object? sender, SkipEventArgs e)
     {
-        // update the answer of skipped question.
-        // Why? set default value to it, in order to be used in the calculation
+        // Why update the answer of skipped question?
+        // Set default value to it, in order to be used in the calculation
         var skippedQuestion = e.Question;
         skippedQuestion.OnSkipped();
     }
