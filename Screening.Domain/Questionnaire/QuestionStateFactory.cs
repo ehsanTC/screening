@@ -10,13 +10,13 @@ public class QuestionStateFactory
             GetProgression(navigator),
             navigator.CanGoNext,
             navigator.CanGoBack,
-            navigator.Finished,
+            navigator.IsLastQuestion,
             GetNextButtonText(navigator, middlePageNextButtonText, lastPageNextButtonText));
 
     private string GetNextButtonText(QuestionNavigator navigator, 
         string middlePageNextButtonText,
         string lastPageNextButtonText) =>
-        !navigator.Finished ? middlePageNextButtonText : lastPageNextButtonText;
+        !navigator.IsLastQuestion ? middlePageNextButtonText : lastPageNextButtonText;
 
     private ProgressionState GetProgression(QuestionNavigator navigator)
     {

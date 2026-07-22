@@ -3,14 +3,14 @@ using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questionnaire;
     
-public class QuestionNavigator
+public sealed class QuestionNavigator
 {
     private int _index;
     private readonly QuestionnaireEntity _questionnaire;
 
     public event EventHandler<SkipEventArgs> QuestionSkipped;
 
-    protected virtual void OnQuestionSkipped(SkipEventArgs e)
+    private void OnQuestionSkipped(SkipEventArgs e)
     {
         QuestionSkipped?.Invoke(this, e);
     }
@@ -30,12 +30,13 @@ public class QuestionNavigator
             _questionnaire.Questions[_index] is 
                 { IsOptional: true }  or 
                 { IsOptional: false, IsAnswered: true } &&
-            (Finished || _index < _questionnaire.Questions.Count - 1);
+            (IsLastQuestion || _index < _questionnaire.Questions.Count - 1);
     }
 
     internal bool CanGoBack => _index > 0;
 
-    internal bool Finished => 
+    internal bool IsLastQuestion =>
+        // TODO: Bad idea of using question's Id
         _questionnaire.Questions[_index].Question.Id >= _questionnaire.Questions.Count;
 
     public QuestionnaireEntity Questionnaire => _questionnaire;
@@ -58,14 +59,15 @@ public class QuestionNavigator
             return true;
         }
 
+        // the next question can't be shown, so go to the next one
         var skipIndex = nextIndex + 1;
-
-        if (skipIndex < _questionnaire.Questions.Count)
-        {
-            OnQuestionSkipped(new SkipEventArgs(nextIndex, _questionnaire.Questions[nextIndex]));
-            _index = skipIndex;
-        }
         
+        if (skipIndex >= _questionnaire.Questions.Count)
+            return true;
+
+        OnQuestionSkipped(new SkipEventArgs(nextIndex, _questionnaire.Questions[nextIndex]));
+        _index = skipIndex;
+
         return true;
     }
 

@@ -9,5 +9,5 @@ namespace Screening.Domain.RiskCalculator.Abstraction;
 public interface IRiskEvaluator
 {
     QuestionnaireType QuestionnaireType { get; }
-    RiskResult? Evaluate(QuestionnaireEntity questionnaire);
+    RiskResult Evaluate(QuestionnaireEntity questionnaire);
 }
