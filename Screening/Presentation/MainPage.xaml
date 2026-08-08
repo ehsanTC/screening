@@ -13,13 +13,27 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <utu:NavigationBar Grid.Row="0"
-                           Content="{Binding Title}" />
+            Content="{Binding Title}" />
 
-        <Grid Grid.Row="1"
+        <Border
+            Grid.Row="1" CornerRadius="16"
+            Background="{ThemeResource PrimaryColor}"
+            Height="80"
+            Margin="20">
+
+            <TextBlock Grid.Row="1" Text="Select a Questionnaire"
+                       Foreground="#FFFFFF"
+                       VerticalAlignment="Center"
+                       Padding="12"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <Grid Grid.Row="2"
             VerticalAlignment="Top"
             ColumnSpacing="8"
             Margin="8"
@@ -32,7 +46,7 @@
 
             <views:DisorderCardView
                 Grid.Column="0"
-                BottomLabelText="10 Questions"
+                BottomLabelText="8 Questions"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -41,8 +55,8 @@
                 MainLabelFontFamily="Arial"
                 MainLabelForeground="#1A202C"
                 ImageSource="ms-appx:///Assets/Icons/diabetes.png"
-                ImageWidth="48"
-                ImageHeight="48"
+                ImageWidth="56"
+                ImageHeight="56"
                 ImageStretch="Uniform"
                 Command="{Binding GoToDiabetesQuestionnaire}" />
 
@@ -57,15 +71,15 @@
                 MainLabelFontFamily="Arial"
                 MainLabelForeground="#1A202C"
                 ImageSource="ms-appx:///Assets/Icons/cardiovascular.png"
-                ImageWidth="48"
-                ImageHeight="48"
+                ImageWidth="56"
+                ImageHeight="56"
                 ImageStretch="Uniform"
                 Command="{Binding GoToAscdv}" />
 
             <views:DisorderCardView
                 Grid.Column="2"
                 MainLabelText="Fracture"
-                BottomLabelText="10 Questions"
+                BottomLabelText="6 Questions"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -73,10 +87,10 @@
                 MainLabelFontFamily="Arial"
                 MainLabelForeground="#1A202C"
                 ImageSource="ms-appx:///Assets/Icons/fracture.png"
-                ImageWidth="48"
-                ImageHeight="48"
+                ImageWidth="56"
+                ImageHeight="56"
                 ImageStretch="Uniform"
-                Command="{Binding GoToDiabetesQuestionnaire}" />
+                Command="{Binding GoToFracture}" />
 
         </Grid>
     </Grid>
