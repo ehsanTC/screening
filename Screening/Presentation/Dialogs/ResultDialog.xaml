@@ -1,0 +1,45 @@
+﻿<ContentDialog
+    x:Class="Screening.Presentation.Dialogs.ResultDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Screening.Presentation.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="Wrap" FontSize="14">
+            <Run Text="Your risk score is "/>
+            <Bold>
+                <Run Text="{Binding Risk.Score}"/>
+            </Bold>
+
+            <LineBreak />
+            <LineBreak />
+
+            <Bold>
+                <Run Text="Severity: " />
+            </Bold>
+            <Run Text="{Binding Risk.Severity}"></Run>
+
+            <LineBreak />
+            <LineBreak />
+
+            <Bold>
+                <Run Text="Explanation: "></Run>
+            </Bold>
+            <LineBreak />
+
+            <Run Text="{Binding Risk.Message}"></Run>
+
+            <Run Text="🩺 For more information please consult your doctor."/>
+        </TextBlock>
+
+    </Grid>
+</ContentDialog>

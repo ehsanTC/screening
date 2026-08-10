@@ -1,11 +1,16 @@
-﻿using Screening.Domain.Answers;
+﻿using System.Globalization;
+using Screening.Domain.Answers;
 using Screening.Domain.Questions;
 using Screening.Presentation.Utility;
+using Windows.ApplicationModel.Resources;
 
 namespace Screening.Presentation.Views;
 
 public sealed partial class TextInputQuestionView : UserControl
 {
+    private static readonly ResourceLoader ResourceLoader =
+        ResourceLoader.GetForViewIndependentUse();
+    
     public TextInputQuestionView() => InitializeComponent();
 
     private void OnTextChanged(object sender, TextChangedEventArgs e)
@@ -30,8 +35,8 @@ public sealed partial class TextInputQuestionView : UserControl
     {
         var error = question.IsNumeric &&
                     !string.IsNullOrWhiteSpace(answer.Text) &&
-                    !double.TryParse(answer.Text, out _)
-            ? "Enter a whole number."
+                    !double.TryParse(answer.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out _)
+            ? ResourceLoader.GetString("TextInputQuestionView_NotANumber")
             : string.Empty;
 
         ErrorTextBlock.Text = error;

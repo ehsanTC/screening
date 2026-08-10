@@ -5,36 +5,20 @@ namespace Screening.Presentation;
 
 public partial record MainModel
 {
+    private readonly IStringLocalizer _localizer;
     private readonly INavigator _navigator;
+    
+    public string? Title { get; }
 
-    public MainModel(
-        IStringLocalizer localizer,
-        INavigator navigator)
+    public MainModel(IStringLocalizer localizer, INavigator navigator)
     {
+        _localizer = localizer;
         _navigator = navigator;
         Title += $"{localizer["ApplicationName"]}";
     }
 
-    public string? Title { get; }
-
     public IState<string> Name => State<string>.Value(this, () => string.Empty);
-    
-    public async Task GoToDiabetesQuestionnaire()
-    {
-        var result = await _navigator.NavigateViewModelForResultAsync<QuestionModel, RiskResult>(this, 
-            data: new QuestionnairePageRequest(QuestionnaireType.Diabetes,
-                "Next", "Calculate"));
 
-        if (result is { Success: true })
-        {
-            var r = result.Result.Result.SomeOrDefault();
-            Console.WriteLine(r.Score + "  " + r.Message);
-        }
-    }
-    public async Task GoToBaseline()
-    {
-        await _navigator.NavigateViewModelAsync<QuestionModel>(this, 
-            data: new QuestionnairePageRequest(QuestionnaireType.Baseline,
-                "Next", "Save"));
-    }
+    public async Task GoToDiabetes() => await ShowQuestionnaire(QuestionnaireType.Diabetes);
+    public async Task GoToAscvd() => await ShowQuestionnaire(QuestionnaireType.Ascvd);
 }

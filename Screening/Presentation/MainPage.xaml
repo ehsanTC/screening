@@ -26,7 +26,8 @@
             Height="80"
             Margin="20">
 
-            <TextBlock Grid.Row="1" Text="Select a Questionnaire"
+            <TextBlock Grid.Row="1"
+                       x:Uid="SelectQuestionnaireTextBlock"
                        Foreground="#FFFFFF"
                        VerticalAlignment="Center"
                        Padding="12"
@@ -36,21 +37,28 @@
         <Grid Grid.Row="2"
             VerticalAlignment="Top"
             ColumnSpacing="8"
+            RowSpacing="8"
             Margin="8"
             utu:SafeArea.Insets="VisibleBounds">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
             <views:DisorderCardView
                 Grid.Column="0"
-                BottomLabelText="8 Questions"
+                Grid.Row="0"
+                x:Uid="DiabetesCard"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
-                MainLabelText="Diabetes"
                 MainLabelFontSize="14"
                 MainLabelFontFamily="Arial"
                 MainLabelForeground="#1A202C"
@@ -58,12 +66,12 @@
                 ImageWidth="56"
                 ImageHeight="56"
                 ImageStretch="Uniform"
-                Command="{Binding GoToDiabetesQuestionnaire}" />
+                Command="{Binding GoToDiabetes}" />
 
             <views:DisorderCardView
                 Grid.Column="1"
-                MainLabelText="Heart"
-                BottomLabelText="10 Questions"
+                Grid.Row="0"
+                x:Uid="HeartCard"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -74,12 +82,12 @@
                 ImageWidth="56"
                 ImageHeight="56"
                 ImageStretch="Uniform"
-                Command="{Binding GoToAscdv}" />
+                Command="{Binding GoToAscvd}" />
 
             <views:DisorderCardView
                 Grid.Column="2"
-                MainLabelText="Fracture"
-                BottomLabelText="6 Questions"
+                Grid.Row="0"
+                x:Uid="FractureCard"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -89,8 +97,71 @@
                 ImageSource="ms-appx:///Assets/Icons/fracture.png"
                 ImageWidth="56"
                 ImageHeight="56"
-                ImageStretch="Uniform"
-                Command="{Binding GoToFracture}" />
+                ImageStretch="Uniform" />
+
+            <views:DisorderCardView
+                Grid.Column="0"
+                Grid.Row="1"
+                MainLabelText="Metabolic disorders"
+                BottomLabelText="7 Questions"
+                BottomLabelFontSize="12"
+                BottomLabelFontFamily="Arial"
+                BottomLabelForeground="#4A5568"
+                MainLabelFontSize="14"
+                MainLabelFontFamily="Arial"
+                MainLabelForeground="#1A202C"
+                ImageSource="ms-appx:///Assets/Icons/fracture.png"
+                ImageWidth="56"
+                ImageHeight="56"
+                ImageStretch="Uniform" />
+
+            <views:DisorderCardView
+                Grid.Column="0"
+                Grid.Row="1"
+                MainLabelText="Metabolic disorders"
+                BottomLabelText="7 Questions"
+                BottomLabelFontSize="12"
+                BottomLabelFontFamily="Arial"
+                BottomLabelForeground="#4A5568"
+                MainLabelFontSize="14"
+                MainLabelFontFamily="Arial"
+                MainLabelForeground="#1A202C"
+                ImageSource="ms-appx:///Assets/Icons/fracture.png"
+                ImageWidth="56"
+                ImageHeight="56"
+                ImageStretch="Uniform" />
+
+            <views:DisorderCardView
+                Grid.Column="1"
+                Grid.Row="1"
+                MainLabelText="Breast Cancer"
+                BottomLabelText="8 Questions"
+                BottomLabelFontSize="12"
+                BottomLabelFontFamily="Arial"
+                BottomLabelForeground="#4A5568"
+                MainLabelFontSize="14"
+                MainLabelFontFamily="Arial"
+                MainLabelForeground="#1A202C"
+                ImageSource="ms-appx:///Assets/Icons/fracture.png"
+                ImageWidth="56"
+                ImageHeight="56"
+                ImageStretch="Uniform" />
+
+            <views:DisorderCardView
+                Grid.Column="2"
+                Grid.Row="1"
+                MainLabelText="Fatty Liver"
+                BottomLabelText="5 Questions"
+                BottomLabelFontSize="12"
+                BottomLabelFontFamily="Arial"
+                BottomLabelForeground="#4A5568"
+                MainLabelFontSize="14"
+                MainLabelFontFamily="Arial"
+                MainLabelForeground="#1A202C"
+                ImageSource="ms-appx:///Assets/Icons/fracture.png"
+                ImageWidth="56"
+                ImageHeight="56"
+                ImageStretch="Uniform" />
 
         </Grid>
     </Grid>

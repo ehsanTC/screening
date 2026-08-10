@@ -6,14 +6,11 @@ public partial class App : Application
 {
     public App()
     {
+        Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en";
         this.InitializeComponent();
-        this.UnhandledException += OnUnhandledException;
     }
 
-    private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
-    {
-        e.Handled = false;
-    }
+    public static IServiceProvider Services { get; private set; } = default!;
     protected Window? MainWindow { get; private set; }
     protected IHost? Host { get; private set; }
 
@@ -45,7 +42,8 @@ public partial class App : Application
                     services.AddTransient<DelegatingHandler, DebugHttpHandler>();
 #endif
                 })
-                .ConfigureServices((context, services) => services.ConfigureServices())
+                .ConfigureServices(
+                    (context, services) => services.ConfigureServices())
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
                 .UseStorage()
             );
@@ -57,6 +55,7 @@ public partial class App : Application
         MainWindow.SetWindowIcon();
         
         Host = await builder.NavigateAsync<Shell>();
+        Services = Host.Services;
     }
 
     private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
@@ -71,7 +70,7 @@ public partial class App : Application
             new RouteMap("", View: views.FindByViewModel<ShellModel>(),
                 Nested:
                 [
-                    new("Main", 
+                    new RouteMap("Main", 
                         View: views.FindByViewModel<MainModel>(), 
                         IsDefault: true),
                     new RouteMap("Questions", 

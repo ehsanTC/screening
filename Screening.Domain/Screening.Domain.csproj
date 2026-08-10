@@ -10,15 +10,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Assets\fa\Diabetes-Type2-questionnaire.yaml">
+          <LogicalName>fa\Diabetes-Type2-questionnaire.yaml</LogicalName>
+        </EmbeddedResource>
         <PackageReference Include="Uno.Extensions.Storage" />
         <PackageReference Include="Uno.WinRT" />
         <PackageReference Include="YamlDotNet"/>
 
-        <EmbeddedResource Include="Assets\Diabetes-Type2-questionnaire.yaml"
-                          LogicalName="DiabetesType2-questionnaire.yaml"/>
-        <EmbeddedResource Include="Assets\Baseline.yaml"
-                          LogicalName="Baseline.yaml"/>
-        <EmbeddedResource Include="Assets\Ascvd-questionnaire.yaml"
-                          LogicalName="Ascvd-questionnaire.yaml"/>
+        <EmbeddedResource Include="Assets\en\Diabetes-Type2-questionnaire.yaml"
+                          LogicalName="en\Diabetes-Type2-questionnaire.yaml"/>
+
+        <EmbeddedResource Include="Assets\en\Baseline.yaml"
+                          LogicalName="en\Baseline.yaml"/>
+
+        <EmbeddedResource Include="Assets\en\Ascvd-questionnaire.yaml"
+                          LogicalName="en\Ascvd-questionnaire.yaml"/>
     </ItemGroup>
+
+    <Target Name="ValidateLocalizedAssets" BeforeTargets="BeforeBuild">
+        <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\ValidateLocalizedAssets.ps1&quot; -AssetsPath &quot;$(MSBuildProjectDirectory)\Assets&quot;" />
+    </Target>
 </Project>

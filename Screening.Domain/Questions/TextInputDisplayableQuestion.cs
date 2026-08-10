@@ -1,3 +1,4 @@
+using System.Globalization;
 using Screening.Domain.Answers;
 using Screening.Domain.Parser.Models;
 using Screening.Domain.Questions.Abstraction;
@@ -26,7 +27,9 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
         }
 
         var response = Answer?.Text;
-        if (IsNumeric && !double.TryParse(response, out _))
+        var canParse = double.TryParse(response, NumberStyles.Float, CultureInfo.InvariantCulture, out _);
+        
+        if (IsNumeric && !canParse)
         {
             throw new InvalidOperationException("Answer must be a whole number.");
         }

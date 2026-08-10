@@ -1,0 +1,104 @@
+title: "ارزیابی خطر 10 ساله بیماری قلبی عروقی آترواسکلروتیک"
+version: "1.0"
+purpose:
+ خطر حمله قلبی یا سکته مغزی را در ۱۰ سال آینده حساب می‌کند. این روش برای افراد ۴۰ تا ۷۹ ساله‌ای است که بیماری قلبی یا عروقی شناخته‌شده ندارند. فرمول آن بر اساس دستورالعمل‌های پزشکی آمریکا (ACC/AHA 2013) طراحی شده است.
+
+condition:
+  - questionId: 1
+    operator: greaterThan
+    value: 10
+  - questionId: 1
+    operator: lessThanOrEquals
+    value: 79
+
+questions:
+  - id: 1
+    code: "age"
+    text: "سن شما چقدر است؟"
+    type: Number
+    validation:
+      min: 10
+      max: 79
+    validation_error: "سن باید بین 10 تا 79 سال باشد"
+
+  - id: 2
+    code: "gender"
+    text: "جنیست خود را انتخاب کنید"
+    type: single_choice
+    options:
+      - "زن"
+      - "مرد"
+
+  - id: 3
+    code: "race"
+    text: "نژاد خود را انتخاب کنید"
+    type: single_choice
+    options:
+      - "سفید پوست"
+      - "سیاه پوست"
+
+  - id: 4
+    code: "cholesterol"
+    text: "کلسترول کل"
+    type: number
+    unit_options:
+      - mg/dL
+      - mmol/L
+
+  - id: 5
+    code: "hdl"
+    text: "HDL کلسترول"
+    type: number
+    unit_options:
+      - mg/dL
+      - mmol/L
+
+  - id: 6
+    code: "sbp"
+    text: "فشار خون سیستولیک (عدد بالایی)"
+    type: number
+    unit: mmHg
+
+  - id: 7
+    code: "on-bp-med"
+    text: "آیا فشار خون دارید؟"
+    type: single_choice
+    options:
+      - "بله"
+      - "خیر"
+
+  - id: 8
+    code: "smoking"
+    text: "آیا سیگار می‌کشید؟"
+    type: single_choice
+    options:
+      - "بله"
+      - "خیر"
+
+  - id: 9
+    code: "diabetes"
+    text: "آیا دیابت دارید؟"
+    type: single_choice
+    options:
+      - "بله"
+      - "خیر"
+
+provider_section:
+  title: "For Healthcare Provider Use Only"
+  fields:
+    - id: calculated_risk
+      text: "Calculated 10-year ASCVD risk"
+      type: number
+      unit: "%"
+    - id: risk_category
+      text: "Risk Category"
+      type: single_choice
+      options:
+        - value: low
+          text: "Low (<5%)"
+        - value: borderline
+          text: "Borderline (5–7.4%)"
+        - value: intermediate
+          text: "Intermediate (7.5–19.9%)"
+        - value: high
+          text: "High (≥20%)"

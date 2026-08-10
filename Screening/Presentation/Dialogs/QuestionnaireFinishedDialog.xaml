@@ -1,0 +1,43 @@
+﻿<ContentDialog
+    x:Class="Screening.Presentation.Dialogs.QuestionnaireFinishedDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{StaticResource AppPageBackgroundBrush}"
+    BorderThickness="1"
+    CornerRadius="16">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0" Source="/Assets/Images/questionnaire-finished.png"
+               Width="200" Height="200" Stretch="Uniform"
+               HorizontalAlignment="Center" Margin="0,0,0,16" />
+
+        <TextBlock Grid.Row="1" Text="Questionnaire Completed"
+                   FontSize="18" FontWeight="Bold"
+                   Padding="20 30 20 20"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" />
+
+        <TextBlock Grid.Row="2" Text="Your results have been saved."
+                   Foreground="#808080"
+                   FontSize="14" TextWrapping="Wrap"
+                   Padding="0 0 0 30"
+                   HorizontalAlignment="Center"
+                   />
+
+        <Button Grid.Row="3"
+                Content="OK"
+                CornerRadius="16"
+                Padding="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Stretch"
+                Click="ActionButton_Click"/>
+    </Grid>
+
+</ContentDialog>

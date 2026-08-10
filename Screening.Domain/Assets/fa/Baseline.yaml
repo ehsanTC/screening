@@ -1,0 +1,40 @@
+title: "Baseline Assessment"
+version: "1.0"
+
+questions:
+  - id: 1
+    code: "age"
+    text: "سن شما چقدر است؟"
+    type: Number
+    save:
+      path: "age"
+      cast: int
+
+  - id: 2
+    code: "gender"
+    text: "جنیست خود را انتخاب کنید"
+    type: single_choice
+    options:
+      - "زن"
+      - "مرد"
+    save:
+      path: "gender"
+      cast: string
+
+  - id: 3
+    code: "height"
+    text: "قد خود را به متر وارد کنید"
+    type: Number
+    Save:
+      path: "height"
+      cast: float
+      unit: "m"
+
+  - id: 4
+    code: "weight"
+    text: "وزن شما چند کیلوگرم است؟"
+    type: Number
+    Save:
+      path: "weight"
+      cast: float
+      unit: "kg"

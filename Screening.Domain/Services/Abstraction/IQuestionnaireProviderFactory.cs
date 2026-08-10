@@ -1,9 +1,9 @@
-using Screening.Domain.Abstractions;
 using Screening.Domain.Models;
+using Screening.Domain.Questions;
 
 namespace Screening.Domain.Services.Abstraction;
 
 public interface IQuestionnaireProviderFactory
 {
-    IQuestionnaireProvider GetProvider(QuestionnaireType questionnaire);
+    QuestionnaireEntity? GetProvider(QuestionnaireType questionnaire);
 }

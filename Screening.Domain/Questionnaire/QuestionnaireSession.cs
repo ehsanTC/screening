@@ -26,9 +26,8 @@ public class QuestionnaireSession
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         _riskEvaluatorFactory = riskEvaluatorFactory ?? throw new ArgumentNullException(nameof(riskEvaluatorFactory));
 
-        var questionnaire =
-            factory?.GetProvider(pageRequest.QuestionnaireType)?.GetQuestionnaire()
-            ?? throw new ArgumentNullException(nameof(factory));
+        var questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType) 
+                            ?? throw new ArgumentNullException(nameof(factory));
 
         _navigator = new QuestionNavigator(questionnaire);
         _navigator.QuestionSkipped += OnQuestionSkipped;

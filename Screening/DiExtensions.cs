@@ -7,6 +7,7 @@ using Screening.Domain.Services;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.FileStorage;
 using Screening.Domain.Services.Profile;
+using Screening.Presentation.Utility;
 
 namespace Screening;
 
@@ -20,7 +21,8 @@ public static class DiExtensions
         .AddSingleton<IProfileService, ProfileService>()
         .AddRiskInputBuilder()
         .AddRiskEvaluators()
-        .AddSingleton<IRiskEvaluatorFactory, RiskEvaluatorFactory>();
+        .AddSingleton<IRiskEvaluatorFactory, RiskEvaluatorFactory>()
+        .AddSingleton<ILocalizedFileNameResolver, LocalizedFileNameResolver>();
 
     private static IServiceCollection AddRiskInputBuilder(this IServiceCollection services) => services
         .AddSingleton<IRiskEvaluator, DiabetesRiskEvaluator>()

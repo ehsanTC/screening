@@ -1,10 +1,14 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
+using Windows.ApplicationModel.Resources;
 
 namespace Screening.Domain.Questionnaire;
 
 public class QuestionnaireAnswerReader
 {
+    private static readonly ResourceLoader ResourceLoader =
+        ResourceLoader.GetForViewIndependentUse();
+    
     private readonly Dictionary<string, Answer> _answersByCode;
 
     public QuestionnaireAnswerReader(Domain.Questions.QuestionnaireEntity questionnaireEntity)
@@ -41,13 +45,20 @@ public class QuestionnaireAnswerReader
         float.Parse(((TextAnswer)GetAnswer(code)).Text);
 
     public bool GetYesNo(string code) =>
-        ((SingleOptionAnswer)GetAnswer(code)).SelectedOption == "Yes";
+        ((SingleOptionAnswer)GetAnswer(code)).SelectedOption == ResourceLoader.GetString("Yes");
 
     public string GetBinarySelection(string code) => 
         ((SingleOptionAnswer)GetAnswer(code)).SelectedOption;
 
     public TEnum GetBinarySelection<TEnum>(string code) where TEnum : struct, Enum
-        => Enum.Parse<TEnum>(GetBinarySelection(code));
+    {
+        var selection = GetBinarySelection(code);
+        
+        // TODO: if the selection is farsi like "mard". the equivalent value (Male) should 
+        // be placed. The best approach is adding a OptionValue to selectionOption in the 
+        // yaml file
+        return Enum.Parse<TEnum>(selection);
+    }
 
     public TEnum GetEnum<TEnum>(string code, IReadOnlyDictionary<string, TEnum> optionMap)
         where TEnum : struct
@@ -76,7 +87,8 @@ public class QuestionnaireAnswerReader
         if (string.IsNullOrWhiteSpace(input))
             return false; // Or throw an ArgumentException
 
-        switch (input.Trim().ToLowerInvariant())
+        var lowerInvariant = input.Trim().ToLowerInvariant();
+        switch (lowerInvariant)
         {
             case "true":
             case "yes":
@@ -89,7 +101,17 @@ public class QuestionnaireAnswerReader
             case "n":
                 return false;
             default:
+            {
+                var translatedYes = ResourceLoader.GetString("Yes");
+                if (string.Equals(lowerInvariant, translatedYes, StringComparison.InvariantCultureIgnoreCase))
+                    return true;
+                
+                var translatedNo = ResourceLoader.GetString("No");
+                if (string.Equals(lowerInvariant, translatedNo, StringComparison.InvariantCultureIgnoreCase))
+                    return false;
+                
                 throw new FormatException($"String '{input}' is not a valid boolean representation.");
+            }
         }
     }
 }

@@ -1,22 +1,36 @@
-using Screening.Domain.Abstractions;
 using Screening.Domain.Models;
+using Screening.Domain.Questions;
 using Screening.Domain.Services.Abstraction;
 
 namespace Screening.Domain.Services;
 
-public class QuestionnaireProviderFactory(IQuestionnaireContentProvider provider) : IQuestionnaireProviderFactory
+public class QuestionnaireProviderFactory : IQuestionnaireProviderFactory
 {
-    private readonly IQuestionnaireContentProvider _provider = provider 
-            ?? throw new ArgumentNullException(nameof(provider));
+    private readonly ILocalizedFileNameResolver _resolver;
+    private readonly IQuestionnaireContentProvider _provider;
 
-    public IQuestionnaireProvider GetProvider(QuestionnaireType questionnaire) =>
-        questionnaire switch
+    public QuestionnaireProviderFactory(IQuestionnaireContentProvider provider,
+        ILocalizedFileNameResolver resolver)
+    {
+        _provider = provider;
+        _resolver = resolver;
+    }
+
+    public QuestionnaireEntity? GetProvider(QuestionnaireType questionnaire)
+    {
+        var questionnaireFile = questionnaire switch
         {
-            QuestionnaireType.Diabetes => new DiabetesQuestionnaireProvider(_provider),
-            QuestionnaireType.Test => new TestQuestionnaireProvider(),
-            QuestionnaireType.Baseline => new BaselineQuestionnaireProvider(_provider),
-            QuestionnaireType.Ascvd => throw new NotImplementedException(), // TODO
+            QuestionnaireType.Baseline => "Baseline.yaml",
+            QuestionnaireType.Diabetes => "Diabetes-Type2-questionnaire.yaml",
+            QuestionnaireType.Ascvd => "Ascvd-questionnaire.yaml",
 
-            _ => throw new NotImplementedException(),
+            _ => null,
         };
+     
+        if (questionnaireFile == null)
+            return null;
+        
+        var resolvedFileName = _resolver.Resolve(questionnaireFile);
+        return _provider.Read(resolvedFileName);
+    }
 }
