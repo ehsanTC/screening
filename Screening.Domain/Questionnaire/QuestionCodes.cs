@@ -16,4 +16,7 @@ public static class QuestionCodes
     public const string ActiveLifeStyle = "active-lifestyle";
     public const string Height =  "height";
     public const string Weight = "weight";
+    public const string Uacr = "uacr";
+    public const string Egfr = "egfr";
+    public const string HbA1c = "hba1c";
 }

@@ -6,14 +6,14 @@ namespace Screening.Domain.Services;
 
 public class QuestionnaireProviderFactory : IQuestionnaireProviderFactory
 {
-    private readonly ILocalizedFileNameResolver _resolver;
+    private readonly ILocalizedFileNameResolver _localizer;
     private readonly IQuestionnaireContentProvider _provider;
 
     public QuestionnaireProviderFactory(IQuestionnaireContentProvider provider,
-        ILocalizedFileNameResolver resolver)
+        ILocalizedFileNameResolver localizer)
     {
         _provider = provider;
-        _resolver = resolver;
+        _localizer = localizer;
     }
 
     public QuestionnaireEntity? GetProvider(QuestionnaireType questionnaire)
@@ -30,7 +30,7 @@ public class QuestionnaireProviderFactory : IQuestionnaireProviderFactory
         if (questionnaireFile == null)
             return null;
         
-        var resolvedFileName = _resolver.Resolve(questionnaireFile);
+        var resolvedFileName = _localizer.Resolve(questionnaireFile);
         return _provider.Read(resolvedFileName);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Screening.Domain.Answers;
+using Screening.Domain.Parser.Models;
 using Screening.Domain.Questions;
 using Screening.Presentation.Utility;
 
@@ -11,19 +12,20 @@ public sealed partial class MultiChoiceQuestionView : UserControl
     private void OnOptionLoaded(object sender, RoutedEventArgs e)
     {
         if (sender is not CheckBox checkBox ||
-            checkBox.DataContext is not string option ||
+            checkBox.DataContext is not YamlListItem option ||
             DataContext is not MultiChoiceDisplayableQuestion question)
         {
             return;
         }
 
-        checkBox.IsChecked = question.Answer?.SelectedOptions.Contains(option) == true;
+        checkBox.IsChecked = question.Answer?.SelectedOptions
+            .Any(so => so.Equals(option));
     }
 
     private void OnOptionChecked(object sender, RoutedEventArgs e)
     {
         if (sender is not CheckBox checkBox ||
-            checkBox.DataContext is not string option ||
+            checkBox.DataContext is not YamlListItem option ||
             DataContext is not MultiChoiceDisplayableQuestion question)
         {
             return;
@@ -33,13 +35,14 @@ public sealed partial class MultiChoiceQuestionView : UserControl
 
         if (checkBox.IsChecked == true)
         {
-            if (!selectedOptions.Contains(option))
+            if (!selectedOptions.Any(so => so.Text.Contains(option.Text)))
             {
                 selectedOptions.Add(option);
             }
         }
         else
         {
+            // TODO: Needs to check 
             selectedOptions.Remove(option);
         }
 

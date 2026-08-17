@@ -33,7 +33,7 @@
                           HorizontalAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <RadioButton Content="{Binding}"
+                        <RadioButton Content="{Binding Text}"
                                      GroupName="SingleChoiceOptions"
                                      Style="{StaticResource OptionButtonStyle}"
                                      Loaded="OnOptionLoaded"

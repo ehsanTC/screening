@@ -8,7 +8,7 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAn
 {
     public required YamlQuestion Question { get; init; }
     
-    public List<string> AvailableOptions => Question?.Options?.ToList() ?? [];
+    public List<YamlListItem> AvailableOptions => Question?.Options?.ToList() ?? [];
     public bool IsAnswered => Answer?.SelectedOptions.Count > 0;
 
     Answer? IDisplayableQuestion.Answer
@@ -21,7 +21,7 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAn
 
     public void Validate()
     {
-        if (!IsAnswered)
+        if (!IsOptional && !IsAnswered)
         {
             throw new InvalidOperationException("Multi choice question must have at least one selected option.");
         }
@@ -29,7 +29,7 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAn
         var options = Question.Options ?? [];
         var selectedOptions = Answer?.SelectedOptions ?? [];
         
-        if (!selectedOptions.Any(selected => options.Contains(selected, StringComparer.OrdinalIgnoreCase)))
+        if (!selectedOptions.Any(selected => options.Any(o => o == selected)))
         {
             throw new InvalidOperationException("Selected options must be from the available options.");
         }
@@ -42,6 +42,6 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAn
 
     public Answer? GetDefaultAnswer() => new MultiOptionAnswer([]);
 
-    public bool IsOptional => true;
+    public bool IsOptional => !Question?.IsRequired ?? true;
     public bool HasSaveConfigs => Question.SaveConfig != null;
 }

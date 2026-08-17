@@ -7,8 +7,8 @@ namespace Screening.Domain.Questions;
 public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleOptionAnswer>
 {
     public required YamlQuestion Question { get; init; }
-    public List<string> AvailableOptions => Question?.Options?.ToList() ?? [];
-    public bool IsAnswered => !string.IsNullOrEmpty(Answer?.SelectedOption);
+    public List<YamlListItem> AvailableOptions => Question?.Options?.ToList() ?? [];
+    public bool IsAnswered => Answer is not null;
     Answer? IDisplayableQuestion.Answer
     {
         get => Answer;
@@ -19,13 +19,13 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleOption
 
     public void Validate()
     {
-        if (!IsAnswered)
+        if (!IsOptional && !IsAnswered)
         {
             throw new InvalidOperationException("Single choice question must have a selected option.");
         }
 
         var options = Question.Options ?? [];
-        var selectedOption = Answer?.SelectedOption;
+        var selectedOption = Answer?.Item;
         
         if (!options.Contains(selectedOption!))
         {
@@ -41,6 +41,6 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleOption
     public Answer? GetDefaultAnswer() => new SingleOptionAnswer(Question.DefaultAnswer);
 
     public void SetAnswer(SingleOptionAnswer answer) => Answer = answer;
-    public bool IsOptional => false;
+    public bool IsOptional => !Question?.IsRequired ?? false;
     public bool HasSaveConfigs => Question.SaveConfig != null;
 }

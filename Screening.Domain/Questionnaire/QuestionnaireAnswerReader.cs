@@ -1,14 +1,12 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
 using Windows.ApplicationModel.Resources;
+using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Questionnaire;
 
 public class QuestionnaireAnswerReader
 {
-    private static readonly ResourceLoader ResourceLoader =
-        ResourceLoader.GetForViewIndependentUse();
-    
     private readonly Dictionary<string, Answer> _answersByCode;
 
     public QuestionnaireAnswerReader(Domain.Questions.QuestionnaireEntity questionnaireEntity)
@@ -45,11 +43,17 @@ public class QuestionnaireAnswerReader
         float.Parse(((TextAnswer)GetAnswer(code)).Text);
 
     public bool GetYesNo(string code) =>
-        ((SingleOptionAnswer)GetAnswer(code)).SelectedOption == ResourceLoader.GetString("Yes");
+        ((SingleOptionAnswer)GetAnswer(code)).Item.Value.Equals("Yes", StringComparison.OrdinalIgnoreCase);
 
     public string GetBinarySelection(string code) => 
-        ((SingleOptionAnswer)GetAnswer(code)).SelectedOption;
+        ((SingleOptionAnswer)GetAnswer(code)).Item.Value;
 
+    // public YamlListItem GetSingleItem(string code) =>
+    //     ((SingleOptionAnswer)GetAnswer(code)).Item;
+    //
+    // public List<YamlListItem> GetMultiItems(string code) =>
+    //     ((MultiOptionAnswer)GetAnswer(code)).SelectedOptions;
+    
     public TEnum GetBinarySelection<TEnum>(string code) where TEnum : struct, Enum
     {
         var selection = GetBinarySelection(code);
@@ -63,8 +67,8 @@ public class QuestionnaireAnswerReader
     public TEnum GetEnum<TEnum>(string code, IReadOnlyDictionary<string, TEnum> optionMap)
         where TEnum : struct
     {
-        var selected = ((SingleOptionAnswer)GetAnswer(code)).SelectedOption;
-        if (!optionMap.TryGetValue(selected, out var value))
+        var selected = ((SingleOptionAnswer)GetAnswer(code)).Item;
+        if (!optionMap.TryGetValue(selected.Value, out var value))
             throw new NotSupportedException(string.Concat(code, selected));
         
         return value;
@@ -77,7 +81,7 @@ public class QuestionnaireAnswerReader
             return ConvertToBool(textAnswer.Text);
         
         if (answer is SingleOptionAnswer singleOptionAnswer)
-            return ConvertToBool(singleOptionAnswer.SelectedOption);
+            return ConvertToBool(singleOptionAnswer.Item.Value);
         
         throw new NotSupportedException(string.Concat(code, answer));
     }
@@ -102,14 +106,6 @@ public class QuestionnaireAnswerReader
                 return false;
             default:
             {
-                var translatedYes = ResourceLoader.GetString("Yes");
-                if (string.Equals(lowerInvariant, translatedYes, StringComparison.InvariantCultureIgnoreCase))
-                    return true;
-                
-                var translatedNo = ResourceLoader.GetString("No");
-                if (string.Equals(lowerInvariant, translatedNo, StringComparison.InvariantCultureIgnoreCase))
-                    return false;
-                
                 throw new FormatException($"String '{input}' is not a valid boolean representation.");
             }
         }

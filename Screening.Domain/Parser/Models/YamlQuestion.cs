@@ -19,10 +19,10 @@ public class YamlQuestion
     public string Type { get; set; }
     
     [YamlMember(Alias = "options")]
-    public List<string>? Options { get; set; }
+    public List<YamlListItem>? Options { get; set; }
     
     [YamlMember(Alias = "defaultAnswer")]
-    public string? DefaultAnswer  { get; set; }
+    public YamlListItem? DefaultAnswer  { get; set; }
     
     [YamlMember(Alias = "showIf")]
     public List<YamlCondition>? DisplayConditions { get; set; }
@@ -35,4 +35,7 @@ public class YamlQuestion
     
     [YamlMember(Alias = "save")] 
     public YamlSaveConfig? SaveConfig { get; set; }
+    
+    [YamlMember(Alias = "required")]
+    public bool? IsRequired { get; set; }
 }

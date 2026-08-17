@@ -17,7 +17,7 @@ questions:
   - id: 1
     code: "age"
     text: "What is your age?"
-    type: Number
+    type: number
     validation:
       min: 10
       max: 79
@@ -28,16 +28,20 @@ questions:
     text: "What is your gender?"
     type: single_choice
     options:
-      - Female
-      - Male
+      - text: Female
+        value: Female
+      - text: Male
+        value: Male
 
   - id: 3
     code: "race"
     text: "Select your Race/Ethnicity"
     type: single_choice
     options:
-      - White
-      - African American / Black
+      - text: White
+        value: white
+      - text: African American / Black
+        value: black
 
   - id: 4
     code: "cholesterol"
@@ -62,28 +66,88 @@ questions:
     unit: mmHg
 
   - id: 7
+    code: "egfr"
+    text: "Your eGFR (mL/min/1.73 m²) value"
+    type: number
+    unit: (mL/min/1.73 m²)
+    validation:
+      min: 15
+      max: 140
+    validation_error: "eGFR must be between 15 and 140"
+
+  - id: 8
     code: "on-bp-med"
     text: "Are you currently taking medication to treat high blood pressure?"
     type: single_choice
     options:
-      - Yes
-      - No
+      - text: Yes
+        value: yes
 
-  - id: 8
+      - text: No
+        value: no
+
+  - id: 9
     code: "smoking"
     text: "Are you Smoking?"
     type: single_choice
     options:
-      - Yes
-      - No
+      - text: Yes
+        value: yes
 
-  - id: 9
+      - text: No
+        value: no
+
+  - id: 10
     code: "diabetes"
     text: "Do you have a history of diabetes?"
     type: single_choice
     options:
-      - Yes
-      - No
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+  - id: 11
+    code: "uacr"
+    text: "What is the value of your UACR (mg/g)?"
+    type: number
+    unit: (mg/g)
+    required: false
+    validation:
+      min: 0
+      max: 25000
+    validation_error: "Must enter UACR between 0 - 25000 mg/g"
+
+  - id: 12
+    code: "hba1c"
+    text: "What is the value of your HbA1c?"
+    type: number
+    required: false
+    validation:
+      min: 3
+      max: 15
+    validation_error: "Must enter a value between 3 and 15."
+
+  - id: 13
+    code: "wealth-level"
+    text: "Which best describes your financial situation?"
+    type: single_choice
+    options:
+      - text: "Comfortable"
+        value: "rich"
+
+      - text: "Getting by"
+        value: "middle"
+
+      - text: "Struggling financially"
+        value: "poor"
+
+    required: false
+    validation:
+      min: 0
+      max:
+    validation_error: "Must enter  between "
 
 provider_section:
   title: "For Healthcare Provider Use Only"

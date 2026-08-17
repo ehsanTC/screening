@@ -15,8 +15,10 @@ questions:
     text: "What is your gender?"
     type: single_choice
     options:
-      - Female
-      - Male
+      - text: Female
+        value: Female
+      - text: Male
+        value: Male
     save:
       path: "gender"
       cast: string

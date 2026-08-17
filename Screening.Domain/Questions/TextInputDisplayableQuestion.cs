@@ -21,10 +21,11 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
 
     public void Validate()
     {
+        if (IsOptional)
+            return;
+        
         if (!IsAnswered)
-        {
             throw new InvalidOperationException("Text input question must have a value.");
-        }
 
         var response = Answer?.Text;
         var canParse = double.TryParse(response, NumberStyles.Float, CultureInfo.InvariantCulture, out _);
@@ -42,6 +43,6 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
 
     public Answer? GetDefaultAnswer() => new TextAnswer(string.Empty);
 
-    public bool IsOptional => false;
+    public bool IsOptional => !Question.IsRequired ?? false;
     public bool HasSaveConfigs => Question.SaveConfig != null;
 }

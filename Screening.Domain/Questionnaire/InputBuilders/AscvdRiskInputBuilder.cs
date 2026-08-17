@@ -6,16 +6,16 @@ namespace Screening.Domain.Questionnaire.InputBuilders;
 
 public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
 {
-    private static readonly Dictionary<string, Sex> SexMap = new()
+    private static readonly Dictionary<string, Sex> SexMap = new(StringComparer.OrdinalIgnoreCase)
     {
         ["Male"] = Sex.Male,
         ["Female"] = Sex.Female
     };
 
-    private static readonly Dictionary<string, Race> RaceMap = new()
+    private static readonly Dictionary<string, Race> RaceMap = new(StringComparer.OrdinalIgnoreCase)
     {
         ["White"] = Race.White,
-        ["African American / Black"] = Race.NoneWhite
+        ["Black"] = Race.NoneWhite
     };
 
     private static readonly string[] RequiredCodes =
@@ -35,17 +35,19 @@ public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
     {
         reader.EnsureCodesPresent(RequiredCodes);
 
-        return new AscvdRiskInput
+        var ews = new AscvdRiskInput
         {
-            Age = reader.GetInt(QuestionCodes.Age),
-            Sex = reader.GetEnum(QuestionCodes.Gender, SexMap),
-            Race = reader.GetEnum(QuestionCodes.Race, RaceMap),
-            TotalCholesterolMgdl = reader.GetDouble(QuestionCodes.Cholesterol),
-            HdlCholesterolMgdl = reader.GetDouble(QuestionCodes.Hdl),
+            Age =         reader.GetInt(QuestionCodes.Age),
+            Sex =         reader.GetEnum(QuestionCodes.Gender, SexMap),
+            Race =        reader.GetEnum(QuestionCodes.Race, RaceMap),
+            HasDiabetes = reader.GetYesNo(QuestionCodes.Diabetes),
             SystolicBpMmHg = reader.GetDouble(QuestionCodes.SystolicBloodPressure),
-            OnHypertensionTreatment = reader.GetYesNo(QuestionCodes.HighBloodPressure),
             IsCurrentSmoker = reader.GetYesNo(QuestionCodes.Smoking),
-            HasDiabetes = reader.GetYesNo(QuestionCodes.Diabetes)
+            HdlCholesterolMgdl = reader.GetDouble(QuestionCodes.Hdl),
+            TotalCholesterolMgdl = reader.GetDouble(QuestionCodes.Cholesterol),
+            OnHypertensionTreatment = reader.GetYesNo(QuestionCodes.HighBloodPressure),
         };
+
+        return ews;
     }
 }

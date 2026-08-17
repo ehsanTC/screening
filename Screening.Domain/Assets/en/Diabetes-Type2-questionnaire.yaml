@@ -15,8 +15,10 @@ questions:
     text: "What is your gender?"
     type: single_choice
     options:
-      - Female
-      - Male
+      - text: Female
+        value: Female
+      - text: Male
+        value: Male
     save:
       path: "gender"
       cast: "string"
@@ -30,9 +32,16 @@ questions:
         operator: equals
         value: Female
     options:
-      - "Yes"
-      - "No"
-    defaultAnswer: "No"
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+    defaultAnswer:
+      text: No
+      value: no
+
     save:
       path: "gestational-diabetes"
       cast: "bool"
@@ -42,16 +51,22 @@ questions:
     text: "Do you have a parent, brother, or sister with diabetes?"
     type: single_choice
     options:
-      - "Yes"
-      - "No"
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
 
   - id: 5
     code: "on-bp-med"
     text: "Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?"
     type: single_choice
     options:
-      - "Yes"
-      - "No"
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
     save:
       path: "blood-pressure"
       cast: "float"
@@ -61,8 +76,11 @@ questions:
     text: "Are you physically active?"
     type: single_choice
     options:
-      - "Yes"
-      - "No"
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
 
   - id: 7
     code: "height"
