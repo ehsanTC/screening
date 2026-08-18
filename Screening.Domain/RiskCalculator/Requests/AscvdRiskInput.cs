@@ -1,17 +1,26 @@
 using Screening.Domain.RiskCalculator.Abstraction;
+using Screening.Domain.RiskCalculator.Common;
 using Screening.Domain.RiskCalculator.Models;
 
 namespace Screening.Domain.RiskCalculator.Requests;
 
 public class AscvdRiskInput : IRiskEvaluatorInput
 {
-    public int Age { get; set; }
-    public Sex Sex { get; set; }
-    public Race Race { get; set; }
-    public double TotalCholesterolMgdl { get; set; }
-    public double HdlCholesterolMgdl { get; set; }
-    public double SystolicBpMmHg { get; set; }
-    public bool OnHypertensionTreatment { get; set; }
-    public bool IsCurrentSmoker { get; set; }
-    public bool HasDiabetes { get; set; }
+    public Sex Sex { get; init; }
+    public double Age { get; init; }
+    public double TotalCholesterol { get; init; } // mg/dL
+    public double HdlCholesterol { get; init; }   // mg/dL
+    public double SystolicBp { get; init; }
+    public float HeightCm { get; set; }
+    public float WeightKg { get; set; }
+    public double Egfr { get; init; }
+    public bool Diabetic { get; init; }
+    public bool Smoker { get; init; }
+    public bool HypertensionTreated { get; init; }
+    public bool LipidLowering { get; init; }
+    public double? Uacr { get; init; }
+    public double? HbA1c { get; init; }
+    public SdiCategory? SdiCategory { get; init; }
+    
+    public double? Bmi => Utility.Bmi(HeightCm, WeightKg);
 }
