@@ -26,18 +26,12 @@ questions:
     text: "جنیست خود را انتخاب کنید"
     type: single_choice
     options:
-      - "زن"
-      - "مرد"
+      - text: "زن"
+        value: Female
+      - text: "مرد"
+        value: Male
 
   - id: 3
-    code: "race"
-    text: "نژاد خود را انتخاب کنید"
-    type: single_choice
-    options:
-      - "سفید پوست"
-      - "سیاه پوست"
-
-  - id: 4
     code: "cholesterol"
     text: "کلسترول کل"
     type: number
@@ -45,7 +39,7 @@ questions:
       - mg/dL
       - mmol/L
 
-  - id: 5
+  - id: 4
     code: "hdl"
     text: "HDL کلسترول"
     type: number
@@ -53,52 +47,105 @@ questions:
       - mg/dL
       - mmol/L
 
-  - id: 6
+  - id: 5
     code: "sbp"
     text: "فشار خون سیستولیک (عدد بالایی)"
     type: number
     unit: mmHg
 
+  - id: 6
+    code: "height"
+    text: "قد خود را به متر وارد کنید"
+    type: Number
+    save:
+      path: "height"
+      cast: float
+      unit: "m"
+
   - id: 7
+    code: "weight"
+    text: "وزن شما چند کیلوگرم است؟"
+    type: Number
+    save:
+      path: "weight"
+      cast: float
+      unit: "kg"
+
+  - id: 8
+    code: "egfr"
+    text: "مقدار eGFR خود را وارد کنید"
+    type: number
+    unit: (mL/min/1.73 m²)
+    validation:
+      min: 15
+      max: 140
+    validation_error: "eGFR باید بین 15 تا 140 باشد"
+
+  - id: 9
     code: "on-bp-med"
     text: "آیا فشار خون دارید؟"
     type: single_choice
     options:
-      - "بله"
-      - "خیر"
+      - text: "بله"
+        value: yes
 
-  - id: 8
+      - text: "خیر"
+        value: no
+
+  - id: 10
     code: "smoking"
     text: "آیا سیگار می‌کشید؟"
     type: single_choice
     options:
-      - "بله"
-      - "خیر"
+      - text: "بله"
+        value: yes
 
-  - id: 9
+      - text: "خیر"
+        value: no
+
+  - id: 11
     code: "diabetes"
     text: "آیا دیابت دارید؟"
     type: single_choice
     options:
-      - "بله"
-      - "خیر"
+      - text: "بله"
+        value: yes
 
-provider_section:
-  title: "For Healthcare Provider Use Only"
-  fields:
-    - id: calculated_risk
-      text: "Calculated 10-year ASCVD risk"
-      type: number
-      unit: "%"
-    - id: risk_category
-      text: "Risk Category"
-      type: single_choice
-      options:
-        - value: low
-          text: "Low (<5%)"
-        - value: borderline
-          text: "Borderline (5–7.4%)"
-        - value: intermediate
-          text: "Intermediate (7.5–19.9%)"
-        - value: high
-          text: "High (≥20%)"
+      - text: "خیر"
+        value: no
+
+  - id: 12
+    code: "uacr"
+    text: "مقدار UACR خود را وارد کنید"
+    type: number
+    unit: (mg/g)
+    required: false
+    validation:
+      min: 0
+      max: 25000
+    validation_error: "مقدار UACR باید بین 0 تا 25000 باشد"
+
+  - id: 13
+    code: "hba1c"
+    text: "مقدار قند سه ماهه (HbA1c) خود را وارد کنید"
+    type: number
+    required: false
+    validation:
+      min: 3
+      max: 15
+    validation_error: "مقدار قند سه ماه باید بین 3 تا 15 باشد"
+
+  - id: 14
+    code: "wealth-level"
+    text: "میزان درآمد خود را مشخص کنید"
+    type: single_choice
+    options:
+      - text: "بهره‌مند"
+        value: "rich"
+
+      - text: "متوسط"
+        value: "middle"
+
+      - text: "کم برخوردار"
+        value: "poor"
+    required: false
