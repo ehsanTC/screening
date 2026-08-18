@@ -82,6 +82,17 @@ questions:
     validation_error: "eGFR باید بین 15 تا 140 باشد"
 
   - id: 9
+    code: "on-lipid-med"
+    text: "آیا از داروهای کاهش چربی خون استفاده می‌کنید؟"
+    type: single_choice
+    options:
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
+
+  - id: 10
     code: "on-bp-med"
     text: "آیا فشار خون دارید؟"
     type: single_choice
@@ -92,7 +103,7 @@ questions:
       - text: "خیر"
         value: no
 
-  - id: 10
+  - id: 11
     code: "smoking"
     text: "آیا سیگار می‌کشید؟"
     type: single_choice
@@ -103,7 +114,7 @@ questions:
       - text: "خیر"
         value: no
 
-  - id: 11
+  - id: 12
     code: "diabetes"
     text: "آیا دیابت دارید؟"
     type: single_choice
@@ -114,7 +125,7 @@ questions:
       - text: "خیر"
         value: no
 
-  - id: 12
+  - id: 13
     code: "uacr"
     text: "مقدار UACR خود را وارد کنید"
     type: number
@@ -125,7 +136,7 @@ questions:
       max: 25000
     validation_error: "مقدار UACR باید بین 0 تا 25000 باشد"
 
-  - id: 13
+  - id: 14
     code: "hba1c"
     text: "مقدار قند سه ماهه (HbA1c) خود را وارد کنید"
     type: number
@@ -135,7 +146,7 @@ questions:
       max: 15
     validation_error: "مقدار قند سه ماه باید بین 3 تا 15 باشد"
 
-  - id: 14
+  - id: 15
     code: "wealth-level"
     text: "میزان درآمد خود را مشخص کنید"
     type: single_choice

@@ -84,6 +84,17 @@ questions:
     validation_error: "eGFR must be between 15 and 140"
 
   - id: 9
+    code: "on-lipid-med"
+    text: "Are you currently taking medication to lower lipid?"
+    type: single_choice
+    options:
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+  - id: 10
     code: "on-bp-med"
     text: "Are you currently taking medication to treat high blood pressure?"
     type: single_choice
@@ -94,7 +105,7 @@ questions:
       - text: No
         value: no
 
-  - id: 10
+  - id: 11
     code: "smoking"
     text: "Are you Smoking?"
     type: single_choice
@@ -105,7 +116,7 @@ questions:
       - text: No
         value: no
 
-  - id: 11
+  - id: 12
     code: "diabetes"
     text: "Do you have a history of diabetes?"
     type: single_choice
@@ -116,7 +127,7 @@ questions:
       - text: No
         value: no
 
-  - id: 12
+  - id: 13
     code: "uacr"
     text: "What is the value of your UACR (mg/g)?"
     type: number
@@ -127,7 +138,7 @@ questions:
       max: 25000
     validation_error: "Must enter UACR between 0 - 25000 mg/g"
 
-  - id: 13
+  - id: 14
     code: "hba1c"
     text: "What is the value of your HbA1c?"
     type: number
@@ -137,7 +148,7 @@ questions:
       max: 15
     validation_error: "Must enter a value between 3 and 15."
 
-  - id: 14
+  - id: 15
     code: "wealth-level"
     text: "Which best describes your financial situation?"
     type: single_choice
