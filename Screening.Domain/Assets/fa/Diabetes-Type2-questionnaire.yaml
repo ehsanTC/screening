@@ -15,8 +15,10 @@ questions:
     text: "جنیست خود را انتخاب کنید"
     type: single_choice
     options:
-      - "زن"
-      - "مرد"
+      - text: "زن"
+        value: Female
+      - text: "مرد"
+        value: Male
     save:
       path: "gender"
       cast: "string"
@@ -30,9 +32,16 @@ questions:
         operator: equals
         value: Female
     options:
-      - "بله"
-      - "خیر"
-    defaultAnswer: "خیر"
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
+
+    defaultAnswer:
+      text: "خیر"
+      value: no
+
     save:
       path: "gestational-diabetes"
       cast: "bool"
@@ -42,27 +51,36 @@ questions:
     text: "آیا والدین، خواهر و یا برادر شما دیابت دارند؟"
     type: single_choice
     options:
-      - "بله"
-      - "خیر"
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
 
   - id: 5
     code: "on-bp-med"
     text: "آیا فشار خون دارید؟"
     type: single_choice
     options:
-      - "بله"
-      - "خیر"
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
     save:
       path: "blood-pressure"
-      cast: bool
+      cast: "bool"
 
   - id: 6
     code: "active-lifestyle"
     text: "آیا از نظر بدنی فعال هستید؟"
     type: single_choice
     options:
-      - "بله"
-      - "خیر"
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
 
   - id: 7
     code: "height"

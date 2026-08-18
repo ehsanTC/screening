@@ -69,7 +69,7 @@ questions:
         value: no
     save:
       path: "blood-pressure"
-      cast: "float"
+      cast: "bool"
 
   - id: 6
     code: "active-lifestyle"
