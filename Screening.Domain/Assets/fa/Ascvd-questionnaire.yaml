@@ -4,10 +4,10 @@ purpose:
  خطر حمله قلبی یا سکته مغزی را در ۱۰ سال آینده حساب می‌کند. این روش برای افراد ۴۰ تا ۷۹ ساله‌ای است که بیماری قلبی یا عروقی شناخته‌شده ندارند. فرمول آن بر اساس دستورالعمل‌های پزشکی آمریکا (ACC/AHA 2013) طراحی شده است.
 
 condition:
-  - questionId: 1
+  - question_id: 1
     operator: greaterThan
     value: 10
-  - questionId: 1
+  - question_id: 1
     operator: lessThanOrEquals
     value: 79
 

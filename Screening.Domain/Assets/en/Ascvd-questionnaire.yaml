@@ -6,10 +6,10 @@ purpose:
   40–79 years without known cardiovascular disease.
 
 condition:
-  - questionId: 1
+  - question_id: 1
     operator: greaterThan
     value: 10
-  - questionId: 1
+  - question_id: 1
     operator: lessThanOrEquals
     value: 79
 
@@ -162,3 +162,164 @@ questions:
       - text: "Struggling financially"
         value: "poor"
     required: false
+
+results:
+  - value: low
+    text: "Low Risk"
+    subtitle: "<5%"
+    conditions:
+      - operator: lessThan
+        value: 5
+    description: "10-year risk is less than 5%"
+    color: "#4CAF50"
+    icon: "🟢"
+    prevention:
+      primordial:
+        - "Maintain healthy diet (Mediterranean/DASH style)"
+        - "Regular physical activity (150+ minutes/week)"
+        - "Maintain healthy weight (BMI 18.5-24.9)"
+        - "Avoid tobacco and alcohol"
+      primary:
+        - "Continue routine health screenings"
+        - "Monitor blood pressure and cholesterol annually"
+        - "Maintain healthy lifestyle habits"
+      secondary:
+        - "Not typically needed at this risk level"
+        - "Continue surveillance for risk factor changes"
+    summary: "Your 10-year ASCVD risk is {0:F1}%, which is in the low-risk category. Continue your current healthy lifestyle and routine preventive care."
+    next_steps: |
+      1. Continue your current healthy lifestyle practices
+      2. Schedule routine follow-up with your healthcare provider
+      3. Reassess risk in 3-5 years or if health status changes
+    follow_up: "Reassess risk in 3-5 years, or sooner if health status changes"
+    patient_education: |
+      • You have a low risk of heart disease in the next 10 years
+      • Continue eating a heart-healthy diet
+      • Stay physically active
+      • Don't smoke, do not use alcohol
+      • Keep up with annual check-ups
+
+  - value: borderline
+    text: "Borderline Risk"
+    subtitle: "5-7.4%"
+    conditions:
+      - operator: GreaterThanOrEquals
+        value: 5
+      - operator: LessThan
+        value: 7.4
+    description: "10-year risk is between 5% and 7.4%"
+    color: "#FFC107"
+    icon: "🟢"
+    prevention:
+      primordial:
+        - "Intensify dietary changes (Mediterranean/DASH diet)"
+        - "Increase physical activity (150-300 minutes/week)"
+        - "Achieve and maintain healthy weight"
+        - "Smoking cessation if applicable"
+        - "Stress management techniques"
+      primary:
+        - "More frequent risk factor monitoring"
+        - "Consider coronary artery calcium (CAC) scoring"
+        - "Evaluate family history of premature CVD"
+        - "Monitor blood pressure and lipids every 6 months"
+      secondary:
+        - "Not typically indicated at this risk level"
+        - "Monitor for progression to higher risk"
+    summary: "Your 10-year ASCVD risk is {0:F1}%, which is in the borderline-risk category. This is a good time to intensify lifestyle modifications and discuss risk factor management with your healthcare provider."
+    next_steps: |
+      1. Schedule an appointment with your healthcare provider to discuss risk
+      2. Consider coronary artery calcium (CAC) scoring for risk refinement
+      3. Review lifestyle modifications and set specific goals
+      4. Follow-up in 6-12 months for risk reassessment
+    follow_up: "Reassess risk in 6-12 months after implementing lifestyle changes"
+    patient_education: |
+      • Your risk is increased but still manageable
+      • Lifestyle changes are the most powerful tool at this stage
+      • Small changes can make a big difference
+      • Work with your provider on a personalized plan
+
+  - value: intermediate
+    text: "Intermediate Risk"
+    subtitle: "7.5-19.9%"
+    conditions:
+      - operator: GreaterThanOrEquals
+        value: 7.5
+      - operator: LessThan
+        value: 19.9
+    description: "10-year risk is between 7.5% and 19.9%"
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "Aggressive lifestyle modifications"
+        - "Medical nutrition therapy consultation"
+        - "Supervised exercise program if needed"
+        - "Comprehensive smoking cessation program"
+        - "Weight loss program if overweight/obese"
+      primary:
+        - "Frequent monitoring (every 3-6 months)"
+        - "Coronary artery calcium (CAC) scoring recommended"
+        - "Evaluate for additional risk enhancers"
+        - "Consider aspirin therapy (discuss with provider)"
+        - "Comprehensive metabolic panel monitoring"
+      secondary:
+        - "Not typically indicated at this risk level"
+        - "Consider cardiology consultation for complex cases"
+    summary: "Your 10-year ASCVD risk is {0:F1}%, which is in the intermediate-risk category. More aggressive prevention strategies are recommended. Consider additional testing and discuss prevention options with your provider."
+    next_steps: |
+      1. Schedule prompt appointment with your healthcare provider
+      2. Consider coronary artery calcium (CAC) scoring
+      3. Begin comprehensive lifestyle modification program
+      4. Review risk factor management options with provider
+      5. Follow-up in 3-6 months
+    follow_up: "Reassess risk in 3-6 months after starting prevention strategies"
+    patient_education: |
+      • Your risk is moderate and requires action
+      • Lifestyle changes are essential
+      • Additional testing can help refine your risk
+      • Discuss prevention options thoroughly with your provider
+      • Stay committed to your prevention plan
+
+  - value: high
+    text: "High Risk"
+    subtitle: "≥20%"
+    conditions:
+      - operator: GreaterThanOrEquals
+        value: 20
+    description: "10-year risk is 20% or higher"
+    color: "#F44336"
+    icon: "🔴"
+    prevention:
+      primordial:
+        - "Maximum lifestyle intervention"
+        - "Intensive dietary counseling with dietitian"
+        - "Supervised exercise program"
+        - "Intensive smoking cessation with pharmacotherapy support"
+        - "Comprehensive weight management program"
+        - "Stress reduction and mental health support"
+      primary:
+        - "Close monitoring every 1-3 months"
+        - "Consider coronary artery calcium (CAC) scoring"
+        - "Evaluate for aspirin therapy (discuss with provider)"
+        - "Ankle-brachial index (ABI) measurement"
+        - "hs-CRP and other inflammatory markers if indicated"
+        - "Consider cardiology consultation"
+      secondary:
+        - "Consider cardiology referral for specialized care"
+        - "Evaluate for advanced cardiovascular testing"
+        - "Discuss implantable cardioverter-defibrillator (ICD) if indicated"
+        - "Monitor for development of cardiovascular symptoms"
+    summary: "Your 10-year ASCVD risk is {0:F1}%, which is in the high-risk category. Comprehensive prevention strategies are strongly recommended. Please discuss management options with your healthcare provider."
+    next_steps: |
+      1. Schedule immediate appointment with your healthcare provider
+      2. Consider cardiology consultation
+      3. Begin intensive lifestyle modification program
+      4. Discuss all prevention options with your provider
+      5. Close monitoring with follow-up in 1-3 months
+    follow_up: "Close monitoring with reassessment in 1-3 months"
+    patient_education: |
+      • Your risk is high and requires urgent attention
+      • Intensive lifestyle modifications are critical
+      • Work closely with your healthcare team
+      • Attend all follow-up appointments
+      • Report any new symptoms immediately

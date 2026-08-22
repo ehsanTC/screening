@@ -27,8 +27,8 @@ questions:
     code: "gdm-macrosomia"
     text: "Have you ever had gestational diabetes OR given birth to a baby weighing 9 pounds or more?"
     type: single_choice
-    showIf:
-      - questionId: 2
+    show_if:
+      - question_id: 2
         operator: equals
         value: Female
     options:
@@ -38,7 +38,7 @@ questions:
       - text: No
         value: no
 
-    defaultAnswer:
+    default_answer:
       text: No
       value: no
 

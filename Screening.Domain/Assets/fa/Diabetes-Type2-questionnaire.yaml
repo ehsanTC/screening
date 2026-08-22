@@ -27,8 +27,8 @@ questions:
     code: "gdm-macrosomia"
     text: "آیا دیابت بارداری یا سابقه تولد نوزاد با وزن بیش از 4.5 کیلو داشته‌اید؟"
     type: single_choice
-    showIf:
-      - questionId: 2
+    show_if:
+      - question_id: 2
         operator: equals
         value: Female
     options:
@@ -38,7 +38,7 @@ questions:
       - text: "خیر"
         value: no
 
-    defaultAnswer:
+    default_answer:
       text: "خیر"
       value: no
 
