@@ -101,7 +101,7 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
 
     private static int GetBmiPoints(double heightCm, double weightKg)
     {
-        double bmi = Utility.Bmi(heightCm, weightKg);
+        var bmi = Utility.Bmi(heightCm, weightKg);
 
         return bmi switch
         {
