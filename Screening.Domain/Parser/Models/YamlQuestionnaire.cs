@@ -12,4 +12,7 @@ public class YamlQuestionnaire
     
     [YamlMember(Alias = "questions")]
     public List<YamlQuestion> Questions { get; set; }
+    
+    [YamlMember(Alias = "results")]
+    public List<YamlResult> Results { get; set; }
 }

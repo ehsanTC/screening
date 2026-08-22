@@ -26,6 +26,7 @@ public class YamlQuestionnaireContentProvider(IQuestionnaireParser parser) : IQu
         {
             Title = yamlQuestionnaire.Title,
             Version = yamlQuestionnaire.Version,
+            ResultCategories = yamlQuestionnaire.Results,
             Questions = [..yamlQuestionnaire.Questions.Select(QuestionFactory.CreateQuestion)]
         };
     }
