@@ -24,14 +24,14 @@ public class DiabetesRiskInputBuilder : IRiskInputBuilder<DiabetesRiskInput>
 
         var input = new DiabetesRiskInput()
         {
-            Age = reader.GetInt(QuestionCodes.Age),
+            Age = reader.GetInt(QuestionCodes.Age).Value,
             Sex = reader.GetBinarySelection<Sex>(QuestionCodes.Gender),
             HadGestationalDiabetes = reader.GetBoolean(QuestionCodes.GestationalDiabetes),
             HasFamilyHistory = reader.GetBoolean(QuestionCodes.DiabetesFamilyHistory),
             HasHighBloodPressure = reader.GetBoolean(QuestionCodes.HighBloodPressure),
             IsPhysicallyActive = reader.GetBoolean(QuestionCodes.ActiveLifeStyle),
-            HeightCm = reader.GetFloat(QuestionCodes.Height) * 100,
-            WeightKg = reader.GetInt(QuestionCodes.Weight)
+            HeightCm = reader.GetFloat(QuestionCodes.Height).Value * 100,
+            WeightKg = reader.GetInt(QuestionCodes.Weight).Value
         };
 
         return input;
