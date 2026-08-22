@@ -5,5 +5,6 @@ public enum RiskSeverity
     Low,
     BorderLine,
     Medium,
-    High
+    High,
+    Unknown
 }

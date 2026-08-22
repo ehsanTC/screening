@@ -1,4 +1,6 @@
+using Screening.Domain.Extensions;
 using Screening.Domain.Models;
+using Screening.Domain.Parser.Models;
 using Screening.Domain.Questionnaire;
 using Screening.Domain.Questionnaire.Abstraction;
 using Screening.Domain.Questions;
@@ -11,24 +13,34 @@ namespace Screening.Domain.RiskCalculator;
 public class AscvdRiskEvaluator : IRiskEvaluator
 {
     private readonly IRiskInputBuilder<AscvdRiskInput> _inputBuilder;
+    private IReadOnlyDictionary<(PreventModel, Sex, Outcome), PreventCoefficients> _coeffs;
 
     public AscvdRiskEvaluator(IRiskInputBuilder<AscvdRiskInput> inputBuilder)
     {
+        _coeffs = PreventCoefficientTable.Data;
         _inputBuilder = inputBuilder ?? throw new ArgumentNullException(nameof(inputBuilder));
     }
 
     public QuestionnaireType QuestionnaireType => QuestionnaireType.Ascvd;
-    public RiskResult? Evaluate(QuestionnaireEntity questionnaire)
-    { 
-        var riskInput = BuildInput(questionnaire);
-        var score = Calculate10YearAscvdRiskPercentage(riskInput.Age, 
-            riskInput.Sex, riskInput.Race, riskInput.TotalCholesterolMgdl,
-            riskInput.HdlCholesterolMgdl, riskInput.SystolicBpMmHg, 
-            riskInput.OnHypertensionTreatment,
-            riskInput.IsCurrentSmoker, riskInput.HasDiabetes);
 
-        var severity = GetSeverity(score);
-        return new RiskResult(score, severity, GetMessage(severity));
+    public RiskResult? Evaluate(QuestionnaireEntity questionnaire)
+    {
+        var riskInput = BuildInput(questionnaire);
+        var score = Calculate(riskInput);
+        
+        if (score == null)
+            return null;
+        
+        var ascvd10YearScore = (float) score.Ascvd10Yr;
+        var scoreCategory = questionnaire.GetCategory(ascvd10YearScore);
+        
+        if (scoreCategory == null)
+            return null;
+        
+        var severity = scoreCategory.GetSeverity();
+        return new RiskResult(ascvd10YearScore, 
+            severity, 
+            GetMessage(scoreCategory, ascvd10YearScore));
     }
 
     private AscvdRiskInput BuildInput(QuestionnaireEntity questionnaire)
@@ -38,111 +50,164 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         return input;
     }
 
-
-    // TODO: Replace formula with new csv prevent
-    private float Calculate10YearAscvdRiskPercentage(
-        int age,
-        Sex sex,
-        Race race,
-        double totalCholesterol_mgdl,
-        double hdlCholesterol_mgdl,
-        double systolicBP_mmHg,
-        bool onHypertensionTreatment,
-        bool isCurrentSmoker,
-        bool hasDiabetes)
+    private HeartRiskResult? Calculate(AscvdRiskInput input)
     {
-        if (age is < 40 or > 79)
-            throw new ArgumentException("Age must be 40–79 years");
+        // 2. Validate core inputs
+        if (input.Age is < 30 or > 79) return null;
+        if (input.TotalCholesterol is < 130 or > 320) return null;
+        if (input.HdlCholesterol is < 20 or > 100) return null;
+        if (input.SystolicBp is < 9 or > 20) return null;
+        if (input.Egfr <= 0) return null;
 
-        double lnAge = Math.Log(age);
-        double lnTC = Math.Log(totalCholesterol_mgdl);
-        double lnHDL = Math.Log(hdlCholesterol_mgdl);
-        double lnSBP = Math.Log(systolicBP_mmHg);
+        input.SystolicBp *= 10;
+        bool validForHf = input.Bmi is >= 18.5 and < 40;
 
-        double individualSum = 0.0;
-        double meanSum = 0.0;
-        double baselineSurvival = 0.0;
+        // 3. Determine model (exact AHA logic)
+        bool hasUacr = input.Uacr.HasValue;
+        bool hasHbA1c = input.HbA1c.HasValue;
+        bool hasSdi = input.SdiCategory.HasValue;
+        int optionalCount = (hasUacr ? 1 : 0) + (hasHbA1c ? 1 : 0) + (hasSdi ? 1 : 0);
 
-        bool isAfricanAmerican = race == Race.NoneWhite;
+        PreventModel model;
 
-        if (sex == Sex.Male)
+        if (optionalCount >= 2)
         {
-            // White and African American males use identical variable coefficients
-            individualSum =
-                12.344 * lnAge +
-                11.853 * lnTC -
-                2.664 * lnAge * lnTC -
-                7.990 * lnHDL +
-                1.769 * lnAge * lnHDL +
-                (onHypertensionTreatment ? 1.797 : 13.872) * lnSBP +
-                (onHypertensionTreatment ? 0 : -3.010) * lnAge * lnSBP +
-                7.837 * (isCurrentSmoker ? 1 : 0) -
-                1.795 * (isCurrentSmoker ? lnAge : 0) +
-                0.658 * (hasDiabetes ? 1 : 0);
-
-            meanSum = isAfricanAmerican ? 61.7646 : 61.18;
-            baselineSurvival = isAfricanAmerican ? 0.8954 : 0.9144;
+            model = PreventModel.Full;
         }
-        else // Female
+        else if (hasUacr)
         {
-            if (isAfricanAmerican)
-            {
-                individualSum =
-                    17.114 * lnAge +
-                    0.940 * lnTC -
-                    18.920 * lnHDL +
-                    4.475 * lnAge * lnHDL +
-                    (onHypertensionTreatment ? 29.291 * lnSBP - 6.432 * lnAge * lnSBP :
-                                               27.820 * lnSBP - 6.087 * lnAge * lnSBP) +
-                    0.691 * (isCurrentSmoker ? 1 : 0) +
-                    0.874 * (hasDiabetes ? 1 : 0);
-
-                meanSum = 86.61;
-                baselineSurvival = 0.9533;
-            }
-            else // White female
-            {
-                double lnAgeSquared = lnAge * lnAge;
-
-                individualSum =
-                    -29.799 * lnAge +
-                    4.884 * lnAgeSquared +
-                    13.540 * lnTC -
-                    3.114 * lnAge * lnTC -
-                    13.578 * lnHDL +
-                    3.149 * lnAge * lnHDL +
-                    (onHypertensionTreatment ? 2.019 : 1.957) * lnSBP +
-                    7.574 * (isCurrentSmoker ? 1 : 0) -
-                    1.665 * (isCurrentSmoker ? lnAge : 0) +
-                    0.661 * (hasDiabetes ? 1 : 0);
-
-                meanSum = -29.18;
-                baselineSurvival = 0.9665;
-            }
+            model = PreventModel.Uacr;
+        }
+        else if (hasHbA1c)
+        {
+            model = PreventModel.HbA1c;
+        }
+        else if (hasSdi)
+        {
+            model = PreventModel.Sdi;
+        }
+        else
+        {
+            model = PreventModel.Base;
         }
 
-        double exponent = individualSum - meanSum;
-        double riskFraction = 1.0 - Math.Pow(baselineSurvival, Math.Exp(exponent));
-        double riskPercentage = riskFraction * 100.0;
+        // 4. Transform inputs
+        double ageC = (input.Age - 55) / 10.0;
+        double nonHdlC = ToMmol(input.TotalCholesterol - input.HdlCholesterol) - 3.5;
+        double hdlC = (ToMmol(input.HdlCholesterol) - 1.3) / 0.3;
+        double sbpMinC = (Math.Min(input.SystolicBp, 110) - 110) / 20.0;
+        double sbpMaxC = (Math.Max(input.SystolicBp, 110) - 130) / 20.0;
+        double egfrMinC = (Math.Min(input.Egfr, 60) - 60) / -15.0;
+        double egfrMaxC = (Math.Max(input.Egfr, 60) - 90) / -15.0;
 
-        return (float) Math.Max(0.1, Math.Min(99.9, riskPercentage));
+        double bmiForCalc = input.Bmi ?? 0;
+        double bmiMinC = input.Bmi.HasValue ? (Math.Min(bmiForCalc, 30) - 25) / 5.0 : 0;
+        double bmiMaxC = input.Bmi.HasValue ? (Math.Max(bmiForCalc, 30) - 30) / 5.0 : 0;
+
+        double? sdiCat = input.SdiCategory.HasValue ? (double)input.SdiCategory.Value : (double?)null;
+
+        double dm = input.Diabetic ? 1 : 0;
+        double smk = input.Smoker ? 1 : 0;
+        double bpTreat = input.HypertensionTreated ? 1 : 0;
+        double statin = input.LipidLowering ? 1 : 0;
+
+        // 5. Calculate outcomes
+        var outcomes = new[]
+        {
+            Outcome.TenYearCvd, Outcome.TenYearAscvd, Outcome.TenYearHf,
+            Outcome.ThirtyYearCvd, Outcome.ThirtyYearAscvd, Outcome.ThirtyYearHf
+        };
+
+        var result = new Dictionary<Outcome, double>();
+
+        foreach (var outcome in outcomes)
+        {
+            var c = _coeffs[(model, input.Sex, outcome)];
+
+            // --- Base linear predictor ---
+            double sum =
+                c.Intercept +
+                c.Age * ageC +
+                c.AgeSq * Math.Pow(ageC, 2) + // only nonzero in 30yr models
+                c.NonHdl * nonHdlC +
+                c.Hdl * hdlC +
+                c.SbpMin * sbpMinC +
+                c.SbpMax * sbpMaxC +
+                c.Dm * dm +
+                c.Smk * smk +
+                c.EgfrMin * egfrMinC +
+                c.EgfrMax * egfrMaxC +
+                c.BpTreat * bpTreat +
+                c.Statin * statin +
+                c.BpTreatSbp * bpTreat * sbpMaxC +
+                c.StatinNonHdl * statin * nonHdlC +
+                c.AgeNonHdl * ageC * nonHdlC +
+                c.AgeHdl * ageC * hdlC +
+                c.AgeSbp * ageC * sbpMaxC +
+                c.AgeDm * ageC * dm +
+                c.AgeSmk * ageC * smk +
+                c.AgeEgfr * ageC * egfrMinC;
+
+            // --- BMI terms (HF only; coefficients are 0 for CVD/ASCVD) ---
+            sum +=
+                c.BmiMin * bmiMinC +
+                c.BmiMax * bmiMaxC +
+                c.AgeBmi * ageC * bmiMaxC;
+
+            // --- Optional terms: SDI ---
+            if (sdiCat.HasValue)
+            {
+                double cat = sdiCat.Value;
+                sum += c.SdiC1 * (2 - cat) * cat + c.SdiC2 * (cat - 1) * (0.5 * cat);
+            }
+            else
+            {
+                sum += c.SdiMiss;
+            }
+
+            // --- Optional terms: UACR ---
+            if (input.Uacr.HasValue)
+            {
+                sum += c.UacrCoef * Math.Log(AdjustUacr(input.Uacr.Value));
+            }
+            else
+            {
+                sum += c.UacrMiss;
+            }
+
+            // --- Optional terms: HbA1c ---
+            if (input.HbA1c.HasValue)
+            {
+                double val = input.HbA1c.Value - 5.3;
+                sum += c.HbA1cC1 * val * dm + c.HbA1cC2 * val * (1 - dm);
+            }
+            else
+            {
+                sum += c.HbA1cMiss;
+            }
+
+            double expSum = Math.Exp(sum);
+            result[outcome] = 100 * expSum / (1 + expSum);
+        }
+
+        bool over59 = input.Age > 59;
+
+        return new HeartRiskResult
+        {
+            Cvd10Yr   = result[Outcome.TenYearCvd],
+            Ascvd10Yr = result[Outcome.TenYearAscvd],
+            Hf10Yr    = !validForHf ? null : result[Outcome.TenYearHf],
+            Cvd30Yr   = over59 ? null : result[Outcome.ThirtyYearCvd],
+            Ascvd30Yr = over59 ? null : result[Outcome.ThirtyYearAscvd],
+            Hf30Yr    = (over59 || !validForHf) ? null : result[Outcome.ThirtyYearHf]
+        };
     }
 
-    private RiskSeverity GetSeverity(float score) =>
-        score switch
-        {
-            < 5.0F => RiskSeverity.Low,
-            < 7.5F => RiskSeverity.BorderLine,
-            < 20.0F => RiskSeverity.Medium,
-            _ => RiskSeverity.High
-        };
+    private string GetMessage(YamlResult category, double score) =>
+        $"{string.Format(category.Summary, score)}{Environment.NewLine}{category.NextSteps}";
 
-    private string GetMessage(RiskSeverity severity) =>
-        severity switch
-        {
-            RiskSeverity.Low => "Your 10-year heart disease risk is low. Keep up healthy habits like regular exercise and a balanced diet to stay this way.",
-            RiskSeverity.BorderLine => "Your risk is borderline. Small lifestyle changes now, like better diet and more activity, can help keep your risk low.",
-            RiskSeverity.Medium => "Your risk is medium. Talk to your doctor about lifestyle changes and whether medication could help lower your risk.",
-            RiskSeverity.High => "Your risk is high. Please see your doctor soon to discuss treatment options to help protect your heart health.",
-        };
+    private static double ToMmol(double mgPerDl) => 0.02586 * mgPerDl;
+
+    private static double AdjustUacr(double uacr) =>
+        uacr >= 0.1 ? uacr : uacr >= 0 ? 0.1 : uacr;
 }

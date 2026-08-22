@@ -12,20 +12,21 @@ public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
         ["Female"] = Sex.Female
     };
 
-    private static readonly Dictionary<string, Race> RaceMap = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly Dictionary<string, SdiCategory> WealthCategory = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["White"] = Race.White,
-        ["Black"] = Race.NoneWhite
+        ["Rich"] = SdiCategory.LeastDeprived,
+        ["Middle"] = SdiCategory.Middle,
+        ["Poor"] = SdiCategory.MostDeprived
     };
 
     private static readonly string[] RequiredCodes =
     [
-        QuestionCodes.Age, 
+        QuestionCodes.Age,
         QuestionCodes.Gender,
-        QuestionCodes.Race,
-        QuestionCodes.Cholesterol, 
+        QuestionCodes.Cholesterol,
         QuestionCodes.Hdl,
         QuestionCodes.SystolicBloodPressure,
+        QuestionCodes.Egfr,
         QuestionCodes.HighBloodPressure,
         QuestionCodes.Smoking,
         QuestionCodes.Diabetes
@@ -35,19 +36,25 @@ public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
     {
         reader.EnsureCodesPresent(RequiredCodes);
 
-        var ews = new AscvdRiskInput
+        var input = new AscvdRiskInput
         {
-            Age =         reader.GetInt(QuestionCodes.Age),
-            Sex =         reader.GetEnum(QuestionCodes.Gender, SexMap),
-            Race =        reader.GetEnum(QuestionCodes.Race, RaceMap),
-            HasDiabetes = reader.GetYesNo(QuestionCodes.Diabetes),
-            SystolicBpMmHg = reader.GetDouble(QuestionCodes.SystolicBloodPressure),
-            IsCurrentSmoker = reader.GetYesNo(QuestionCodes.Smoking),
-            HdlCholesterolMgdl = reader.GetDouble(QuestionCodes.Hdl),
-            TotalCholesterolMgdl = reader.GetDouble(QuestionCodes.Cholesterol),
-            OnHypertensionTreatment = reader.GetYesNo(QuestionCodes.HighBloodPressure),
+            Age = reader.GetInt(QuestionCodes.Age).Value,
+            Sex = reader.GetEnum(QuestionCodes.Gender, SexMap),
+            Smoker = reader.GetYesNo(QuestionCodes.Smoking),
+            Diabetic = reader.GetYesNo(QuestionCodes.Diabetes),
+            SystolicBp = reader.GetDouble(QuestionCodes.SystolicBloodPressure).Value,
+            HdlCholesterol = reader.GetDouble(QuestionCodes.Hdl).Value,
+            TotalCholesterol = reader.GetDouble(QuestionCodes.Cholesterol).Value,
+            HypertensionTreated = reader.GetYesNo(QuestionCodes.HighBloodPressure),
+            HeightCm = reader.GetFloat(QuestionCodes.Height).Value,
+            WeightKg = reader.GetFloat(QuestionCodes.Weight).Value,
+            Egfr = reader.GetFloat(QuestionCodes.Egfr).Value,
+            LipidLowering = reader.GetYesNo(QuestionCodes.HighLipid),
+            HbA1c = reader.GetFloat(QuestionCodes.HbA1c),
+            Uacr = reader.GetFloat(QuestionCodes.Uacr),
+            SdiCategory = reader.GetEnum(QuestionCodes.WealthLevel, WealthCategory)
         };
 
-        return ews;
+        return input;
     }
 }

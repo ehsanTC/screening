@@ -2,6 +2,7 @@ using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
 using Windows.ApplicationModel.Resources;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions.Abstraction;
 
 namespace Screening.Domain.Questionnaire;
 
@@ -27,20 +28,20 @@ public class QuestionnaireAnswerReader
 
     private Answer? GetAnswer(string code)
     {
-        if (!_answersByCode.TryGetValue(code, out Answer? answer) || answer is null)
-            throw new MissingAnswerException(code); // TODO : return null instead of exception
+        if (!_answersByCode.TryGetValue(code, out Answer? answer) || answer == null)
+            return null;
         
         return answer;
     }
 
-    public int GetInt(string code) =>
-        int.Parse(((TextAnswer)GetAnswer(code)).Text);
+    public int? GetInt(string code) =>
+        int.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ?  result : null;
     
-    public double GetDouble(string code) =>
-        double.Parse(((TextAnswer)GetAnswer(code)).Text);
+    public double? GetDouble(string code) =>
+        double.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ?  result : null;
 
-    public float GetFloat(string code) => 
-        float.Parse(((TextAnswer)GetAnswer(code)).Text);
+    public float? GetFloat(string code) => 
+        float.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ?  result : null;
 
     public bool GetYesNo(string code) =>
         ((SingleOptionAnswer)GetAnswer(code)).Item.Value.Equals("Yes", StringComparison.OrdinalIgnoreCase);
@@ -48,12 +49,6 @@ public class QuestionnaireAnswerReader
     public string GetBinarySelection(string code) => 
         ((SingleOptionAnswer)GetAnswer(code)).Item.Value;
 
-    // public YamlListItem GetSingleItem(string code) =>
-    //     ((SingleOptionAnswer)GetAnswer(code)).Item;
-    //
-    // public List<YamlListItem> GetMultiItems(string code) =>
-    //     ((MultiOptionAnswer)GetAnswer(code)).SelectedOptions;
-    
     public TEnum GetBinarySelection<TEnum>(string code) where TEnum : struct, Enum
     {
         var selection = GetBinarySelection(code);
@@ -65,7 +60,7 @@ public class QuestionnaireAnswerReader
     }
 
     public TEnum GetEnum<TEnum>(string code, IReadOnlyDictionary<string, TEnum> optionMap)
-        where TEnum : struct
+        where TEnum : struct, Enum
     {
         var selected = ((SingleOptionAnswer)GetAnswer(code)).Item;
         if (!optionMap.TryGetValue(selected.Value, out var value))
