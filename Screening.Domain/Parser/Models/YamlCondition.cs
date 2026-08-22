@@ -4,7 +4,7 @@ namespace Screening.Domain.Parser.Models;
 
 public class YamlCondition
 {
-    [YamlMember(Alias = "questionId")]
+    [YamlMember(Alias = "question_id")]
     public int QuestionId { get; set; }
 
     [YamlMember(Alias = "operator")]
@@ -26,7 +26,9 @@ public class YamlCondition
             
             _ => Operator.ToString()
         };
-        
-        return $"Question(#{QuestionId}) {op} {ExpectedValue}";
+
+        return QuestionId != 0
+            ? $"Question(#{QuestionId}) {op} {ExpectedValue}"
+            : $"{op} {ExpectedValue}";
     }
 }

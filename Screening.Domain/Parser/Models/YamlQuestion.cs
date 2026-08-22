@@ -21,10 +21,10 @@ public class YamlQuestion
     [YamlMember(Alias = "options")]
     public List<YamlListItem>? Options { get; set; }
     
-    [YamlMember(Alias = "defaultAnswer")]
+    [YamlMember(Alias = "default_answer")]
     public YamlListItem? DefaultAnswer  { get; set; }
     
-    [YamlMember(Alias = "showIf")]
+    [YamlMember(Alias = "show_if")]
     public List<YamlCondition>? DisplayConditions { get; set; }
     
     [YamlMember(Alias = "validation")] 
