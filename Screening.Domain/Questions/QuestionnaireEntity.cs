@@ -13,7 +13,7 @@ public class QuestionnaireEntity
     public string? Title { get; set; }
     public IReadOnlyList<IDisplayableQuestion> Questions { get; init; } = [];
     public float Version { get; set; }
-    public List<YamlResult> ResultCategories { get; set; }
+    public List<YamlResultCategory> ResultCategories { get; set; }
 
     public bool ShowQuestionAtIndex(int questionIndex)
     {

@@ -14,5 +14,5 @@ public class YamlQuestionnaire
     public List<YamlQuestion> Questions { get; set; }
     
     [YamlMember(Alias = "results")]
-    public List<YamlResult> Results { get; set; }
+    public List<YamlResultCategory> Results { get; set; }
 }

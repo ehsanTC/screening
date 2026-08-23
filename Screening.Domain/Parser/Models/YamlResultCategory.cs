@@ -3,7 +3,7 @@ using YamlDotNet.Serialization;
 
 namespace Screening.Domain.Parser.Models;
 
-public class YamlResult
+public class YamlResultCategory
 {
     [YamlMember(Alias = "conditions")]
     public List<YamlCondition> Conditions { get; set; }

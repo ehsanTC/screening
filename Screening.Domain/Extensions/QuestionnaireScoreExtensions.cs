@@ -5,7 +5,7 @@ namespace Screening.Domain.Extensions;
 
 public static class QuestionnaireScoreExtensions
 {
-    public static YamlResult? GetCategory(this QuestionnaireEntity questionnaire, double score)
+    public static YamlResultCategory? GetCategory(this QuestionnaireEntity questionnaire, double score)
     {
         if (questionnaire?.ResultCategories == null)
             return null;
@@ -14,7 +14,7 @@ public static class QuestionnaireScoreExtensions
             Match(category, score));
     }
 
-    private static string GetMessage(YamlResult category, double score) => 
+    private static string GetMessage(YamlResultCategory category, double score) => 
         $"{string.Format(category.Summary, score)}{Environment.NewLine}{category.NextSteps}";
 
     public static string GetMessage(this QuestionnaireEntity questionnaire, double score)
@@ -26,7 +26,7 @@ public static class QuestionnaireScoreExtensions
             : string.Empty;
     }
 
-    private static bool Match(YamlResult? category, double score)
+    private static bool Match(YamlResultCategory? category, double score)
     {
         return category?.Conditions?
                    .All(condition =>

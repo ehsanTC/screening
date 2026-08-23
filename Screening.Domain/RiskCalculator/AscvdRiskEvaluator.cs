@@ -203,7 +203,7 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         };
     }
 
-    private string GetMessage(YamlResult category, double score) =>
+    private string GetMessage(YamlResultCategory category, double score) =>
         $"{string.Format(category.Summary, score)}{Environment.NewLine}{category.NextSteps}";
 
     private static double ToMmol(double mgPerDl) => 0.02586 * mgPerDl;
