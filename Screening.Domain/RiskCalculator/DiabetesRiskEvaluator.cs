@@ -1,3 +1,4 @@
+using Screening.Domain.Extensions;
 using Screening.Domain.Models;
 using Screening.Domain.Questionnaire;
 using Screening.Domain.Questionnaire.Abstraction;
@@ -26,7 +27,7 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
     /// This is a screening tool based on a simple point-based system, not a diagnostic test.
     /// High risk indicates need for formal testing (e.g., A1C, fasting glucose).
     /// </summary>
-    private RiskResult CalculateType2DiabetesRisk(
+    private int CalculateType2DiabetesRisk(
         int age,
         Sex sex,
         bool? hadGestationalDiabetes,
@@ -38,17 +39,16 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
     {
         ValidateInputs(age, heightCm, weightKg);
 
-        int score = CalculateRiskScore(
-            age,
-            sex,
-            hadGestationalDiabetes,
-            hasFamilyHistory,
-            hasHighBloodPressure,
-            isPhysicallyActive,
-            heightCm,
-            weightKg);
+        int score = 0;
+        score += GetAgePoints(age);
+        score += GetSexPoints(sex);
+        score += GetGestationalDiabetesPoints(sex, hadGestationalDiabetes);
+        score += hasFamilyHistory ? 1 : 0;
+        score += hasHighBloodPressure ? 1 : 0;
+        score += isPhysicallyActive ? 0 : 1;
+        score += GetBmiPoints(heightCm, weightKg);
 
-        return CreateResult(score);
+        return score;
     }
 
     private static void ValidateInputs(int age, double heightCm, double weightKg)
@@ -61,29 +61,6 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
 
         if (weightKg <= 0)
             throw new ArgumentException("Weight must be positive", nameof(weightKg));
-    }
-
-    private static int CalculateRiskScore(
-        int age,
-        Sex sex,
-        bool? hadGestationalDiabetes,
-        bool hasFamilyHistory,
-        bool hasHighBloodPressure,
-        bool isPhysicallyActive,
-        double heightCm,
-        double weightKg)
-    {
-        int score = 0;
-
-        score += GetAgePoints(age);
-        score += GetSexPoints(sex);
-        score += GetGestationalDiabetesPoints(sex, hadGestationalDiabetes);
-        score += hasFamilyHistory ? 1 : 0;
-        score += hasHighBloodPressure ? 1 : 0;
-        score += isPhysicallyActive ? 0 : 1;
-        score += GetBmiPoints(heightCm, weightKg);
-
-        return score;
     }
 
     private static int GetAgePoints(int age) => age switch
@@ -112,25 +89,23 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
         };
     }
 
-    private static RiskResult CreateResult(int score)
+    private static RiskResult CreateResult(int score, QuestionnaireEntity questionnaire)
     {
         bool isHighRisk = score >= HighRiskThreshold;
 
         return new RiskResult(
             Score: score.ToString("F1"),
             Severity: isHighRisk ? RiskSeverity.High : RiskSeverity.Low,
-            Message: isHighRisk
-                ? "You are at increased risk for having prediabetes or type 2 diabetes. Talk to your doctor about getting tested (e.g., A1C or fasting blood glucose). Lifestyle changes can help prevent or delay type 2 diabetes."
-                : "You have a lower risk for type 2 diabetes at this time. Maintain a healthy lifestyle to keep your risk low."
+            Message:  questionnaire.GetMessage(score)
         );
     }
     public QuestionnaireType QuestionnaireType => QuestionnaireType.Diabetes;
-    public RiskResult? Evaluate(QuestionnaireEntity questionnaire)
+    public RiskResult Evaluate(QuestionnaireEntity questionnaire)
     {
         var reader = new QuestionnaireAnswerReader(questionnaire);
         var input = _inputBuilder.Build(reader);
         
-        var result = CalculateType2DiabetesRisk(input.Age,
+        var score = CalculateType2DiabetesRisk(input.Age,
             input.Sex,
             input.HadGestationalDiabetes,
             input.HasFamilyHistory,
@@ -139,6 +114,6 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
             input.HeightCm,
             input.WeightKg);
 
-        return result;
+        return CreateResult(score, questionnaire);
     }
 }

@@ -14,6 +14,18 @@ public static class QuestionnaireScoreExtensions
             Match(category, score));
     }
 
+    private static string GetMessage(YamlResult category, double score) => 
+        $"{string.Format(category.Summary, score)}{Environment.NewLine}{category.NextSteps}";
+
+    public static string GetMessage(this QuestionnaireEntity questionnaire, double score)
+    {
+        var category = questionnaire.GetCategory(score);
+
+        return category is not null 
+            ? GetMessage(category, score)
+            : string.Empty;
+    }
+
     private static bool Match(YamlResult? category, double score)
     {
         return category?.Conditions?
