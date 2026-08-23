@@ -1,6 +1,16 @@
+using Screening.Domain.Parser.Models;
+
 namespace Screening.Domain.RiskCalculator.Abstraction;
 
 public record RiskResult(
     string Score,
     RiskSeverity Severity,
-    string Message);
+    string Summary,
+    string Title,
+    string SubTitle,
+    string Icon,
+    string Color,
+    PreventionSteps  PreventionSteps,
+    string NextSteps,
+    string FollowUp,
+    string PatientEducation);

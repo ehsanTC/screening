@@ -32,15 +32,23 @@ public class AscvdRiskEvaluator : IRiskEvaluator
             return null;
         
         var ascvd10YearScore = (float) score.Ascvd10Yr;
-        var scoreCategory = questionnaire.GetCategory(ascvd10YearScore);
+        var category = questionnaire.GetCategory(ascvd10YearScore);
         
-        if (scoreCategory == null)
+        if (category == null)
             return null;
         
-        var severity = scoreCategory.GetSeverity();
+        var severity = category.GetSeverity();
         return new RiskResult(ascvd10YearScore.ToString("F1"), 
             severity, 
-            GetMessage(scoreCategory, ascvd10YearScore));
+            Summary: category.Summary,
+            Title: category.Value,
+            SubTitle: category.Subtitle,
+            Icon: category.Icon,
+            Color: category.Color,
+            PreventionSteps: category.Prevention,
+            NextSteps: category.NextSteps,
+            FollowUp: category.FollowUp,
+            PatientEducation:  category.PatientEducation);
     }
 
     private AscvdRiskInput BuildInput(QuestionnaireEntity questionnaire)

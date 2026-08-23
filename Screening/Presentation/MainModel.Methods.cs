@@ -15,7 +15,7 @@ public partial record MainModel
             _navigator.NavigateViewModelForResultAsync<QuestionnaireFinishedDialogModel, bool>(
                 this,
                 qualifier: Qualifiers.Dialog,
-                data: riskResult.Message);
+                data: riskResult.Summary);
 
         if (dialogResponse == null)
             return;

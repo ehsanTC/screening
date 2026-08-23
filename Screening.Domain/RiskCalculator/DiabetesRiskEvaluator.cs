@@ -93,10 +93,19 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
     {
         bool isHighRisk = score >= HighRiskThreshold;
 
+        var category = questionnaire.GetCategory(score);
         return new RiskResult(
             Score: score.ToString("F1"),
             Severity: isHighRisk ? RiskSeverity.High : RiskSeverity.Low,
-            Message:  questionnaire.GetMessage(score)
+            Summary: category.Summary,
+            Title: category.Value,
+            SubTitle: category.Subtitle,
+            Icon:  category.Icon,
+            Color: category.Color,
+            PreventionSteps: category.Prevention,
+            NextSteps: category.NextSteps,
+            FollowUp: category.FollowUp,
+            PatientEducation:  category.PatientEducation
         );
     }
     public QuestionnaireType QuestionnaireType => QuestionnaireType.Diabetes;
