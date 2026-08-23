@@ -9,54 +9,399 @@
     HorizontalAlignment="Center">
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="0" Source="/Assets/Images/questionnaire-finished.png"
-               Width="100" Height="100" Stretch="Uniform"
-               HorizontalAlignment="Center" Margin="0,0,0,16" />
 
-        <Grid Grid.Row="1"
-              Background="#FFFFFF"
-              CornerRadius="16">
+        <!-- ============================= -->
+        <!-- Header                         -->
+        <!-- ============================= -->
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Padding="16,8,16,16">
 
-            <ScrollViewer Grid.Row="0"
-                          MaxHeight="300"
-                          VerticalScrollBarVisibility="Auto">
-                <TextBlock TextWrapping="Wrap"
-                           FontSize="14"
-                           Padding="16 16 16 12">
-                    <Run Text="Your risk score is "/>
-                    <Bold><Run Text="{Binding Risk.Score}"/></Bold>
-                    <LineBreak />
-                    <LineBreak />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                    <Bold><Run Text="Severity: " /></Bold>
-                    <Run Text="{Binding Risk.Severity}"></Run>
+            <!-- Icon -->
+            <TextBlock
+                Grid.Column="0"
+                Text="{Binding Risk.Icon}"
+                FontSize="42"
+                VerticalAlignment="Center"
+                Margin="0,0,12,0" />
 
-                    <LineBreak />
-                    <LineBreak />
-                    <Bold><Run Text="Explanation: "></Run></Bold>
-                    <LineBreak />
-                    <Run Text="{Binding Risk.Message}"></Run>
-                </TextBlock>
+            <!-- Title / Subtitle -->
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="{Binding Risk.Title}"
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    TextWrapping="Wrap"
+                    Foreground="{Binding Risk.Color}"/>
+
+                <TextBlock
+                    Text="{Binding Risk.SubTitle}"
+                    FontSize="13"
+                    Opacity="0.7"
+                    TextWrapping="Wrap"
+                    Margin="0,4,0,0" />
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <!-- ============================= -->
+        <!-- Expandable Content             -->
+        <!-- ============================= -->
+
+        <Border Grid.Row="1"
+                Background="#FFFFFF"
+                CornerRadius="16">
+
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                MaxHeight="500">
+
+                <StackPanel>
+
+
+                    <!-- ========================= -->
+                    <!-- Severity                    -->
+                    <!-- ========================= -->
+
+                    <Expander
+                        BorderThickness="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+
+                        <Expander.Header>
+                            <Grid Padding="16,14">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Severity "
+                                    FontSize="15"
+                                    VerticalAlignment="Center" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="{Binding Risk.Severity}"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center" />
+
+                            </Grid>
+                        </Expander.Header>
+
+                        <Border
+                            Padding="16,0,16,16">
+
+                            <ScrollViewer
+                                MaxHeight="300"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    Text="{Binding Risk.Severity}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14" />
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Expander>
+
+
+                    <Border Height="1"
+                            Background="#DDDDDD"
+                            Margin="16,0" />
+
+
+                    <!-- ========================= -->
+                    <!-- Description / Summary       -->
+                    <!-- ========================= -->
+
+                    <Expander
+                        BorderThickness="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+
+                        <Expander.Header>
+                            <Grid Padding="16,14">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Description"
+                                    FontSize="15"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Stretch"/>
+
+
+
+                            </Grid>
+                        </Expander.Header>
+
+                        <Border Padding="16,0,16,16">
+
+                            <ScrollViewer
+                                MaxHeight="300"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    Text="{Binding Risk.Summary}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14" />
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Expander>
+
+
+                    <Border Height="1"
+                            Background="#DDDDDD"
+                            Margin="16,0" />
+
+
+                    <!-- ========================= -->
+                    <!-- Prevention Steps            -->
+                    <!-- ========================= -->
+
+                    <Expander
+                        BorderThickness="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+
+                        <Expander.Header>
+                            <Grid Padding="16,14">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Prevention Steps"
+                                    FontSize="15"
+                                    VerticalAlignment="Center" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="›"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+
+                            </Grid>
+                        </Expander.Header>
+
+                        <Border Padding="16,0,16,16">
+
+                            <ScrollViewer
+                                MaxHeight="300"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    Text="{Binding Risk.PreventionSteps}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14" />
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Expander>
+
+
+                    <Border Height="1"
+                            Background="#DDDDDD"
+                            Margin="16,0" />
+
+
+                    <!-- ========================= -->
+                    <!-- Next Steps                  -->
+                    <!-- ========================= -->
+
+                    <Expander
+                        BorderThickness="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+
+                        <Expander.Header>
+                            <Grid Padding="16,14">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Next Steps"
+                                    FontSize="15"
+                                    VerticalAlignment="Center" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="›"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+
+                            </Grid>
+                        </Expander.Header>
+
+                        <Border Padding="16,0,16,16">
+
+                            <ScrollViewer
+                                MaxHeight="300"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    Text="{Binding Risk.NextSteps}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14" />
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Expander>
+
+
+                    <Border Height="1"
+                            Background="#DDDDDD"
+                            Margin="16,0" />
+
+
+                    <!-- ========================= -->
+                    <!-- Follow Up                   -->
+                    <!-- ========================= -->
+
+                    <Expander BorderThickness="0"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch">
+
+                        <Expander.Header>
+                            <Grid Padding="16,14">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Follow Up"
+                                    FontSize="15"
+                                    VerticalAlignment="Center" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="›"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+
+                            </Grid>
+                        </Expander.Header>
+
+                        <Border Padding="16,0,16,16">
+
+                            <ScrollViewer
+                                MaxHeight="300"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    Text="{Binding Risk.FollowUp}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14" />
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Expander>
+
+
+                    <Border Height="1"
+                            Background="#DDDDDD"
+                            Margin="16,0" />
+
+
+                    <!-- ========================= -->
+                    <!-- Patient Education           -->
+                    <!-- ========================= -->
+
+                    <Expander
+                        BorderThickness="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+
+                        <Expander.Header>
+                            <Grid Padding="16,14">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Patient Education"
+                                    FontSize="15"
+                                    VerticalAlignment="Center" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="›"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+
+                            </Grid>
+                        </Expander.Header>
+
+                        <Border Padding="16,0,16,16">
+
+                            <ScrollViewer
+                                MaxHeight="300"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    Text="{Binding Risk.PatientEducation}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14" />
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Expander>
+
+                </StackPanel>
+
             </ScrollViewer>
 
-            <Border Grid.Row="1" Height="1" Background="#DDDDDD" Margin="16 4 16 4" />
+        </Border>
 
-            <TextBlock Grid.Row="2" TextWrapping="Wrap"
-                       FontSize="14"
-                       Padding="12 16 16 16">
-                <Run Text="🩺 For more information please consult your doctor."/>
-            </TextBlock>
-        </Grid>
     </Grid>
+
 </ContentDialog>
