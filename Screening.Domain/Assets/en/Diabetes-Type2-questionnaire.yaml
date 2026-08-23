@@ -99,3 +99,86 @@ questions:
       path: "weight"
       cast: float
       unit: "kg"
+
+results:
+    - value: low
+      text: "Low Risk"
+      subtitle: "Score 0-4"
+      conditions:
+        - operator: lessThan
+          value: 5
+      description: "Your diabetes risk score is less than 5, indicating low risk for type 2 diabetes"
+      color: "#4CAF50"
+      icon: "🟢"
+      prevention:
+        primordial:
+          - "Maintain healthy eating habits with balanced nutrition"
+          - "Stay physically active (at least 150 minutes/week)"
+          - "Maintain healthy weight (BMI 18.5-24.9)"
+          - "Limit sugary beverages and processed foods"
+          - "Eat plenty of vegetables, fruits, and whole grains"
+        primary:
+          - "Schedule regular health check-ups"
+          - "Monitor blood glucose annually or as recommended"
+          - "Maintain healthy lifestyle habits"
+          - "Monitor blood pressure and cholesterol"
+        secondary:
+          - "Not typically needed at this risk level"
+          - "Continue routine monitoring for risk factor changes"
+      summary: "Your diabetes risk score is {0:F1}, which is in the low-risk category. Continue your healthy lifestyle and routine preventive care to maintain this low risk."
+      next_steps: |
+        1. Continue your current healthy lifestyle practices
+        2. Schedule routine check-up with your healthcare provider
+        3. Reassess risk in 1-2 years or if health status changes
+      follow_up: "Reassess risk in 1-2 years, or sooner if you experience concerning symptoms"
+      patient_education: |
+        • You have a low risk of developing type 2 diabetes
+        • Continue eating a balanced diet with limited sugars
+        • Stay physically active
+        • Maintain a healthy weight
+        • Keep up with regular health check-ups
+
+    - value: high
+      text: "High Risk"
+      subtitle: "Score ≥5"
+      conditions:
+        - operator: greaterThanOrEquals
+          value: 5
+      description: "Your diabetes risk score is 5 or higher, indicating elevated risk for type 2 diabetes"
+      color: "#F44336"
+      icon: "🔴"
+      prevention:
+        primordial:
+          - "Adopt a diabetes prevention diet (focus on whole foods, fiber, lean protein)"
+          - "Increase physical activity to 150-300 minutes/week"
+          - "Achieve and maintain healthy weight (target BMI <25)"
+          - "Eliminate sugary drinks and highly processed foods"
+          - "Practice portion control and mindful eating"
+          - "Stress management techniques"
+        primary:
+          - "Schedule immediate visit with healthcare provider"
+          - "Complete fasting blood glucose or HbA1c testing"
+          - "Consider diabetes prevention program participation"
+          - "Monitor blood glucose levels as recommended"
+          - "Regular blood pressure and cholesterol monitoring"
+          - "Referral to nutritionist/dietitian for counseling"
+        secondary:
+          - "Not typically needed at this risk level"
+          - "Monitor for development of prediabetes or diabetes symptoms"
+          - "Consider more frequent medical follow-up"
+      summary: "Your diabetes risk score is {0:F1}, which is in the high-risk category. This means you have an elevated risk of developing type 2 diabetes. Taking action now with lifestyle changes can significantly reduce your risk."
+      next_steps: |
+        1. Schedule an appointment with your healthcare provider immediately
+        2. Complete recommended blood glucose testing
+        3. Join a structured diabetes prevention program if available
+        4. Begin comprehensive lifestyle modification program
+        5. Work with a dietitian to develop a personalized eating plan
+        6. Follow-up in 3-6 months to reassess progress
+      follow_up: "Reassess in 3-6 months after implementing lifestyle changes, then every 6-12 months"
+      patient_education: |
+        • Your risk of developing type 2 diabetes is elevated
+        • Lifestyle changes can prevent or delay diabetes onset
+        • Weight loss of 5-7% can reduce risk by 58%
+        • Physical activity is powerful for prevention
+        • Work closely with your healthcare team
+        • Small, sustainable changes lead to lasting results
