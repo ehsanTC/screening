@@ -1,4 +1,6 @@
 using Screening.Domain.Models;
+using Screening.Domain.RiskCalculator.Abstraction;
+using Screening.Presentation.Dialogs;
 
 namespace Screening;
 
@@ -63,7 +65,8 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
-            new DataViewMap<QuestionPage, QuestionModel, QuestionnairePageRequest>()
+            new DataViewMap<QuestionPage, QuestionModel, QuestionnairePageRequest>(),
+            new DataViewMap<ResultDialog, ResultDialogModel, RiskResult>()
         );
 
         routes.Register(

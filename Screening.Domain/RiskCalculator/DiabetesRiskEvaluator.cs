@@ -117,7 +117,7 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
         bool isHighRisk = score >= HighRiskThreshold;
 
         return new RiskResult(
-            Score: score,
+            Score: score.ToString("F1"),
             Severity: isHighRisk ? RiskSeverity.High : RiskSeverity.Low,
             Message: isHighRisk
                 ? "You are at increased risk for having prediabetes or type 2 diabetes. Talk to your doctor about getting tested (e.g., A1C or fasting blood glucose). Lifestyle changes can help prevent or delay type 2 diabetes."

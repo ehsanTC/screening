@@ -38,7 +38,7 @@ public class AscvdRiskEvaluator : IRiskEvaluator
             return null;
         
         var severity = scoreCategory.GetSeverity();
-        return new RiskResult(ascvd10YearScore, 
+        return new RiskResult(ascvd10YearScore.ToString("F1"), 
             severity, 
             GetMessage(scoreCategory, ascvd10YearScore));
     }

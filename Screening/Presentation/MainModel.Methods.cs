@@ -24,7 +24,12 @@ public partial record MainModel
         var okClicked = okOption.SomeOrDefault();
 
         if (okClicked)
-            Console.WriteLine(riskResult.Message);
+        {
+            _ = await _navigator.NavigateViewModelAsync<ResultDialogModel>(
+                this,
+                qualifier: Qualifiers.Dialog,
+                data: riskResult);
+        }
     }
 
     private static async Task<RiskResult?> ExtractResult(NavigationResultResponse<RiskResult>? result)
