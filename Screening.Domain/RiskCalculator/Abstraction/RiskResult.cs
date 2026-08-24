@@ -8,6 +8,7 @@ public record RiskResult(
     string Summary,
     string Title,
     string SubTitle,
+    string RiskDescription,
     string Icon,
     string Color,
     PreventionSteps  PreventionSteps,
