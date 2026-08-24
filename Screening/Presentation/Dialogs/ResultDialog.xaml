@@ -45,12 +45,13 @@
                     FontSize="20"
                     FontWeight="SemiBold"
                     TextWrapping="Wrap"
-                    Foreground="{Binding Risk.Color}"/>
+                    Foreground="{Binding Risk.Color}" />
 
                 <TextBlock
                     Text="{Binding Risk.SubTitle}"
                     FontSize="13"
                     Opacity="0.7"
+                    Foreground="#808080"
                     TextWrapping="Wrap"
                     Margin="0,4,0,0" />
 
@@ -60,7 +61,7 @@
 
 
         <!-- ============================= -->
-        <!-- Expandable Content             -->
+        <!-- Expandable Content            -->
         <!-- ============================= -->
 
         <Border Grid.Row="1"
@@ -75,7 +76,7 @@
 
 
                     <!-- ========================= -->
-                    <!-- Severity                    -->
+                    <!-- Severity                  -->
                     <!-- ========================= -->
 
                     <Expander
@@ -84,24 +85,11 @@
                         HorizontalContentAlignment="Stretch">
 
                         <Expander.Header>
-                            <Grid Padding="16,14">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid Padding="16">
 
                                 <TextBlock
-                                    Grid.Column="0"
                                     Text="Severity "
                                     FontSize="15"
-                                    VerticalAlignment="Center" />
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="{Binding Risk.Severity}"
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
                                     VerticalAlignment="Center" />
 
                             </Grid>
@@ -115,7 +103,7 @@
                                 VerticalScrollBarVisibility="Auto">
 
                                 <TextBlock
-                                    Text="{Binding Risk.Severity}"
+                                    Text="{Binding Risk.RiskDescription}"
                                     TextWrapping="Wrap"
                                     FontSize="14" />
 
@@ -125,14 +113,8 @@
 
                     </Expander>
 
-
-                    <Border Height="1"
-                            Background="#DDDDDD"
-                            Margin="16,0" />
-
-
                     <!-- ========================= -->
-                    <!-- Description / Summary       -->
+                    <!-- Description / Summary     -->
                     <!-- ========================= -->
 
                     <Expander
@@ -141,21 +123,13 @@
                         HorizontalContentAlignment="Stretch">
 
                         <Expander.Header>
-                            <Grid Padding="16,14">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid Padding="16">
 
                                 <TextBlock
-                                    Grid.Column="0"
                                     Text="Description"
                                     FontSize="15"
                                     VerticalAlignment="Center"
-                                    HorizontalAlignment="Stretch"/>
-
-
+                                    HorizontalAlignment="Stretch" />
 
                             </Grid>
                         </Expander.Header>
@@ -178,13 +152,8 @@
                     </Expander>
 
 
-                    <Border Height="1"
-                            Background="#DDDDDD"
-                            Margin="16,0" />
-
-
                     <!-- ========================= -->
-                    <!-- Prevention Steps            -->
+                    <!-- Prevention Steps          -->
                     <!-- ========================= -->
 
                     <Expander
@@ -193,23 +162,12 @@
                         HorizontalContentAlignment="Stretch">
 
                         <Expander.Header>
-                            <Grid Padding="16,14">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid Padding="16">
 
                                 <TextBlock
                                     Grid.Column="0"
                                     Text="Prevention Steps"
                                     FontSize="15"
-                                    VerticalAlignment="Center" />
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="›"
-                                    FontSize="24"
                                     VerticalAlignment="Center" />
 
                             </Grid>
@@ -233,11 +191,6 @@
                     </Expander>
 
 
-                    <Border Height="1"
-                            Background="#DDDDDD"
-                            Margin="16,0" />
-
-
                     <!-- ========================= -->
                     <!-- Next Steps                  -->
                     <!-- ========================= -->
@@ -248,23 +201,11 @@
                         HorizontalContentAlignment="Stretch">
 
                         <Expander.Header>
-                            <Grid Padding="16,14">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid Padding="16">
 
                                 <TextBlock
-                                    Grid.Column="0"
                                     Text="Next Steps"
                                     FontSize="15"
-                                    VerticalAlignment="Center" />
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="›"
-                                    FontSize="24"
                                     VerticalAlignment="Center" />
 
                             </Grid>
@@ -288,11 +229,6 @@
                     </Expander>
 
 
-                    <Border Height="1"
-                            Background="#DDDDDD"
-                            Margin="16,0" />
-
-
                     <!-- ========================= -->
                     <!-- Follow Up                   -->
                     <!-- ========================= -->
@@ -302,23 +238,11 @@
                               HorizontalContentAlignment="Stretch">
 
                         <Expander.Header>
-                            <Grid Padding="16,14">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid Padding="16">
 
                                 <TextBlock
-                                    Grid.Column="0"
                                     Text="Follow Up"
                                     FontSize="15"
-                                    VerticalAlignment="Center" />
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="›"
-                                    FontSize="24"
                                     VerticalAlignment="Center" />
 
                             </Grid>
@@ -342,11 +266,6 @@
                     </Expander>
 
 
-                    <Border Height="1"
-                            Background="#DDDDDD"
-                            Margin="16,0" />
-
-
                     <!-- ========================= -->
                     <!-- Patient Education           -->
                     <!-- ========================= -->
@@ -357,23 +276,11 @@
                         HorizontalContentAlignment="Stretch">
 
                         <Expander.Header>
-                            <Grid Padding="16,14">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid Padding="16">
 
                                 <TextBlock
-                                    Grid.Column="0"
                                     Text="Patient Education"
                                     FontSize="15"
-                                    VerticalAlignment="Center" />
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="›"
-                                    FontSize="24"
                                     VerticalAlignment="Center" />
 
                             </Grid>
