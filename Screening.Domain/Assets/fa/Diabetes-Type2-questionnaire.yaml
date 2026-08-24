@@ -107,7 +107,7 @@ results:
     conditions:
       - operator: lessThan
         value: 5
-    description: "امتیاز خطر ابتلا به دیابت شما کمتر از ۵ است که نشان‌دهنده خطر پایین ابتلا به دیابت نوع ۲ است"
+    description: "خطر ابتلا به دیابت شما کمتر از ۵% است که نشان‌دهنده خطر پایین ابتلا به دیابت نوع ۲ است"
     color: "#4CAF50"
     icon: "🟢"
     prevention:
@@ -144,7 +144,7 @@ results:
     conditions:
       - operator: greaterThanOrEquals
         value: 5
-    description: "امتیاز خطر ابتلا به دیابت شما ۵ یا بیشتر است که نشان‌دهنده افزایش خطر ابتلا به دیابت نوع ۲ است"
+    description: "امتیاز خطر ابتلا به دیابت شما ۵% یا بیشتر است که نشان‌دهنده افزایش خطر ابتلا به دیابت نوع ۲ است"
     color: "#F44336"
     icon: "🔴"
     prevention:

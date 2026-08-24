@@ -202,7 +202,7 @@ results:
 
   - value: borderline
     text: "خطر مرزی"
-    subtitle: "5-7.4%"
+    subtitle: "5 - 7.4%"
     conditions:
       - operator: GreaterThanOrEquals
         value: 5

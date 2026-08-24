@@ -107,7 +107,7 @@ results:
       conditions:
         - operator: lessThan
           value: 5
-      description: "Your diabetes risk score is less than 5, indicating low risk for type 2 diabetes"
+      description: "Your diabetes risk score is less than 5%, indicating low risk for type 2 diabetes"
       color: "#4CAF50"
       icon: "🟢"
       prevention:
