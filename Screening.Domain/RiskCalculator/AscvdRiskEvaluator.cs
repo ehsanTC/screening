@@ -41,7 +41,7 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         return new RiskResult(ascvd10YearScore.ToString("F1"), 
             severity, 
             Summary: category.Summary,
-            Title: category.Value,
+            Title: category.Text,
             SubTitle: category.Subtitle,
             Icon: category.Icon,
             Color: category.Color,
