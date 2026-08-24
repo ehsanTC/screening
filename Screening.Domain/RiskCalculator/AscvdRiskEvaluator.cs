@@ -40,15 +40,16 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         var severity = category.GetSeverity();
         return new RiskResult(ascvd10YearScore.ToString("F1"), 
             severity, 
-            Summary: category.Summary,
+            Summary: string.Format(category.Summary, score),
             Title: category.Text,
             SubTitle: category.Subtitle,
+            RiskDescription: category.Description,
             Icon: category.Icon,
             Color: category.Color,
             PreventionSteps: category.Prevention,
             NextSteps: category.NextSteps,
             FollowUp: category.FollowUp,
-            PatientEducation:  category.PatientEducation);
+            PatientEducation: category.PatientEducation);
     }
 
     private AscvdRiskInput BuildInput(QuestionnaireEntity questionnaire)

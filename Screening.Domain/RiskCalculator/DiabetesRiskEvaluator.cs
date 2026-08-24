@@ -97,9 +97,10 @@ public class DiabetesRiskEvaluator : IRiskEvaluator
         return new RiskResult(
             Score: score.ToString("F1"),
             Severity: isHighRisk ? RiskSeverity.High : RiskSeverity.Low,
-            Summary: category.Summary,
+            Summary: string.Format(category.Summary, score),
             Title: category.Text,
             SubTitle: category.Subtitle,
+            RiskDescription: category.Description,
             Icon:  category.Icon,
             Color: category.Color,
             PreventionSteps: category.Prevention,
