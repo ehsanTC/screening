@@ -1,0 +1,257 @@
+title: "Obesity and Dyslipidemia Risk Assessment"
+version: "1.0"
+
+questions:
+  - id: 1
+    code: "age"
+    text: "What is your age?"
+    type: Number
+    save:
+      path: "age"
+      cast: "int"
+    validation:
+      min: 10
+    validation_error: "You must be older than 20."
+
+  - id: 2
+    code: "gender"
+    text: "What is your gender?"
+    type: single_choice
+    options:
+      - text: Female
+        value: Female
+      - text: Male
+        value: Male
+
+  - id: 3
+    code: "height"
+    text: "What is your height in meters?"
+    type: Number
+    save:
+      path: "height"
+      cast: float
+      unit: "m"
+
+  - id: 4
+    code: "weight"
+    text: "What is your weight (kg)?"
+    type: Number
+    save:
+      path: "weight"
+      cast: float
+      unit: "kg"
+
+  - id: 5
+    code: "waist-circumference"
+    text: "How much is your waist circumference? (in centimeter)"
+    type: Number
+    save:
+      path: "waist-circumference"
+      cast: float
+      unit: "cm"
+
+  - id: 6
+    code: "dyslipidemia-family-history"
+    text: "Do any of your close family members (parents, siblings) have heart disease, stroke, or high cholesterol?"
+    type: single_choice
+    options:
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+  - id: 7
+    code: "diabetes"
+    text: "Do you have a history of diabetes?"
+    type: single_choice
+    options:
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+  - id: 8
+    code: "on-bp-med"
+    text: "Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?"
+    type: single_choice
+    options:
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+    save:
+      path: "blood-pressure"
+      cast: "bool"
+
+  - id: 9
+    code: "smoking"
+    text: "Are you Smoking or using tobacco?"
+    type: single_choice
+    options:
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+  - id: 10
+    code: "past-smoking"
+    text: "Have you smoked cigarettes or used tobacco in the past?"
+    type: single_choice
+    options:
+      - text: Yes
+        value: yes
+
+      - text: No
+        value: no
+
+results:
+  - value: low
+    text: "Low Risk"
+    subtitle: "Score 0-1"
+    conditions:
+      - operator: lessThan
+        value: 2
+    description: "Your weight and risk factors put you in the low-risk category for obesity-related lipid problems"
+    color: "#4CAF50"
+    icon: "🟢"
+    prevention:
+      primordial:
+        - "Maintain a healthy diet (Mediterranean/DASH style)"
+        - "Stay physically active (150+ minutes/week)"
+        - "Maintain healthy weight (BMI 18.5-24.9)"
+        - "Avoid tobacco use"
+      primary:
+        - "Continue routine health check-ups"
+        - "Have a lipid panel every 4-6 years, as generally recommended"
+        - "Monitor weight and waist circumference periodically"
+      secondary:
+        - "Not typically needed at this risk level"
+        - "Continue routine monitoring for risk factor changes"
+    summary: "Your obesity/lipid risk score is {0:F1}, which is in the low-risk category. Continue your healthy lifestyle and routine preventive care."
+    next_steps: |
+      1. Continue your current healthy lifestyle practices
+      2. Schedule routine check-up with your healthcare provider
+      3. Reassess risk in 4-6 years or if your health status changes
+    follow_up: "Reassess risk in 4-6 years, or sooner if your weight or health status changes"
+    patient_education: |
+      • Your weight and risk factors are in a healthy range
+      • Continue eating a balanced, heart-healthy diet
+      • Stay physically active
+      • Keep up with regular health check-ups
+
+  - value: borderline
+    text: "Borderline Risk"
+    subtitle: "Score 2-3"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 2
+      - operator: lessThan
+        value: 4
+    description: "You are overweight or have one or two risk factors, putting you at borderline risk for lipid problems"
+    color: "#FFC107"
+    icon: "🟡"
+    prevention:
+      primordial:
+        - "Intensify dietary changes (Mediterranean/DASH diet)"
+        - "Increase physical activity toward 150-300 minutes/week"
+        - "Work toward a healthy weight through gradual, sustainable changes"
+        - "Quit smoking, if applicable"
+      primary:
+        - "Discuss a lipid panel (cholesterol test) with your provider"
+        - "Monitor blood pressure and weight every 6-12 months"
+        - "Review family history and other risk factors with your provider"
+      secondary:
+        - "Not typically needed at this risk level"
+        - "Monitor for progression to higher risk"
+    summary: "Your obesity/lipid risk score is {0:F1}, which is in the borderline-risk category. This is a good time to strengthen healthy habits and check your cholesterol."
+    next_steps: |
+      1. Schedule an appointment with your healthcare provider
+      2. Ask about getting a lipid panel test
+      3. Set specific goals for diet and activity
+      4. Follow up in about 1 year for reassessment
+    follow_up: "Reassess risk in about 1 year, or sooner if weight or symptoms change"
+    patient_education: |
+      • Your risk is a little elevated but very manageable
+      • Small, steady lifestyle changes make a real difference
+      • A cholesterol test now can help guide your next steps
+      • Work with your provider on a personal plan
+
+  - value: medium
+    text: "Medium Risk"
+    subtitle: "Score 4-5"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 4
+      - operator: lessThan
+        value: 6
+    description: "You are living with obesity or a high waist circumference along with several risk factors, indicating medium risk"
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "Follow a structured weight-loss and nutrition plan"
+        - "Aim for regular, supervised physical activity"
+        - "Consider a referral to a dietitian"
+        - "Complete a smoking-cessation program, if applicable"
+      primary:
+        - "Get a lipid panel test soon, if not already done"
+        - "Check blood pressure and blood sugar regularly"
+        - "Discuss weight-management options with your provider"
+        - "Monitor waist circumference over time"
+      secondary:
+        - "Consider referral to a weight-management program"
+        - "Discuss additional cardiovascular risk testing with your provider"
+    summary: "Your obesity/lipid risk score is {0:F1}, which is in the medium-risk category. Taking action now with your healthcare provider can help lower your risk of heart problems."
+    next_steps: |
+      1. Schedule an appointment with your healthcare provider soon
+      2. Complete a lipid panel test
+      3. Start a structured weight-management plan
+      4. Follow up in 3-6 months to check your progress
+    follow_up: "Reassess in 3-6 months after starting lifestyle or treatment changes"
+    patient_education: |
+      • Your risk is elevated and worth acting on now
+      • Weight loss of even 5-10% can meaningfully improve your cholesterol
+      • Regular monitoring helps catch problems early
+      • Your healthcare team can help you build a realistic plan
+
+  - value: high
+    text: "High Risk"
+    subtitle: "Score ≥6"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 6
+    description: "You are living with obesity or a high waist circumference along with multiple risk factors, indicating high risk"
+    color: "#F44336"
+    icon: "🔴"
+    prevention:
+      primordial:
+        - "Begin an intensive, supervised weight-management program"
+        - "Work with a dietitian on a personalized nutrition plan"
+        - "Quit smoking with professional support, if applicable"
+        - "Manage stress and get adequate sleep"
+      primary:
+        - "Get a lipid panel test as soon as possible"
+        - "Check blood pressure and blood sugar closely"
+        - "Discuss cholesterol-lowering treatment options with your provider"
+        - "Screen for related conditions such as diabetes and hypertension"
+      secondary:
+        - "Consider referral to an obesity-medicine or cardiology specialist"
+        - "Discuss further cardiovascular risk testing, if indicated"
+    summary: "Your obesity/lipid risk score is {0:F1}, which is in the high-risk category. Please talk with your healthcare provider soon about testing and a treatment plan."
+    next_steps: |
+      1. Schedule an appointment with your healthcare provider as soon as possible
+      2. Complete a lipid panel and related blood tests
+      3. Start a comprehensive weight-management and treatment plan
+      4. Follow up in 3 months to monitor progress
+    follow_up: "Close monitoring, with reassessment in 3 months"
+    patient_education: |
+      • Your risk is high and deserves prompt attention
+      • A cholesterol test and full check-up are strongly recommended
+      • Weight management can significantly lower your risk
+      • Work closely with your healthcare team and attend follow-ups
+      • Report any new symptoms, such as chest pain or shortness of breath, right away
