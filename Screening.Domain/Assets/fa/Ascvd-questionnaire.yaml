@@ -65,6 +65,10 @@ questions:
       path: "height"
       cast: float
       unit: "m"
+    validation:
+      min: 1.5
+      max: 2.2
+    validation_error: "قد شما باید در محدوده 1.5 تا 2.2 متر باشد"
 
   - id: 7
     code: "weight"
@@ -74,6 +78,10 @@ questions:
       path: "weight"
       cast: float
       unit: "kg"
+    validation:
+      min: 50
+      max: 150
+    validation_error: "وزن شما باید در محدوده 50 تا 150 کیلوگرم باشد."
 
   - id: 8
     code: "egfr"
@@ -164,6 +172,7 @@ questions:
       - text: "کم برخوردار"
         value: "poor"
     required: false
+
 results:
   - value: low
     text: "خطر پایین"
