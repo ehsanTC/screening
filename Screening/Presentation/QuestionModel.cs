@@ -2,7 +2,7 @@ using Screening.Domain.Answers;
 using Screening.Domain.Models;
 using Screening.Domain.Models.Dtos;
 using Screening.Domain.Questionnaire;
-using Screening.Domain.RiskCalculator;
+using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.Profile;
 

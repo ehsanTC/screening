@@ -1,7 +1,6 @@
 using Screening.Domain.Models;
-using Screening.Domain.RiskCalculator.Abstraction;
 
-namespace Screening.Domain.RiskCalculator;
+namespace Screening.Domain.RiskCalculator.Abstraction;
 
 public interface IRiskEvaluatorFactory
 {
