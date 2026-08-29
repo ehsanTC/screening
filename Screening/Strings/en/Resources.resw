@@ -184,4 +184,40 @@
     <value>Select a Questionnaire</value>
   </data>
 
+  <data name="ResultDialog_PrimaryPrevention.Text" xml:space="preserve">
+    <value>Primary Prevention</value>
+  </data>
+
+  <data name="ResultDialog_SecondaryPrevention.Text" xml:space="preserve">
+    <value>Secondary Prevention</value>
+  </data>
+
+  <data name="ResultDialog_PrimordialPrevention.Text" xml:space="preserve">
+    <value>Primordial Prevention</value>
+  </data>
+
+  <data name="ResultDialog_Severity.Text" xml:space="preserve">
+    <value>Severity </value>
+  </data>
+
+  <data name="ResultDialog_Description.Text" xml:space="preserve">
+    <value>Description </value>
+  </data>
+
+  <data name="ResultDialog_PreventionSteps.Text" xml:space="preserve">
+    <value>Prevention Steps</value>
+  </data>
+
+  <data name="ResultDialog_NextSteps.Text" xml:space="preserve">
+    <value>Next Steps</value>
+  </data>
+
+  <data name="ResultDialog_FollowUp.Text" xml:space="preserve">
+    <value>Follow Up</value>
+  </data>
+
+  <data name="ResultDialog_PatientEducation.Text" xml:space="preserve">
+    <value>Patient Education</value>
+  </data>
+
 </root>

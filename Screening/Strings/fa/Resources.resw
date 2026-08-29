@@ -133,4 +133,40 @@
     <value>یک پرسشنامه را انتخاب کنید</value>
   </data>
 
+  <data name="ResultDialog_PrimaryPrevention.Text" xml:space="preserve">
+    <value>پیشگیری نخستین</value>
+  </data>
+
+  <data name="ResultDialog_SecondaryPrevention.Text" xml:space="preserve">
+    <value>پیشگیری اولیه</value>
+  </data>
+
+  <data name="ResultDialog_PrimordialPrevention.Text" xml:space="preserve">
+    <value>پیشگیری ثانویه</value>
+  </data>
+
+  <data name="ResultDialog_Severity.Text" xml:space="preserve">
+    <value>شدت </value>
+  </data>
+
+  <data name="ResultDialog_Description.Text" xml:space="preserve">
+    <value>توضیح </value>
+  </data>
+
+  <data name="ResultDialog_PreventionSteps.Text" xml:space="preserve">
+    <value>مراحل پیشگیری</value>
+  </data>
+
+  <data name="ResultDialog_NextSteps.Text" xml:space="preserve">
+    <value>قدم‌های بعدی</value>
+  </data>
+
+  <data name="ResultDialog_FollowUp.Text" xml:space="preserve">
+    <value>پیگیری</value>
+  </data>
+
+  <data name="ResultDialog_PatientEducation.Text" xml:space="preserve">
+    <value>آموزش بیمار</value>
+  </data>
+
 </root>

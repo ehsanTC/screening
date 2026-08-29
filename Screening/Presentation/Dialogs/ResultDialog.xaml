@@ -17,7 +17,7 @@
 
 
         <!-- ============================= -->
-        <!-- Header                         -->
+        <!-- Header                        -->
         <!-- ============================= -->
 
         <Grid Grid.Row="0"
@@ -74,7 +74,6 @@
 
                 <StackPanel>
 
-
                     <!-- ========================= -->
                     <!-- Severity                  -->
                     <!-- ========================= -->
@@ -88,7 +87,7 @@
                             <Grid Padding="16">
 
                                 <TextBlock
-                                    Text="Severity "
+                                    x:Uid="ResultDialog_Severity"
                                     FontSize="15"
                                     VerticalAlignment="Center" />
 
@@ -126,7 +125,7 @@
                             <Grid Padding="16">
 
                                 <TextBlock
-                                    Text="Description"
+                                    x:Uid="ResultDialog_Description"
                                     FontSize="15"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Stretch" />
@@ -165,8 +164,7 @@
                             <Grid Padding="16">
 
                                 <TextBlock
-                                    Grid.Column="0"
-                                    Text="Prevention Steps"
+                                    x:Uid="ResultDialog_PreventionSteps"
                                     FontSize="15"
                                     VerticalAlignment="Center" />
 
@@ -175,24 +173,146 @@
 
                         <Border Padding="16,0,16,16">
 
-                            <ScrollViewer
-                                MaxHeight="300"
-                                VerticalScrollBarVisibility="Auto">
+                                <StackPanel Spacing="16">
 
-                                <TextBlock
-                                    Text="{Binding Risk.PreventionSteps}"
-                                    TextWrapping="Wrap"
-                                    FontSize="14" />
+                                    <!-- Primordial -->
+                                    <StackPanel
+                                        Spacing="8"
+                                        Visibility="{Binding Risk.PreventionSteps.Primordial.Count}">
 
-                            </ScrollViewer>
+                                        <TextBlock
+                                            x:Uid="ResultDialog_PrimordialPrevention"
+                                            FontSize="14"
+                                            FontWeight="SemiBold" />
+
+                                        <ItemsControl
+                                            ItemsSource="{Binding Risk.PreventionSteps.Primordial}">
+
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+
+                                                    <Grid Margin="0,2,0,2">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock
+                                                            Grid.Column="0"
+                                                            Text="•"
+                                                            FontSize="14"
+                                                            Margin="0,0,8,0" />
+
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            Text="{Binding}"
+                                                            FontSize="14"
+                                                            TextWrapping="Wrap" />
+
+                                                    </Grid>
+
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+
+                                        </ItemsControl>
+
+                                    </StackPanel>
+
+
+                                    <!-- Primary -->
+                                    <StackPanel Spacing="8">
+
+                                        <TextBlock
+                                            x:Uid="ResultDialog_PrimaryPrevention"
+                                            FontSize="14"
+                                            FontWeight="SemiBold" />
+
+                                        <ItemsControl
+                                            ItemsSource="{Binding Risk.PreventionSteps.Primary}">
+
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+
+                                                    <Grid Margin="0,2,0,2">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock
+                                                            Grid.Column="0"
+                                                            Text="•"
+                                                            FontSize="14"
+                                                            Margin="0,0,8,0" />
+
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            Text="{Binding}"
+                                                            FontSize="14"
+                                                            TextWrapping="Wrap" />
+
+                                                    </Grid>
+
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+
+                                        </ItemsControl>
+
+                                    </StackPanel>
+
+
+                                    <!-- Secondary -->
+                                    <StackPanel Spacing="8">
+
+                                        <TextBlock
+                                            x:Uid="ResultDialog_SecondaryPrevention"
+                                            FontSize="14"
+                                            FontWeight="SemiBold" />
+
+                                        <ItemsControl
+                                            ItemsSource="{Binding Risk.PreventionSteps.Secondary}">
+
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+
+                                                    <Grid Margin="0,2,0,2">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock
+                                                            Grid.Column="0"
+                                                            Text="•"
+                                                            FontSize="14"
+                                                            Margin="0,0,8,0" />
+
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            Text="{Binding}"
+                                                            FontSize="14"
+                                                            TextWrapping="Wrap" />
+
+                                                    </Grid>
+
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+
+                                        </ItemsControl>
+
+                                    </StackPanel>
+
+                                </StackPanel>
 
                         </Border>
 
                     </Expander>
 
-
                     <!-- ========================= -->
-                    <!-- Next Steps                  -->
+                    <!-- Next Steps                -->
                     <!-- ========================= -->
 
                     <Expander
@@ -204,7 +324,7 @@
                             <Grid Padding="16">
 
                                 <TextBlock
-                                    Text="Next Steps"
+                                    x:Uid="ResultDialog_NextSteps"
                                     FontSize="15"
                                     VerticalAlignment="Center" />
 
@@ -241,7 +361,7 @@
                             <Grid Padding="16">
 
                                 <TextBlock
-                                    Text="Follow Up"
+                                    x:Uid="ResultDialog_FollowUp"
                                     FontSize="15"
                                     VerticalAlignment="Center" />
 
@@ -279,7 +399,7 @@
                             <Grid Padding="16">
 
                                 <TextBlock
-                                    Text="Patient Education"
+                                    x:Uid="ResultDialog_PatientEducation"
                                     FontSize="15"
                                     VerticalAlignment="Center" />
 
