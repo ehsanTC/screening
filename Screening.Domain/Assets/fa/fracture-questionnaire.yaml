@@ -1,0 +1,273 @@
+title: "برآورد احتمال شکستگی طی ۱۰ سال"
+version: "1.0"
+
+questions:
+  - id: 1
+    code: "age"
+    text: "سن شما چند سال است؟"
+    type: Number
+    save:
+      path: "age"
+      cast: "int"
+    validation:
+      min: 40
+      max: 90
+    validation_error: "سن شما باید بین ۴۰ تا ۹۰ سال باشد."
+
+  - id: 2
+    code: "gender"
+    text: "جنسیت شما چیست؟"
+    type: single_choice
+    options:
+      - text: "زن"
+        value: Female
+      - text: "مرد"
+        value: Male
+    save:
+      path: "gender"
+      cast: "string"
+
+  - id: 3
+    code: "height"
+    text: "قد شما بر حسب متر چقدر است؟"
+    type: Number
+    save:
+      path: "height"
+      cast: float
+      unit: "m"
+    validation:
+      min: 1.5
+      max: 2.2
+    validation_error: "قد شما باید در محدوده 1.5 تا 2.2 متر باشد"
+
+  - id: 4
+    code: "weight"
+    text: "وزن شما چند کیلوگرم است؟"
+    type: Number
+    save:
+      path: "weight"
+      cast: float
+      unit: "kg"
+    validation:
+      min: 50
+      max: 150
+    validation_error: "وزن شما باید در محدوده 50 تا 150 کیلوگرم باشد."
+
+  - id: 5
+    code: "previous-fracture"
+    text: "آیا قبلاً شکستگی داشته‌اید؟"
+    type: single_choice
+    options:
+      - text: بله
+        value: yes
+
+      - text: خیر
+        value: no
+    required: false
+
+  - id: 6
+    code: "parent-previous-fracture"
+    text: "آیا یکی از والدین شما قبلاً شکستگی لگن داشته است؟"
+    type: single_choice
+    options:
+      - text: بله
+        value: yes
+
+      - text: خیر
+        value: no
+    required: false
+
+  - id: 7
+    code: "smoking"
+    text: "آیا سیگار می‌کشید؟"
+    type: single_choice
+    options:
+      - text: بله
+        value: yes
+
+      - text: خیر
+        value: no
+    required: false
+
+  - id: 8
+    code: "corticosteroids"
+    text: "آیا در حال حاضر از کورتیکواستروئید استفاده می‌کنید؟"
+    type: single_choice
+    options:
+      - text: بله
+        value: yes
+
+      - text: خیر
+        value: no
+    required: false
+
+  - id: 9
+    code: "rheumatoid-arthritis"
+    text: "آیا روماتیسم مفصلی دارید؟"
+    type: single_choice
+    options:
+      - text: بله
+        value: yes
+
+      - text: خیر
+        value: no
+    required: false
+
+  - id: 10
+    code: "secondary-osteoporosis"
+    text: "آیا بیماری یا وضعیتی دارید که استخوان‌ها را ضعیف می‌کند (دیابت، بیماری کبد/کلیه، تیروئید، یا یائسگی زودرس)؟"
+    type: single_choice
+    options:
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
+    required: false
+
+  - id: 11
+    code: "alcohol-over3"
+    text: "آیا روزانه ۳ واحد یا بیشتر الکل می‌نوشید؟"
+    type: single_choice
+    options:
+      - text: "بله"
+        value: yes
+
+      - text: "خیر"
+        value: no
+    required: false
+
+  - id: 12
+    code: "femoral-neck-measurement"
+    text: "اگر سنجش تراکم گردن فمور(ران) دارید، واحد آنرا مشخص کنید"
+    type: single_choice
+    options:
+      - text: "GE-Lunar"
+        value: "GE-Lunar"
+
+      - text: "Norland"
+        value: "Norland"
+
+      - text: "Hologic"
+        value: "Hologic"
+
+      - text: "DMS/Medilink"
+        value: "DMS/Medilink"
+
+      - text: "IMex/Medical"
+        value: "IMex/Medical"
+
+      - text: "Mindways/QCT"
+        value: "Mindways/QCT"
+
+      - text: "Osteosys"
+        value: "Osteosys"
+
+      - text: "نمی‌دانم"
+        value: "not-available"
+
+    required: true
+
+  - id: 13
+    code: "femoral-neck-value"
+    text: "مقدار تراکم گردن فمور (ران) شما چقدر است؟"
+    type: Number
+    show_if:
+      - question_id: 12
+        operator: NotEquals
+        value: "not-available"
+
+
+results:
+  - value: low
+    text: "خطر پایین"
+    subtitle: "احتمال کمتر از ۵٪"
+    conditions:
+      - operator: lessThan
+        value: 5
+    description: "برآورد FRAX نشان‌دهنده احتمال پایین‌تر شکستگی عمده پوکی‌استخوان در ۱۰ سال آینده است. این نتیجه به تنهایی تشخیص پوکی‌استخوان نمی‌دهد و تعیین نمی‌کند که آیا درمان لازم است یا خیر."
+    color: "#4CAF50"
+    icon: "🟢"
+    prevention:
+      primordial:
+        - "وزن بدن را در محدوده سالم نگه دارید."
+        - "از نظر بدنی فعال بمانید."
+      primary:
+        - "کلسیم و ویتامین D کافی در رژیم غذایی خود بگنجانید."
+        - "به طور منظم ورزش‌های تحمل‌کننده وزن و تقویت‌کننده عضلات انجام دهید."
+      secondary:
+        - "اگر عوامل خطر اضافی دارید، خطر شکستگی فردی خود را با پزشک خود در میان بگذارید."
+    summary: "احتمال شکستگی تخمینی شما در ۱۰ سال، در محدوده پایین‌تر دسته‌های خطر این پرسشنامه قرار دارد."
+    next_steps: |
+      ۱. به فعالیت بدنی منظم ادامه دهید.
+      ۲. دریافت کلسیم و ویتامین D کافی را حفظ کنید.
+      ۳. عوامل خطر خود را به طور دوره‌ای مرور کنید.
+    follow_up: "هنگامی که سلامت یا عوامل خطر شما تغییر کرد، خطر شکستگی خود را مجدداً ارزیابی کنید."
+    patient_education: |
+      • FRAX احتمال شکستگی را در ۱۰ سال آینده برآورد می‌کند.
+      • احتمال پایین‌تر FRAX به این معنی نیست که شکستگی غیرممکن است.
+
+  - value: medium
+    text: "خطر متوسط"
+    subtitle: "احتمال بین ۵٪ تا ۱۰٪"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 5
+      - operator: lessThan
+        value: 10
+    description: "برآورد FRAX نشان‌دهنده احتمال متوسط شکستگی عمده پوکی‌استخوان در ۱۰ سال آینده است. این نتیجه باید همراه با سن، جنسیت، عوامل خطر بالینی و در صورت وجود، تراکم مواد معدنی استخوان تفسیر شود."
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "وزن بدن را در محدوده سالم نگه دارید."
+        - "از بی‌تحرکی طولانی‌مدت خودداری کنید."
+      primary:
+        - "به طور منظم ورزش‌های تحمل‌کننده وزن و تقویت‌کننده عضلات انجام دهید."
+        - "دریافت کلسیم و ویتامین D کافی را تضمین کنید."
+        - "از سیگار کشیدن و مصرف بیش از حد الکل خودداری کنید."
+      secondary:
+        - "نتیجه FRAX و عوامل خطر اضافی خود را با یک پزشک متخصص در میان بگذارید."
+        - "بپرسید که آیا انجام آزمایش تراکم مواد معدنی استخوان برای شما مناسب است یا خیر."
+    summary: "احتمال شکستگی تخمینی شما در ۱۰ سال، در محدوده متوسط دسته‌های خطر این پرسشنامه قرار دارد."
+    next_steps: |
+      ۱. عوامل خطر شکستگی خود را با یک پزشک متخصص مرور کنید.
+      ۲. به طور منظم ورزش‌های تحمل‌کننده وزن و تقویت‌کننده عضلات را ادامه دهید.
+      ۳. در مورد اینکه آیا ارزیابی بیشتر، از جمله اندازه‌گیری BMD، مناسب است یا خیر، بحث کنید.
+    follow_up: "طبق نظر پزشک متخصص، پیگیری را انجام دهید."
+    patient_education: |
+      • FRAX احتمال تقریبی شکستگی را در ۱۰ سال ارائه می‌دهد.
+      • تصمیمات بالینی نباید تنها بر اساس درصد FRAX گرفته شوند.
+      • در صورت لزوم، تراکم مواد معدنی استخوان می‌تواند اطلاعات بیشتری ارائه دهد.
+
+  - value: high
+    text: "خطر بالا"
+    subtitle: "احتمال ۱۰٪ یا بیشتر"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 10
+    description: "برآورد FRAX بر اساس دسته‌های خطر این پرسشنامه، نشان‌دهنده احتمال بالاتر شکستگی عمده پوکی‌استخوان در ۱۰ سال آینده است. این نتیجه باید با یک پزشک متخصص بررسی شود."
+    color: "#F44336"
+    icon: "🔴"
+    prevention:
+      primordial:
+        - "از نظر بدنی فعال بمانید و از بی‌تحرکی طولانی‌مدت خودداری کنید."
+        - "وزن بدن را در محدوده سالم نگه دارید."
+      primary:
+        - "به طور منظم ورزش‌های تحمل‌کننده وزن و تقویت‌کننده عضلات انجام دهید."
+        - "دریافت کلسیم و ویتامین D کافی را تضمین کنید."
+        - "از سیگار کشیدن و مصرف بیش از حد الکل خودداری کنید."
+      secondary:
+        - "نتیجه FRAX خود را با یک پزشک متخصص در میان بگذارید."
+        - "در مورد اینکه آیا آزمایش تراکم مواد معدنی استخوان یا ارزیابی دیگر مناسب است یا خیر، بحث کنید."
+        - "عوامل خطر قابل تعدیل شکستگی را مرور کنید."
+    summary: "احتمال شکستگی تخمینی شما در ۱۰ سال، در محدوده بالاتر دسته‌های خطر این پرسشنامه قرار دارد."
+    next_steps: |
+      ۱. نتیجه را با یک پزشک متخصص در میان بگذارید.
+      ۲. عوامل خطر شکستگی فردی خود را مرور کنید.
+      ۳. بپرسید که آیا ارزیابی بیشتر، از جمله اندازه‌گیری BMD، مناسب است یا خیر.
+    follow_up: "برای ارزیابی فردی، با یک پزشک متخصص پیگیری ترتیب دهید."
+    patient_education: |
+      • احتمال بالاتر FRAX به خودی خود تشخیص پوکی‌استخوان را ثابت نمی‌کند.
+      • تصمیمات درمانی به تصویر کامل بالینی بستگی دارد.
+      • FRAX احتمال شکستگی را در ۱۰ سال برآورد می‌کند و باید در بافت بالینی آن تفسیر شود.
