@@ -90,6 +90,10 @@ questions:
       path: "height"
       cast: float
       unit: "m"
+    validation:
+      min: 1.5
+      max: 2.2
+    validation_error: "Height must be 1.5 to 2.2 meters."
 
   - id: 8
     code: "weight"
@@ -99,6 +103,11 @@ questions:
       path: "weight"
       cast: float
       unit: "kg"
+    validation:
+      min: 50
+      max: 150
+    validation_error: "Weight must be 50 to 150 kilograms."
+
 
 results:
     - value: low
