@@ -13,6 +13,7 @@
         <EmbeddedResource Include="Assets\fa\Diabetes-Type2-questionnaire.yaml">
           <LogicalName>fa\Diabetes-Type2-questionnaire.yaml</LogicalName>
         </EmbeddedResource>
+        <PackageReference Include="Microsoft.Extensions.Http" />
         <PackageReference Include="Uno.Extensions.Storage" />
         <PackageReference Include="Uno.WinRT" />
         <PackageReference Include="YamlDotNet"/>

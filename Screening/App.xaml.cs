@@ -44,8 +44,11 @@ public partial class App : Application
                     services.AddTransient<DelegatingHandler, DebugHttpHandler>();
 #endif
                 })
-                .ConfigureServices(
-                    (context, services) => services.ConfigureServices())
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddHttpClient();
+                    services.ConfigureServices();
+                })
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
                 .UseStorage()
             );
