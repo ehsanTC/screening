@@ -6,9 +6,8 @@ using Screening.Domain.Questions;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Common;
 using Screening.Domain.RiskCalculator.Models;
-using Screening.Domain.RiskCalculator.Requests;
 
-namespace Screening.Domain.RiskCalculator;
+namespace Screening.Domain.RiskCalculator.Diabetes;
 
 public class DiabetesRiskEvaluator : IRiskEvaluator
 {

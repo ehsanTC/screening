@@ -1,7 +1,7 @@
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Models;
 
-namespace Screening.Domain.RiskCalculator.Requests;
+namespace Screening.Domain.RiskCalculator.Diabetes;
 
 public class DiabetesRiskInput : IRiskEvaluatorInput
 {

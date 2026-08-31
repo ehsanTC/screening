@@ -1,8 +1,8 @@
+using Screening.Domain.Questionnaire;
 using Screening.Domain.Questionnaire.Abstraction;
 using Screening.Domain.RiskCalculator.Models;
-using Screening.Domain.RiskCalculator.Requests;
 
-namespace Screening.Domain.Questionnaire.InputBuilders;
+namespace Screening.Domain.RiskCalculator.Diabetes;
 
 public class DiabetesRiskInputBuilder : IRiskInputBuilder<DiabetesRiskInput>
 {
