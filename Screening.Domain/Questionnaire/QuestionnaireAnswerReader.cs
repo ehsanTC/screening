@@ -105,4 +105,13 @@ public class QuestionnaireAnswerReader
             }
         }
     }
+
+    public YamlListItem? GetSingleItem(string code)
+    {
+        var answer = GetAnswer(code);
+        if (answer is SingleOptionAnswer selectedItem)
+            return selectedItem.Item;
+        
+        return null;
+    }
 }
