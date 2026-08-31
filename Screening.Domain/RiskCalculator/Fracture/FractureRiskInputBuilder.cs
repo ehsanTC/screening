@@ -1,0 +1,55 @@
+using Screening.Domain.Parser.Models;
+using Screening.Domain.Questionnaire;
+using Screening.Domain.Questionnaire.Abstraction;
+using Screening.Domain.RiskCalculator.Models;
+
+namespace Screening.Domain.RiskCalculator.Fracture;
+
+public class FractureRiskInputBuilder : IRiskInputBuilder<FractureRiskInput>
+{
+    private static readonly string[] RequiredCodes =
+    [
+        QuestionCodes.Age,
+        QuestionCodes.Gender,
+        QuestionCodes.Height,
+        QuestionCodes.Weight,
+    ];
+    
+    public FractureRiskInput Build(QuestionnaireAnswerReader reader)
+    {
+        reader.EnsureCodesPresent(RequiredCodes);
+
+        var input = new FractureRiskInput()
+        {
+            Age = reader.GetInt(QuestionCodes.Age).Value,
+            Sex = reader.GetBinarySelection<Sex>(QuestionCodes.Gender),
+            HeightCm = reader.GetFloat(QuestionCodes.Height).Value * 100,
+            WeightKg = reader.GetInt(QuestionCodes.Weight).Value,
+            PreviousFracture = reader.GetBoolean(QuestionCodes.PreviousFracture),
+            ParentFracturedHip = reader.GetBoolean(QuestionCodes.ParentHipFracture),
+            Smoking = reader.GetBoolean(QuestionCodes.Smoking),
+            TakingCorticosteroids = reader.GetBoolean(QuestionCodes.Corticosteroids),
+            HaveRheumatoidArthritis = reader.GetBoolean(QuestionCodes.RheumatoidArthritis),
+            HaveSecondaryOsteoporosis =  reader.GetBoolean(QuestionCodes.SecondaryOsteoporosis),
+            DrinkExcessAlcohol = reader.GetBoolean(QuestionCodes.AlcoholOver3),
+            BmdValue = reader.GetFloat(QuestionCodes.Bmd), 
+            BmdMeasure = GetMeasure(reader.GetSingleItem(QuestionCodes.FemoralNeckMeasure))
+        };
+
+        return input;
+    }
+
+    private static BmdMeasure? GetMeasure(YamlListItem? item)
+    {
+        if (item == null)
+            return null;
+
+        foreach (var measure in BmdMeasure.All)
+        {
+            if (string.Equals(measure.Name, item.Value, StringComparison.InvariantCultureIgnoreCase))
+                return measure;
+        }
+        
+        return null;
+    }
+}

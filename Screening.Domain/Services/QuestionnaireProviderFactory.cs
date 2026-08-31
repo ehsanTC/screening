@@ -22,8 +22,8 @@ public class QuestionnaireProviderFactory : IQuestionnaireProviderFactory
         {
             QuestionnaireType.Baseline => "Baseline.yaml",
             QuestionnaireType.Diabetes => "Diabetes-Type2-questionnaire.yaml",
-            QuestionnaireType.Ascvd => "Ascvd-questionnaire.yaml",
-
+            QuestionnaireType.Ascvd =>    "Ascvd-questionnaire.yaml",
+            QuestionnaireType.Fracture => "Fracture-questionnaire.yaml",
             _ => null,
         };
      

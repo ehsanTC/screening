@@ -4,5 +4,6 @@ public enum QuestionnaireType
 {
     Baseline,
     Diabetes,
-    Ascvd
+    Ascvd,
+    Fracture, 
 }

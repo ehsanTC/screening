@@ -1,13 +1,13 @@
 using Screening.Domain.Questionnaire.Abstraction;
 using Screening.Domain.Questionnaire.InputBuilders;
-using Screening.Domain.RiskCalculator;
 using Screening.Domain.RiskCalculator.Abstraction;
-using Screening.Domain.RiskCalculator.Requests;
+using Screening.Domain.RiskCalculator.Ascvd;
+using Screening.Domain.RiskCalculator.Diabetes;
+using Screening.Domain.RiskCalculator.Fracture;
 using Screening.Domain.Services;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.FileStorage;
 using Screening.Domain.Services.Profile;
-using Screening.Presentation.Utility;
 
 namespace Screening;
 
@@ -26,9 +26,11 @@ public static class DiExtensions
 
     private static IServiceCollection AddRiskInputBuilder(this IServiceCollection services) => services
         .AddSingleton<IRiskEvaluator, DiabetesRiskEvaluator>()
-        .AddSingleton<IRiskEvaluator, AscvdRiskEvaluator>();
+        .AddSingleton<IRiskEvaluator, AscvdRiskEvaluator>()
+        .AddSingleton<IRiskEvaluator, FractureRiskEvaluator>();
 
     private static IServiceCollection AddRiskEvaluators(this IServiceCollection services) => services
         .AddSingleton<IRiskInputBuilder<AscvdRiskInput>, AscvdRiskInputBuilder>()
-        .AddSingleton<IRiskInputBuilder<DiabetesRiskInput>, DiabetesRiskInputBuilder>();
+        .AddSingleton<IRiskInputBuilder<DiabetesRiskInput>, DiabetesRiskInputBuilder>()
+        .AddSingleton<IRiskInputBuilder<FractureRiskInput>, FractureRiskInputBuilder>();
 }
