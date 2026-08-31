@@ -66,7 +66,7 @@ questions:
     required: false
 
   - id: 6
-    code: "parent-previous-fracture"
+    code: "parent-hip-fracture"
     text: "Have you had previous parent fracture hip?"
     type: single_choice
     options:
@@ -138,18 +138,21 @@ questions:
     required: false
 
   - id: 12
-    code: "femoral-neck-measurement"
-    text: "Femoral neck BMD measurement:"
+    code: "femoral-neck-measure"
+    text: "Femoral neck BMD measure:"
     type: single_choice
     options:
       - text: "GE-Lunar"
         value: "GE-Lunar"
 
+      - text: "Hologic"
+        value: "Hologic"
+
       - text: "Norland"
         value: "Norland"
 
-      - text: "Hologic"
-        value: "Hologic"
+      - text: "T-score"
+        value: "T-score"
 
       - text: "DMS/Medilink"
         value: "DMS/Medilink"
@@ -197,7 +200,7 @@ results:
         - "Perform regular weight-bearing and muscle-strengthening exercise."
       secondary:
         - "Discuss your individual fracture risk with your healthcare professional if you have additional risk factors."
-    summary: "Your estimated 10-year fracture probability is in the lower range of this questionnaire's risk bands."
+    summary: "Your 10-year fracture estimates come out to {0:F1}% for a major osteoporotic fracture and {1:F1}% for a hip fracture, which places you in the lower-risk band of this assessment."
     next_steps: |
       1. Continue regular physical activity.
       2. Maintain adequate calcium and vitamin D intake.
@@ -229,7 +232,7 @@ results:
       secondary:
         - "Discuss your FRAX result and additional risk factors with a healthcare professional."
         - "Ask whether bone mineral density testing is appropriate for you."
-    summary: "Your estimated 10-year fracture probability is in the intermediate range of this questionnaire's risk bands."
+    summary: "Your 10-year fracture estimates are {0:F1}% for a major osteoporotic fracture and {1:F1}% for a hip fracture, which places you in the moderate-risk band of this assessment."
     next_steps: |
       1. Review your fracture risk factors with a healthcare professional.
       2. Maintain regular weight-bearing and muscle-strengthening exercise.
@@ -261,7 +264,7 @@ results:
         - "Discuss your FRAX result with a healthcare professional."
         - "Discuss whether bone mineral density testing or other assessment is appropriate."
         - "Review modifiable fracture risk factors."
-    summary: "Your estimated 10-year fracture probability is in the higher range of this questionnaire's risk bands."
+    summary: "Based on this questionnaire, your 10-year risk scores are {0:F1}% for a major osteoporotic fracture and {1:F1}% for a hip fracture, both of which are at the higher end of the scale. Please contact with your health care provider."
     next_steps: |
       1. Discuss the result with a healthcare professional.
       2. Review your individual fracture risk factors.
