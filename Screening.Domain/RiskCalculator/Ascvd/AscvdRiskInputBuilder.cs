@@ -1,6 +1,6 @@
 using Screening.Domain.Questionnaire.Abstraction;
+using Screening.Domain.RiskCalculator.Ascvd;
 using Screening.Domain.RiskCalculator.Models;
-using Screening.Domain.RiskCalculator.Requests;
 
 namespace Screening.Domain.Questionnaire.InputBuilders;
 

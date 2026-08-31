@@ -6,9 +6,8 @@ using Screening.Domain.Questionnaire.Abstraction;
 using Screening.Domain.Questions;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Models;
-using Screening.Domain.RiskCalculator.Requests;
 
-namespace Screening.Domain.RiskCalculator;
+namespace Screening.Domain.RiskCalculator.Ascvd;
 
 public class AscvdRiskEvaluator : IRiskEvaluator
 {

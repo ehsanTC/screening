@@ -1,6 +1,6 @@
 using Screening.Domain.RiskCalculator.Models;
 
-namespace Screening.Domain.RiskCalculator;
+namespace Screening.Domain.RiskCalculator.Ascvd;
 
 internal static class PreventCoefficientTable
 {

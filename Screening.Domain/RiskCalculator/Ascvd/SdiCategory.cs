@@ -1,4 +1,4 @@
-namespace Screening.Domain.RiskCalculator.Models;
+namespace Screening.Domain.RiskCalculator.Ascvd;
 
 public enum SdiCategory
 {

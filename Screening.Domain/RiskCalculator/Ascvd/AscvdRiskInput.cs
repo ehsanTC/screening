@@ -2,7 +2,7 @@ using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Common;
 using Screening.Domain.RiskCalculator.Models;
 
-namespace Screening.Domain.RiskCalculator.Requests;
+namespace Screening.Domain.RiskCalculator.Ascvd;
 
 public class AscvdRiskInput : IRiskEvaluatorInput
 {

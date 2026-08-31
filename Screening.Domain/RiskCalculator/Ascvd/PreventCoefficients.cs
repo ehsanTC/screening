@@ -1,4 +1,4 @@
-namespace Screening.Domain.RiskCalculator;
+namespace Screening.Domain.RiskCalculator.Ascvd;
 
 public sealed class PreventCoefficients
 {
