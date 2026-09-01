@@ -25,22 +25,25 @@
         </Border>
 
         <Grid Grid.Row="1"
-              RowDefinitions="*,Auto,*"
+              RowDefinitions="*"
               HorizontalAlignment="Stretch">
 
-            <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding AvailableOptions}"
-                          HorizontalAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <RadioButton Content="{Binding Text}"
-                                     GroupName="SingleChoiceOptions"
-                                     Style="{StaticResource OptionButtonStyle}"
-                                     Loaded="OnOptionLoaded"
-                                     Checked="OnOptionChecked" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding AvailableOptions}"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Stretch">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Content="{Binding Text}"
+                                         GroupName="SingleChoiceOptions"
+                                         Style="{StaticResource OptionButtonStyle}"
+                                         Loaded="OnOptionLoaded"
+                                         Checked="OnOptionChecked" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
 
         </Grid>
 
