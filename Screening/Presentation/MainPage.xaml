@@ -97,7 +97,8 @@
                 ImageSource="ms-appx:///Assets/Icons/fracture.png"
                 ImageWidth="56"
                 ImageHeight="56"
-                ImageStretch="Uniform" />
+                ImageStretch="Uniform"
+                Command="{Binding GoToFracture}"/>
 
             <views:DisorderCardView
                 Grid.Column="0"
