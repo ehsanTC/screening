@@ -26,6 +26,9 @@
 
         <EmbeddedResource Include="Assets\en\Ascvd-questionnaire.yaml"
                           LogicalName="en\Ascvd-questionnaire.yaml"/>
+        
+        <EmbeddedResource Include="Assets\en\Fracture-questionnaire.yaml"
+                          LogicalName="en\Fracture-questionnaire.yaml"/>
     </ItemGroup>
 
     <Target Name="ValidateLocalizedAssets" BeforeTargets="BeforeBuild">
