@@ -142,6 +142,9 @@ questions:
     text: "Femoral neck BMD measure:"
     type: single_choice
     options:
+      - text: "I don't Know"
+        value: "not-available"
+
       - text: "GE-Lunar"
         value: "GE-Lunar"
 
@@ -165,9 +168,6 @@ questions:
 
       - text: "Osteosys"
         value: "Osteosys"
-
-      - text: "I don't Know"
-        value: "not-available"
 
     required: true
 

@@ -142,6 +142,9 @@ questions:
     text: "اگر سنجش تراکم گردن فمور(ران) دارید، واحد آنرا مشخص کنید"
     type: single_choice
     options:
+      - text: "نمی‌دانم"
+        value: "not-available"
+
       - text: "GE-Lunar"
         value: "GE-Lunar"
 
@@ -162,9 +165,6 @@ questions:
 
       - text: "Osteosys"
         value: "Osteosys"
-
-      - text: "نمی‌دانم"
-        value: "not-available"
 
     required: true
 
