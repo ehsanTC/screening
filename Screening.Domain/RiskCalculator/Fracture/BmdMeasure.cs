@@ -1,6 +1,6 @@
 namespace Screening.Domain.RiskCalculator.Fracture;
 
-public readonly record struct BmdMeasure(string Name, float Value, string Unit = "g\\/cm2")
+public readonly record struct BmdMeasure(string Name, float EquipmentNumber, string Unit = "g/cm2")
 {
     public static readonly BmdMeasure GE_Lunar = new("GE-Lunar", 1);
     public static readonly BmdMeasure Hologic = new("Hologic", 2);

@@ -46,7 +46,7 @@ public partial class App : Application
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddHttpClient();
+                    services.ConfigureHttpClientServices();
                     services.ConfigureServices();
                 })
                 .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)

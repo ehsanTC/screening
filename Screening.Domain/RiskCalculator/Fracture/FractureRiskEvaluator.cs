@@ -11,19 +11,17 @@ namespace Screening.Domain.RiskCalculator.Fracture;
 
 public class FractureRiskEvaluator : IRiskEvaluator
 {
-    private const string FraxApiAddress = "https://www.fraxplus.org/api/v1/frax";
-    
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly FractureRiskApiClient _fractureRiskApiClient;
     private readonly IRiskInputBuilder<FractureRiskInput> _inputBuilder;
-    
+
     public QuestionnaireType QuestionnaireType => QuestionnaireType.Fracture;
 
     public FractureRiskEvaluator(
         IRiskInputBuilder<FractureRiskInput> inputBuilder,
-        IHttpClientFactory httpClientFactory)
+        FractureRiskApiClient fractureRiskApiClient)
     {
         _inputBuilder = inputBuilder ?? throw new ArgumentNullException(nameof(inputBuilder));
-        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        _fractureRiskApiClient = fractureRiskApiClient ?? throw new ArgumentNullException(nameof(fractureRiskApiClient));
     }
     
     public RiskResult? Evaluate(QuestionnaireEntity questionnaire)
@@ -68,14 +66,9 @@ public class FractureRiskEvaluator : IRiskEvaluator
 
     private FraxScore? CalculateFraxScore(FractureRiskInput input)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        var apiClient = new FractureRiskApiClient(client);
-        
         try
         {
-            var result = apiClient.CalculateAsync(input, 
-                new Uri(FraxApiAddress, UriKind.Absolute)).Result;
-            
+            var result = _fractureRiskApiClient.CalculateAsync(input).Result;
             return result.FraxScore;
         }
         catch (Exception e)
