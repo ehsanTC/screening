@@ -126,6 +126,10 @@ questions:
       - text: "خیر"
         value: no
 
+    save:
+      path: "smoking"
+      cast: "bool"
+
   - id: 12
     code: "diabetes"
     text: "آیا دیابت دارید؟"

@@ -87,6 +87,9 @@ questions:
 
       - text: No
         value: no
+    save:
+      path: "smoking"
+      cast: "bool"
     required: false
 
   - id: 8

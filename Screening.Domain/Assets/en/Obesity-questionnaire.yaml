@@ -98,6 +98,10 @@ questions:
       - text: No
         value: no
 
+    save:
+      path: "smoking"
+      cast: "bool"
+
   - id: 10
     code: "past-smoking"
     text: "Have you smoked cigarettes or used tobacco in the past?"
