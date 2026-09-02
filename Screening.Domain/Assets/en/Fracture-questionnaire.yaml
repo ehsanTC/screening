@@ -137,58 +137,14 @@ questions:
         value: no
     required: false
 
-  - id: 12
-    code: "femoral-neck-measure"
-    text: "Femoral neck BMD measure:"
-    type: single_choice
-    options:
-      - text: "I don't Know"
-        value: "not-available"
-
-      - text: "GE-Lunar"
-        value: "GE-Lunar"
-
-      - text: "Hologic"
-        value: "Hologic"
-
-      - text: "Norland"
-        value: "Norland"
-
-      - text: "T-score"
-        value: "T-score"
-
-      - text: "DMS/Medilink"
-        value: "DMS/Medilink"
-
-      - text: "IMex/Medical"
-        value: "IMex/Medical"
-
-      - text: "Mindways/QCT"
-        value: "Mindways/QCT"
-
-      - text: "Osteosys"
-        value: "Osteosys"
-
-    required: true
-
-  - id: 13
-    code: "femoral-neck-value"
-    text: "What is your femoral neck BMD?"
-    type: Number
-    show_if:
-      - question_id: 12
-        operator: NotEquals
-        value: "not-available"
-
-
 results:
   - value: low
     text: "Low Risk"
-    subtitle: "Probability below 5%"
+    subtitle: "Your bone density is in a healthy range"
     conditions:
-      - operator: lessThan
-        value: 5
-    description: "The FRAX estimate indicates a lower 10-year probability of a major osteoporotic fracture. This result does not by itself diagnose osteoporosis or determine whether treatment is needed."
+      - operator: equals
+        value: "Low"
+    description: "The estimation indicates a lower 10-year probability of a major osteoporotic fracture. This result does not by itself diagnose osteoporosis or determine whether treatment is needed."
     color: "#4CAF50"
     icon: "🟢"
     prevention:
@@ -200,25 +156,23 @@ results:
         - "Perform regular weight-bearing and muscle-strengthening exercise."
       secondary:
         - "Discuss your individual fracture risk with your healthcare professional if you have additional risk factors."
-    summary: "Your 10-year fracture estimates come out to {0:F1}% for a major osteoporotic fracture and {1:F1}% for a hip fracture, which places you in the lower-risk band of this assessment."
+    summary: "Your 10-year fracture estimates come out to {0} for a major osteoporotic fracture and {1} for a hip fracture, which places you in the lower-risk band of this assessment."
     next_steps: |
       1. Continue regular physical activity.
       2. Maintain adequate calcium and vitamin D intake.
       3. Review your risk factors periodically.
     follow_up: "Reassess your fracture risk when your health or risk factors change."
     patient_education: |
-      • FRAX estimates the probability of fracture over the next 10 years.
-      • A lower FRAX probability does not mean that fracture is impossible.
+      • Assessment estimates the probability of fracture over the next 10 years.
+      • A lower probability does not mean that fracture is impossible.
 
   - value: medium
     text: "Medium Risk"
-    subtitle: "Probability between 5% and 10%"
+    subtitle: "Some early signs of bone loss detected"
     conditions:
-      - operator: greaterThanOrEquals
-        value: 5
-      - operator: lessThan
-        value: 10
-    description: "The FRAX estimate indicates an intermediate 10-year probability of a major osteoporotic fracture. The result should be interpreted together with age, sex, country-specific risk, clinical risk factors and, when available, bone mineral density."
+      - operator: equals
+        value: "Medium"
+    description: "The estimation indicates an intermediate 10-year probability of a major osteoporotic fracture. The result should be interpreted together with age, sex, clinical risk factors and, when available, bone mineral density."
     color: "#FF9800"
     icon: "🟠"
     prevention:
@@ -230,26 +184,26 @@ results:
         - "Ensure adequate calcium and vitamin D intake."
         - "Avoid smoking and excessive alcohol consumption."
       secondary:
-        - "Discuss your FRAX result and additional risk factors with a healthcare professional."
+        - "Discuss your result and additional risk factors with a healthcare professional."
         - "Ask whether bone mineral density testing is appropriate for you."
-    summary: "Your 10-year fracture estimates are {0:F1}% for a major osteoporotic fracture and {1:F1}% for a hip fracture, which places you in the moderate-risk band of this assessment."
+    summary: "Your 10-year fracture estimates are {0} for a major osteoporotic fracture and {1} for a hip fracture, which places you in the moderate-risk band of this assessment."
     next_steps: |
       1. Review your fracture risk factors with a healthcare professional.
       2. Maintain regular weight-bearing and muscle-strengthening exercise.
       3. Discuss whether further assessment, including BMD measurement, is appropriate.
     follow_up: "Follow up according to your healthcare professional's assessment."
     patient_education: |
-      • FRAX provides an estimated 10-year fracture probability.
-      • Clinical decisions should not be based on the FRAX percentage alone.
+      • Assessment provides an estimated 10-year fracture probability.
+      • Clinical decisions should not be based on the percentage alone.
       • Bone mineral density can provide additional information when appropriate.
 
   - value: high
     text: "High Risk"
-    subtitle: "Probability 10% or higher"
+    subtitle: "Fracture prevention is now a priority"
     conditions:
-      - operator: greaterThanOrEquals
-        value: 10
-    description: "The FRAX estimate indicates a higher 10-year probability of a major osteoporotic fracture according to this questionnaire's risk bands. This result should be reviewed with a healthcare professional."
+      - operator: equals
+        value: "High"
+    description: "The estimation indicates a higher 10-year probability of a major osteoporotic fracture according to this questionnaire's risk bands. This result should be reviewed with a healthcare professional."
     color: "#F44336"
     icon: "🔴"
     prevention:
@@ -261,16 +215,16 @@ results:
         - "Ensure adequate calcium and vitamin D intake."
         - "Avoid smoking and excessive alcohol consumption."
       secondary:
-        - "Discuss your FRAX result with a healthcare professional."
+        - "Discuss your result with a healthcare professional."
         - "Discuss whether bone mineral density testing or other assessment is appropriate."
         - "Review modifiable fracture risk factors."
-    summary: "Based on this questionnaire, your 10-year risk scores are {0:F1}% for a major osteoporotic fracture and {1:F1}% for a hip fracture, both of which are at the higher end of the scale. Please contact with your health care provider."
+    summary: "Based on this questionnaire, your 10-year risk scores are {0} for a major osteoporotic fracture and {1} for a hip fracture, both of which are at the higher end of the scale. Please contact with your health care provider."
     next_steps: |
       1. Discuss the result with a healthcare professional.
       2. Review your individual fracture risk factors.
       3. Ask whether further evaluation, including BMD measurement, is appropriate.
     follow_up: "Arrange follow-up with a healthcare professional for individualized assessment."
     patient_education: |
-      • A higher FRAX probability does not by itself establish a diagnosis of osteoporosis.
+      • A higher probability does not by itself establish a diagnosis of osteoporosis.
       • Treatment decisions depend on the complete clinical picture.
-      • FRAX estimates 10-year fracture probability and should be interpreted in its clinical context.
+      • Assessment estimates 10-year fracture probability and should be interpreted in its clinical context.
