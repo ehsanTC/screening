@@ -48,13 +48,10 @@ public partial record QuestionModel
         {
             var result = _session.Evaluate();
             await _navigator.NavigateBackWithResultAsync(this, data: result);
+            return;
         }
 
-        await ExecuteAsync(() =>
-        {
-            _session.TryMoveNext();
-            return Task.CompletedTask;
-        });
+        _session.TryMoveNext();
     });
 
     public async Task Back() => await ExecuteAsync(() =>
