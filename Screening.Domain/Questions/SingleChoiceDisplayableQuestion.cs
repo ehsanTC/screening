@@ -19,8 +19,12 @@ public class SingleChoiceDisplayableQuestion : IDisplayableQuestion<SingleOption
 
     public void Validate()
     {
-        if (!IsOptional && !IsAnswered)
+        if (IsOptional)
+            return;
+        
+        if (!IsAnswered)
         {
+            // The question is not Optional and not Answered
             throw new InvalidOperationException("Single choice question must have a selected option.");
         }
 
