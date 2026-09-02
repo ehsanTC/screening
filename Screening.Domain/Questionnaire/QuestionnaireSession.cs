@@ -2,7 +2,6 @@ using Screening.Domain.Answers;
 using Screening.Domain.Models;
 using Screening.Domain.Models.Dtos;
 using Screening.Domain.Parser.Models;
-using Screening.Domain.RiskCalculator;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.Profile;
@@ -26,7 +25,7 @@ public class QuestionnaireSession
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         _riskEvaluatorFactory = riskEvaluatorFactory ?? throw new ArgumentNullException(nameof(riskEvaluatorFactory));
 
-        var questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType) 
+        var questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType)
                             ?? throw new ArgumentNullException(nameof(factory));
 
         _navigator = new QuestionNavigator(questionnaire);
@@ -40,8 +39,6 @@ public class QuestionnaireSession
             _navigator,
             _pageRequest.MiddlePageNextButtonText,
             _pageRequest.LastPageNextButtonText);
-
-    public bool IsLastQuestion => _navigator.IsLastQuestion;
 
     public bool TryMoveNext()
     {
@@ -94,7 +91,7 @@ public class QuestionnaireSession
         return true;
     }
 
-    private void UpdateCurrentAnswer(Answer answer) => 
+    private void UpdateCurrentAnswer(Answer answer) =>
         _navigator.CurrentQuestion.Answer = answer;
 
     private async Task<Answer?> TryLoadCurrentQuestionAnswerAsync()
@@ -116,11 +113,11 @@ public class QuestionnaireSession
         {
             var answer = await TryLoadCurrentQuestionAnswerAsync();
 
-            if (answer != null) 
+            if (answer != null)
                 UpdateCurrentAnswer(answer);
         });
     }
 
-    private void OnQuestionSkipped(object? sender, SkipEventArgs e) => 
+    private void OnQuestionSkipped(object? sender, SkipEventArgs e) =>
         e.Question.OnSkipped();
 }
