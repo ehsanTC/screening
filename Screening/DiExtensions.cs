@@ -27,7 +27,7 @@ public static class DiExtensions
     private static IServiceCollection AddRiskInputBuilder(this IServiceCollection services) => services
         .AddSingleton<IRiskEvaluator, DiabetesRiskEvaluator>()
         .AddSingleton<IRiskEvaluator, AscvdRiskEvaluator>()
-        .AddSingleton<IRiskEvaluator, FractureRiskEvaluator>();
+        .AddSingleton<IRiskEvaluator, HeuristicRiskEvaluator>();
 
     private static IServiceCollection AddRiskEvaluators(this IServiceCollection services) => services
         .AddSingleton<IRiskInputBuilder<AscvdRiskInput>, AscvdRiskInputBuilder>()
