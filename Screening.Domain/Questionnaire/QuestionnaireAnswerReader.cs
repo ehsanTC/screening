@@ -1,8 +1,7 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
-using Windows.ApplicationModel.Resources;
 using Screening.Domain.Parser.Models;
-using Screening.Domain.Questions.Abstraction;
+using Screening.Domain.Questions;
 
 namespace Screening.Domain.Questionnaire;
 
@@ -10,7 +9,7 @@ public class QuestionnaireAnswerReader
 {
     private readonly Dictionary<string, Answer> _answersByCode;
 
-    public QuestionnaireAnswerReader(Domain.Questions.QuestionnaireEntity questionnaireEntity)
+    public QuestionnaireAnswerReader(QuestionnaireEntity questionnaireEntity)
     {
         ArgumentNullException.ThrowIfNull(questionnaireEntity);
 
@@ -69,16 +68,15 @@ public class QuestionnaireAnswerReader
         return value;
     }
 
-    public bool GetBoolean(string code)
+    public bool? GetBoolean(string code)
     {
         var answer = GetAnswer(code);
-        if (answer is TextAnswer textAnswer)
-            return ConvertToBool(textAnswer.Text);
-        
-        if (answer is SingleOptionAnswer singleOptionAnswer)
-            return ConvertToBool(singleOptionAnswer.Item.Value);
-        
-        throw new NotSupportedException(string.Concat(code, answer));
+        return answer switch
+        {
+            TextAnswer textAnswer => ConvertToBool(textAnswer.Text),
+            SingleOptionAnswer singleOptionAnswer => ConvertToBool(singleOptionAnswer.Item.Value),
+            _ => null
+        };
     }
 
     private static bool ConvertToBool(string input)
