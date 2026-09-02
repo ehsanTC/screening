@@ -18,4 +18,5 @@ public class FractureRiskInput : IRiskEvaluatorInput
     public bool? DrinkExcessAlcohol { get; set; }
     public BmdMeasure? BmdMeasure { get; set; }
     public float? BmdValue { get; set; }
+    public double? Bmi => Screening.Domain.RiskCalculator.Common.Utility.Bmi(HeightCm, WeightKg); 
 }
