@@ -1,5 +1,6 @@
 using Screening.Domain.Parser.Models;
 using Screening.Domain.Questions;
+using Screening.Domain.RiskCalculator.Abstraction;
 
 namespace Screening.Domain.Extensions;
 
@@ -7,37 +8,35 @@ public static class QuestionnaireScoreExtensions
 {
     public static YamlResultCategory? GetCategory(this QuestionnaireEntity questionnaire, double score)
     {
-        if (questionnaire?.ResultCategories == null)
+        if (questionnaire?.ResultCategories is null or {Count: 0 })
             return null;
 
         return questionnaire.ResultCategories.FirstOrDefault(category => 
             Match(category, score));
     }
 
-    private static string GetMessage(YamlResultCategory category, double score) => 
-        $"{string.Format(category.Summary, score)}{Environment.NewLine}{category.NextSteps}";
-
-    public static string GetMessage(this QuestionnaireEntity questionnaire, double score)
+    public static YamlResultCategory? GetCategory(this QuestionnaireEntity questionnaire, RiskSeverity severity)
     {
-        var category = questionnaire.GetCategory(score);
+        if (questionnaire?.ResultCategories is null or {Count: 0 })
+            return null;
 
-        return category is not null 
-            ? GetMessage(category, score)
-            : string.Empty;
+        return questionnaire.ResultCategories.FirstOrDefault(category =>
+        {
+            var condition = category.Conditions.SingleOrDefault()
+                            ?? throw new NotSupportedException("Only one category is supported for Risk Severities.");
+
+            return condition.Operator == ConditionOperator.Equals
+                ? Enum.TryParse(condition.ExpectedValue.ToString(), true, out RiskSeverity expectedValue) && expectedValue == severity
+                : throw new NotSupportedException("Only Equals condition is supported for Risk Severities.");
+        });
     }
 
-    private static bool Match(YamlResultCategory? category, double score)
-    {
-        return category?.Conditions?
-                   .All(condition =>
-                   {
-                       if (!double.TryParse(condition.ExpectedValue.ToString(), out var result))
-                           return false;
-
-                       return CompareValues(score, result, condition.Operator);
-                   })
-               ?? false;
-    }
+    private static bool Match(YamlResultCategory? category, double score) =>
+        category?.Conditions?
+            .All(condition => 
+                double.TryParse(condition.ExpectedValue.ToString(), out var result) 
+                && CompareValues(score, result, condition.Operator))
+        ?? false;
 
     private static bool CompareValues(double left, double right, ConditionOperator @operator)
     {
