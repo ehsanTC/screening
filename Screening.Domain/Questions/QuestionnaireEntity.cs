@@ -62,8 +62,8 @@ public class QuestionnaireEntity
         targetQuestionAnswer switch
         {
             TextAnswer answer => [answer.Text],
-            SingleOptionAnswer answer => [answer.Item.Text],
-            MultiOptionAnswer answer => answer.SelectedOptions.Select(x => x.Text).ToList(),
+            SingleOptionAnswer answer => [answer.Item.Value],
+            MultiOptionAnswer answer => answer.SelectedOptions.Select(x => x.Value).ToList(),
             
             _ => null
         };
