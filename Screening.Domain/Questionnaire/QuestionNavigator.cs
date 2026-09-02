@@ -10,10 +10,7 @@ public sealed class QuestionNavigator
 
     public event EventHandler<SkipEventArgs> QuestionSkipped;
 
-    private void OnQuestionSkipped(SkipEventArgs e)
-    {
-        QuestionSkipped?.Invoke(this, e);
-    }
+    private void OnQuestionSkipped(SkipEventArgs e) => QuestionSkipped?.Invoke(this, e);
 
     public QuestionNavigator(QuestionnaireEntity questionnaireEntity)
     {
@@ -23,21 +20,27 @@ public sealed class QuestionNavigator
     public IDisplayableQuestion CurrentQuestion => _questionnaire.Questions[_index];
     public int Index => _index;
     public int TotalSteps => _questionnaire.Questions.Count;
-    
-    internal bool CanGoNext
+
+    internal bool IsLastQuestion
     {
-        get =>
-            _questionnaire.Questions[_index] is 
-                { IsOptional: true }  or 
-                { IsOptional: false, IsAnswered: true } &&
-            (IsLastQuestion || _index < _questionnaire.Questions.Count - 1);
+        get
+        {
+            for (var i = _index + 1; i < _questionnaire.Questions.Count; i++)
+            {
+                if (_questionnaire.ShowQuestionAtIndex(i))
+                    return false;
+            }
+
+            return true;
+        }
     }
 
-    internal bool CanGoBack => _index > 0;
+    internal bool CanGoNext =>
+        _questionnaire.Questions[_index] is
+            { IsOptional: true } or
+            { IsOptional: false, IsAnswered: true };
 
-    internal bool IsLastQuestion =>
-        // TODO: Bad idea of using question's Id
-        _questionnaire.Questions[_index].Question.Id >= _questionnaire.Questions.Count;
+    internal bool CanGoBack => _index > 0;
 
     public QuestionnaireEntity Questionnaire => _questionnaire;
 
@@ -47,27 +50,20 @@ public sealed class QuestionNavigator
 
         if (!CanGoNext)
             return false;
-        
-        var nextIndex = _index + 1;
 
-        if (nextIndex >= _questionnaire.Questions.Count)
-            return false;
+        var candidate = _index + 1;
 
-        if (_questionnaire.ShowQuestionAtIndex(nextIndex))
+        while (candidate < _questionnaire.Questions.Count &&
+               !_questionnaire.ShowQuestionAtIndex(candidate))
         {
-            _index = nextIndex;
-            return true;
+            OnQuestionSkipped(new SkipEventArgs(candidate, _questionnaire.Questions[candidate]));
+            candidate++;
         }
 
-        // the next question can't be shown, so go to the next one
-        var skipIndex = nextIndex + 1;
-        
-        if (skipIndex >= _questionnaire.Questions.Count)
-            return true;
+        if (candidate >= _questionnaire.Questions.Count)
+            return false; // no visible question left to move to
 
-        OnQuestionSkipped(new SkipEventArgs(nextIndex, _questionnaire.Questions[nextIndex]));
-        _index = skipIndex;
-
+        _index = candidate;
         return true;
     }
 
@@ -76,23 +72,18 @@ public sealed class QuestionNavigator
         if (!CanGoBack)
             return false;
 
-        var prevIndex = _index - 1;
+        var candidate = _index - 1;
 
-        if (prevIndex < 0)
+        while (candidate >= 0 &&
+               !_questionnaire.ShowQuestionAtIndex(candidate))
+        {
+            candidate--;
+        }
+
+        if (candidate < 0)
             return false;
 
-        if (_questionnaire.ShowQuestionAtIndex(prevIndex))
-        {
-            _index = prevIndex;
-        }
-        else
-        {
-            var skipIndex = prevIndex - 1;
-
-            if (skipIndex >= 0)
-                _index = skipIndex;
-        }
-        
+        _index = candidate;
         return true;
     }
 }
