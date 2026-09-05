@@ -29,42 +29,35 @@ public class QuestionnaireAnswerReader
     {
         if (!_answersByCode.TryGetValue(code, out Answer? answer) || answer == null)
             return null;
-        
+
         return answer;
     }
 
     public int? GetInt(string code) =>
-        int.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ?  result : null;
-    
-    public double? GetDouble(string code) =>
-        double.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ?  result : null;
+        int.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ? result : null;
 
-    public float? GetFloat(string code) => 
-        float.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ?  result : null;
+    public double? GetDouble(string code) =>
+        double.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ? result : null;
+
+    public float? GetFloat(string code) =>
+        float.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ? result : null;
 
     public bool GetYesNo(string code) =>
         ((SingleOptionAnswer)GetAnswer(code)).Item.Value.Equals("Yes", StringComparison.OrdinalIgnoreCase);
 
-    public string GetBinarySelection(string code) => 
-        ((SingleOptionAnswer)GetAnswer(code)).Item.Value;
-
     public TEnum GetBinarySelection<TEnum>(string code) where TEnum : struct, Enum
-    {
-        var selection = GetBinarySelection(code);
-        
-        // TODO: if the selection is farsi like "mard". the equivalent value (Male) should 
-        // be placed. The best approach is adding a OptionValue to selectionOption in the 
-        // yaml file
-        return Enum.Parse<TEnum>(selection);
-    }
+        => GetSingleItem(code) is { } selection
+            ? Enum.Parse<TEnum>(selection.Value)
+            : default;
 
     public TEnum GetEnum<TEnum>(string code, IReadOnlyDictionary<string, TEnum> optionMap)
         where TEnum : struct, Enum
     {
-        var selected = ((SingleOptionAnswer)GetAnswer(code)).Item;
-        if (!optionMap.TryGetValue(selected.Value, out var value))
-            throw new NotSupportedException(string.Concat(code, selected));
+        var selected = GetSingleItem(code);
         
+        if (!optionMap.TryGetValue(selected?.Value ?? string.Empty, out var value))
+            throw new NotSupportedException(string.Concat(code, selected));
+
         return value;
     }
 
@@ -82,8 +75,8 @@ public class QuestionnaireAnswerReader
     private static bool ConvertToBool(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
-            return false; // Or throw an ArgumentException
-
+            return false;
+        
         var lowerInvariant = input.Trim().ToLowerInvariant();
         switch (lowerInvariant)
         {
@@ -109,7 +102,7 @@ public class QuestionnaireAnswerReader
         var answer = GetAnswer(code);
         if (answer is SingleOptionAnswer selectedItem)
             return selectedItem.Item;
-        
+
         return null;
     }
 }
