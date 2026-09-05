@@ -106,6 +106,17 @@ public class QuestionnaireAnswerReader
         return null;
     }
 
+    public IEnumerable<YamlListItem> GetMultipleItem(string code)
+    {
+        var answer = GetAnswer(code);
+        return answer switch
+        {
+            MultiOptionAnswer selectedMulti => selectedMulti.SelectedOptions,
+            SingleOptionAnswer selectedItem => [selectedItem.Item],
+            _ => []
+        };
+    }
+
     public string? GetString(string code)
     {
         var answer = GetAnswer(code);
