@@ -1,5 +1,6 @@
 title: "Obesity and Dyslipidemia Risk Assessment"
 version: "1.0"
+purpose: "غربالگری برای چاقی و خطر دیس‌لیپیدمی، بر اساس راهنمای USPSTF و NCEP ATP III."
 
 questions:
   - id: 1
