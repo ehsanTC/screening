@@ -4,6 +4,7 @@ using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Ascvd;
 using Screening.Domain.RiskCalculator.Diabetes;
 using Screening.Domain.RiskCalculator.Fracture;
+using Screening.Domain.RiskCalculator.Obesity;
 using Screening.Domain.Services;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.FileStorage;
@@ -27,10 +28,12 @@ public static class DiExtensions
     private static IServiceCollection AddRiskInputBuilder(this IServiceCollection services) => services
         .AddSingleton<IRiskEvaluator, DiabetesRiskEvaluator>()
         .AddSingleton<IRiskEvaluator, AscvdRiskEvaluator>()
-        .AddSingleton<IRiskEvaluator, HeuristicRiskEvaluator>();
+        .AddSingleton<IRiskEvaluator, HeuristicRiskEvaluator>()
+        .AddSingleton<IRiskEvaluator, ObesityRiskEvaluator>();
 
     private static IServiceCollection AddRiskEvaluators(this IServiceCollection services) => services
         .AddSingleton<IRiskInputBuilder<AscvdRiskInput>, AscvdRiskInputBuilder>()
         .AddSingleton<IRiskInputBuilder<DiabetesRiskInput>, DiabetesRiskInputBuilder>()
-        .AddSingleton<IRiskInputBuilder<FractureRiskInput>, FractureRiskInputBuilder>();
+        .AddSingleton<IRiskInputBuilder<FractureRiskInput>, FractureRiskInputBuilder>()
+        .AddSingleton<IRiskInputBuilder<ObesityRiskInput>, ObesityRiskInputBuilder>();
 }

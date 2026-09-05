@@ -5,5 +5,6 @@ public enum QuestionnaireType
     Baseline,
     Diabetes,
     Ascvd,
-    Fracture, 
+    Fracture,
+    Obesity
 }

@@ -12,6 +12,7 @@ public static class QuestionCodes
     public const string Cholesterol = "cholesterol";
     public const string Hdl = "hdl";
     public const string Smoking = "smoking";
+    public const string PreviouslySmoking = "past-smoking";
     public const string SystolicBloodPressure = "sbp";
     public const string ActiveLifeStyle = "active-lifestyle";
     public const string Height =  "height";
@@ -28,4 +29,6 @@ public static class QuestionCodes
     public const string AlcoholOver3 = "alcohol-over3";
     public const string FemoralNeckMeasure = "femoral-neck-measure";
     public const string Bmd = "femoral-neck-value";
+    public const string WaistCircumference = "waist-circumference";
+    public const string DyslipidemiaFamilyHistory = "dyslipidemia-family-history";
 }

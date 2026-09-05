@@ -114,23 +114,8 @@
                 ImageSource="ms-appx:///Assets/Icons/fracture.png"
                 ImageWidth="56"
                 ImageHeight="56"
-                ImageStretch="Uniform" />
-
-            <views:DisorderCardView
-                Grid.Column="0"
-                Grid.Row="1"
-                MainLabelText="Metabolic disorders"
-                BottomLabelText="7 Questions"
-                BottomLabelFontSize="12"
-                BottomLabelFontFamily="Arial"
-                BottomLabelForeground="#4A5568"
-                MainLabelFontSize="14"
-                MainLabelFontFamily="Arial"
-                MainLabelForeground="#1A202C"
-                ImageSource="ms-appx:///Assets/Icons/fracture.png"
-                ImageWidth="56"
-                ImageHeight="56"
-                ImageStretch="Uniform" />
+                ImageStretch="Uniform"
+                Command="{Binding GoToObesity}"/>
 
             <views:DisorderCardView
                 Grid.Column="1"
