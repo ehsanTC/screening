@@ -105,4 +105,14 @@ public class QuestionnaireAnswerReader
 
         return null;
     }
+
+    public string? GetString(string code)
+    {
+        var answer = GetAnswer(code);
+        
+        if (answer is TextAnswer textAnswer)
+            return textAnswer.Text;
+
+        return null;
+    }
 }
