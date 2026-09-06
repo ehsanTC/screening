@@ -48,6 +48,10 @@
 
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Common\Common.csproj" />
+    </ItemGroup>
+
     <Target Name="ValidateLocalizedAssets" BeforeTargets="BeforeBuild">
         <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\ValidateLocalizedAssets.ps1&quot; -AssetsPath &quot;$(MSBuildProjectDirectory)\Assets&quot;" />
     </Target>
