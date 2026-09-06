@@ -2,26 +2,31 @@
     x:Class="Screening.Presentation.Dialogs.ResultDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dialogs="clr-namespace:Screening.Presentation.Dialogs"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     BorderThickness="1"
     CornerRadius="16"
     MaxWidth="360"
     HorizontalAlignment="Center">
 
+    <ContentDialog.Resources>
+        <dialogs:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </ContentDialog.Resources>
+
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
 
         <!-- ============================= -->
         <!-- Header                        -->
         <!-- ============================= -->
-
         <Grid Grid.Row="0"
-              Padding="16,8,16,16">
+              Padding="16,8,16,16"
+              Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -59,14 +64,13 @@
 
         </Grid>
 
-
         <!-- ============================= -->
         <!-- Expandable Content            -->
         <!-- ============================= -->
-
         <Border Grid.Row="1"
                 Background="#FFFFFF"
-                CornerRadius="16">
+                CornerRadius="16"
+                Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
 
             <ScrollViewer
                 VerticalScrollBarVisibility="Auto"
@@ -429,6 +433,40 @@
 
         </Border>
 
+        <!-- AI panel -->
+        <Border Grid.Row="1"
+                Background="#FFFFFF"
+                CornerRadius="16"
+                Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="500">
+                <TextBlock
+                    Text="{Binding AiDescription}"
+                    TextWrapping="Wrap"
+                    FontSize="14"
+                    Padding="16" />
+            </ScrollViewer>
+
+        </Border>
+
+        <!-- Single toggle button -->
+        <Button Grid.Row="2"
+                CornerRadius="17"
+                FontSize="16"
+                Margin="12 24 12 0"
+                HorizontalAlignment="Center"
+                IsEnabled="{Binding IsAiButtonEnabled, Mode=OneWay}"
+                Command="{Binding ToggleAiDescription}">
+
+            <Grid>
+                <TextBlock x:Uid="ResultDialog_DescribeWithAi"
+                           Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
+
+                <TextBlock x:Uid="ResultDialog_ShowResult"
+                           Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </Grid>
+
+        </Button>
     </Grid>
 
 </ContentDialog>
