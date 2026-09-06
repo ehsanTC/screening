@@ -5,6 +5,7 @@ using Screening.Domain.Questionnaire;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.Profile;
+using Screening.Presentation.Model;
 
 namespace Screening.Presentation;
 
@@ -47,7 +48,8 @@ public partial record QuestionModel
         if (state.IsLastQuestion)
         {
             var result = _session.Evaluate();
-            await _navigator.NavigateBackWithResultAsync(this, data: result);
+            await _navigator.NavigateBackWithResultAsync(this, 
+                data: new QuestionnaireOutcome(_session.Questionnaire, result));
             return;
         }
 

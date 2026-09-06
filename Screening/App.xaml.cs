@@ -1,6 +1,7 @@
+using Windows.Globalization;
 using Screening.Domain.Models;
-using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Presentation.Dialogs;
+using Screening.Presentation.Model;
 
 namespace Screening;
 
@@ -8,7 +9,7 @@ public partial class App : Application
 {
     public App()
     {
-        Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en";
+        ApplicationLanguages.PrimaryLanguageOverride = "en";
         this.InitializeComponent();
     }
 
@@ -69,7 +70,7 @@ public partial class App : Application
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
             new DataViewMap<QuestionPage, QuestionModel, QuestionnairePageRequest>(),
-            new DataViewMap<ResultDialog, ResultDialogModel, RiskResult>()
+            new DataViewMap<ResultDialog, ResultDialogModel, QuestionnaireOutcome>()
         );
 
         routes.Register(

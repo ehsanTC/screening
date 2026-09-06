@@ -2,6 +2,7 @@ using Screening.Domain.Answers;
 using Screening.Domain.Models;
 using Screening.Domain.Models.Dtos;
 using Screening.Domain.Parser.Models;
+using Screening.Domain.Questions;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.Services.Abstraction;
 using Screening.Domain.Services.Profile;
@@ -15,6 +16,8 @@ public class QuestionnaireSession
     private readonly QuestionnairePageRequest _pageRequest;
     private readonly IRiskEvaluatorFactory _riskEvaluatorFactory;
 
+    public QuestionnaireEntity  Questionnaire { get; private set; }
+    
     public QuestionnaireSession(
         IQuestionnaireProviderFactory factory,
         QuestionnairePageRequest pageRequest,
@@ -25,10 +28,10 @@ public class QuestionnaireSession
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         _riskEvaluatorFactory = riskEvaluatorFactory ?? throw new ArgumentNullException(nameof(riskEvaluatorFactory));
 
-        var questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType)
+        Questionnaire = factory?.GetProvider(pageRequest.QuestionnaireType)
                             ?? throw new ArgumentNullException(nameof(factory));
 
-        _navigator = new QuestionNavigator(questionnaire);
+        _navigator = new QuestionNavigator(Questionnaire);
         _navigator.QuestionSkipped += OnQuestionSkipped;
 
         OnCurrentQuestionChanged();
