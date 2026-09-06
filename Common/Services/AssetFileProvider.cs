@@ -7,7 +7,7 @@ public class AssetFileProvider : IAssetFileProvider
 {
     public Stream OpenAsset(string path)
     {
-        var assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetCallingAssembly();
         var stream = assembly.GetManifestResourceStream(path);
         
         if (stream == null)
