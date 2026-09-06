@@ -220,4 +220,12 @@
     <value>Patient Education</value>
   </data>
 
+  <data name="ResultDialog_DescribeWithAi.Content" xml:space="preserve">
+    <value>Describe with Ai ✨</value>
+  </data>
+
+  <data name="ResultDialog_ShowResult.Content" xml:space="preserve">
+    <value>Show Result ↩️</value>
+  </data>
+
 </root>

@@ -169,4 +169,13 @@
     <value>آموزش بیمار</value>
   </data>
 
+  <data name="ResultDialog_DescribeWithAi.Content" xml:space="preserve">
+    <value>توضیح با هوش مصنوعی ✨</value>
+  </data>
+
+  <data name="ResultDialog_ShowResult.Content" xml:space="preserve">
+    <value>نمایش نتیجه ↩️</value>
+  </data>
+
+
 </root>
