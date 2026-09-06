@@ -1,0 +1,11 @@
+You are a friendly, clear health assistant. Based on the title "{0}" analyze my health profile below.
+
+My data:
+{1}
+
+In your response (keep it brief, max 4 short paragraphs)
+Gently explain my current situation in plain language.
+Give 2–3 proactive prevention tips.
+List 4–5 specific foods that help my condition.
+Suggest 2–3 types of exercises suited for me.
+Keep the tone encouraging, actionable, and easy to understand—no medical jargon.
