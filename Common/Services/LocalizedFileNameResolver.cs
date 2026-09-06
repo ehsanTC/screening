@@ -1,20 +1,17 @@
-using Screening.Domain.Services.Abstraction;
-using Screening.Domain.Utilities;
+using Common.Abstraction;
 
-namespace Screening.Domain.Services;
+namespace Common.Services;
 
 public class LocalizedFileNameResolver : ILocalizedFileNameResolver
 {
-    private static readonly string DefaultLanguageCode = "en";
+    private const string DefaultLanguageCode = "en";
 
-    public string Resolve(string fileName)
+    public string Resolve(string fileName, string languageCode)
     {
         if (string.IsNullOrWhiteSpace(fileName))
             throw new ArgumentException("File name cannot be null or empty.", nameof(fileName));
 
-        var languageCode = LanguageHelper.GetCurrentLanguage();
-
-        // If current language is the default, return the original file name
+        // If current language is the default (en), return the original file name
         return string.Equals(languageCode, DefaultLanguageCode, StringComparison.OrdinalIgnoreCase) 
             ? $"{DefaultLanguageCode}\\{fileName}" 
             : $"{languageCode.ToLowerInvariant()}\\{fileName}";

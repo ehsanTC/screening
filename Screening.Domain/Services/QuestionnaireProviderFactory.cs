@@ -1,6 +1,8 @@
+using Common.Abstraction;
 using Screening.Domain.Models;
 using Screening.Domain.Questions;
 using Screening.Domain.Services.Abstraction;
+using Screening.Domain.Utilities;
 
 namespace Screening.Domain.Services;
 
@@ -24,8 +26,9 @@ public class QuestionnaireProviderFactory(
      
         if (questionnaireFile == null)
             return null;
-        
-        var resolvedFileName = localizer.Resolve(questionnaireFile);
+
+        var languageCode = LanguageHelper.GetCurrentLanguage();
+        var resolvedFileName = localizer.Resolve(questionnaireFile, languageCode);
         return provider.Read(resolvedFileName);
     }
 }
