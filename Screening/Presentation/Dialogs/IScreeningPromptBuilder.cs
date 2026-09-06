@@ -2,7 +2,7 @@ using Screening.Domain.Questions;
 
 namespace Screening.Presentation.Dialogs;
 
-internal interface IScreeningPromptBuilder
+public interface IScreeningPromptBuilder
 {
     string BuildPrompt(QuestionnaireEntity questionnaire);
 }

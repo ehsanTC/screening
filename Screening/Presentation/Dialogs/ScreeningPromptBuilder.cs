@@ -6,7 +6,7 @@ using Screening.Domain.Utilities;
 
 namespace Screening.Presentation.Dialogs;
 
-internal class ScreeningPromptBuilder(
+public class ScreeningPromptBuilder(
     IAssetFileProvider assetProvider,
     ILocalizedFileNameResolver localizedFileNameResolver)
     : IScreeningPromptBuilder
@@ -26,19 +26,19 @@ internal class ScreeningPromptBuilder(
         {
             if (TryFetchAnswer(question, reader, out string answer))
             {
-                questionAndAnswers.Add($"{question.Question.Code}={answer}");
+                questionAndAnswers.Add($" - {question.Question.Code}:{answer}{Environment.NewLine}");
             }
         }
 
         var template = FetchPrompt();
-        return string.Format(template, string.Join(",", questionAndAnswers));
+        return string.Format(template, questionnaire.Title, string.Join(",", questionAndAnswers));
     }
 
     private string FetchPrompt()
     {
         var languageCode = LanguageHelper.GetCurrentLanguage();
         var localizedFileName = _fileNameResolver.Resolve("AssessmentExplainPrompt.txt", languageCode);
-        using var stream = _assetProvider.OpenAsset(Path.Combine("Assets\\Prompts", localizedFileName));
+        using var stream = _assetProvider.OpenAsset(localizedFileName);
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd();
     }
