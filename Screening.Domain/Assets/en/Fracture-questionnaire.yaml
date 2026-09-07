@@ -129,7 +129,7 @@ questions:
     required: false
 
   - id: 11
-    code: "alcohol-over3"
+    code: "drink-alcohol-over-3-units-daily"
     text: "Do you drink 3 or more units of alcohol per day?"
     type: single_choice
     options:

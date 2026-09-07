@@ -130,7 +130,7 @@ questions:
     required: false
 
   - id: 11
-    code: "alcohol-over3"
+    code: "drink-alcohol-over-3-units-daily"
     text: "آیا روزانه ۳ واحد یا بیشتر الکل می‌نوشید؟"
     type: single_choice
     options:
