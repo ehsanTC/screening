@@ -26,12 +26,14 @@ public class ScreeningPromptBuilder(
         {
             if (TryFetchAnswer(question, reader, out string answer))
             {
-                questionAndAnswers.Add($" - {question.Question.Code}:{answer}{Environment.NewLine}");
+                questionAndAnswers.Add($" - {question.Question.Code}:{answer}");
             }
         }
 
         var template = FetchPrompt();
-        return string.Format(template, questionnaire.Title, string.Join(",", questionAndAnswers));
+        return string.Format(template, 
+            questionnaire.Title,
+            string.Join(Environment.NewLine, questionAndAnswers));
     }
 
     private string FetchPrompt()
