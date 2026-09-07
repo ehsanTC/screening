@@ -51,6 +51,9 @@
                           LogicalName="en\AssessmentExplainPrompt.txt"/>
         <EmbeddedResource Include="Assets\Prompts\fa\AssessmentExplainPrompt.txt"
                           LogicalName="fa\AssessmentExplainPrompt.txt"/>
+
+        <EmbeddedResource Include="Assets\AiCredentials.json"
+                          LogicalName="AiCredentials.json" />
     </ItemGroup>
 
     <ItemGroup>
