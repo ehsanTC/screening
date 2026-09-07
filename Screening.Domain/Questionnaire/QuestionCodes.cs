@@ -26,7 +26,7 @@ public static class QuestionCodes
     public const string Corticosteroids = "corticosteroids";
     public const string RheumatoidArthritis = "rheumatoid-arthritis";
     public const string SecondaryOsteoporosis = "secondary-osteoporosis";
-    public const string AlcoholOver3 = "alcohol-over3";
+    public const string AlcoholOver3 = "drink-alcohol-over-3-units-daily";
     public const string FemoralNeckMeasure = "femoral-neck-measure";
     public const string Bmd = "femoral-neck-value";
     public const string WaistCircumference = "waist-circumference";
