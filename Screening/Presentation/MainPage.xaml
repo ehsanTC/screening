@@ -103,7 +103,7 @@
             <views:DisorderCardView
                 Grid.Column="0"
                 Grid.Row="1"
-                MainLabelText="Metabolic disorders"
+                MainLabelText="Obesity"
                 BottomLabelText="7 Questions"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
@@ -111,7 +111,7 @@
                 MainLabelFontSize="14"
                 MainLabelFontFamily="Arial"
                 MainLabelForeground="#1A202C"
-                ImageSource="ms-appx:///Assets/Icons/fracture.png"
+                ImageSource="ms-appx:///Assets/Icons/obesity.png"
                 ImageWidth="56"
                 ImageHeight="56"
                 ImageStretch="Uniform"
@@ -119,22 +119,6 @@
 
             <views:DisorderCardView
                 Grid.Column="1"
-                Grid.Row="1"
-                MainLabelText="Breast Cancer"
-                BottomLabelText="8 Questions"
-                BottomLabelFontSize="12"
-                BottomLabelFontFamily="Arial"
-                BottomLabelForeground="#4A5568"
-                MainLabelFontSize="14"
-                MainLabelFontFamily="Arial"
-                MainLabelForeground="#1A202C"
-                ImageSource="ms-appx:///Assets/Icons/fracture.png"
-                ImageWidth="56"
-                ImageHeight="56"
-                ImageStretch="Uniform" />
-
-            <views:DisorderCardView
-                Grid.Column="2"
                 Grid.Row="1"
                 MainLabelText="Fatty Liver"
                 BottomLabelText="5 Questions"
@@ -144,7 +128,7 @@
                 MainLabelFontSize="14"
                 MainLabelFontFamily="Arial"
                 MainLabelForeground="#1A202C"
-                ImageSource="ms-appx:///Assets/Icons/fracture.png"
+                ImageSource="ms-appx:///Assets/Icons/liver.png"
                 ImageWidth="56"
                 ImageHeight="56"
                 ImageStretch="Uniform" />

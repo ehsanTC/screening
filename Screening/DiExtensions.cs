@@ -31,6 +31,7 @@ public static class DiExtensions
         .AddSingleton<IConnectivityService, ConnectivityService>()
         .AddSingleton<IAssetFileProvider, AssetFileProvider>()
         .AddSingleton<IAiDescriptionService, AiDescriptionService>()
+        .AddSingleton<IChatService, ChatService>()
         .AddSingleton<IScreeningPromptBuilder, ScreeningPromptBuilder>();
 
     private static IServiceCollection AddRiskInputBuilder(this IServiceCollection services) => services
