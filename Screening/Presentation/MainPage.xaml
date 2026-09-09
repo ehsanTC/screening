@@ -20,19 +20,40 @@
         <utu:NavigationBar Grid.Row="0"
             Content="{Binding Title}" />
 
-        <Border
-            Grid.Row="1" CornerRadius="16"
-            Background="{ThemeResource PrimaryColor}"
-            Height="80"
-            Margin="20">
+        <Border Grid.Row="1"
+                CornerRadius="16"
+                Background="{ThemeResource PrimaryColor}"
+                Height="80"
+                Margin="20">
 
-            <TextBlock Grid.Row="1"
-                       x:Uid="SelectQuestionnaireTextBlock"
-                       Foreground="#FFFFFF"
-                       VerticalAlignment="Center"
-                       Padding="12"
-                       TextWrapping="Wrap" />
+            <Grid>
+                <!-- Shadow copy -->
+                <TextBlock x:Uid="SelectQuestionnaireTextBlock"
+                           Foreground="#878787"
+                           Opacity="50"
+                           FontWeight="Bold"
+                           FontSize="18"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Padding="12"
+                           TextWrapping="Wrap">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform  Y="2" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+
+                <!-- Real text on top -->
+                <TextBlock x:Uid="SelectQuestionnaireTextBlock"
+                           Foreground="#FFFFFF"
+                           FontWeight="Bold"
+                           FontSize="18"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Padding="12"
+                           TextWrapping="Wrap" />
+            </Grid>
         </Border>
+
 
         <Grid Grid.Row="2"
             VerticalAlignment="Top"
