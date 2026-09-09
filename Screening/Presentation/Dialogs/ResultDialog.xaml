@@ -444,7 +444,10 @@
                 <TextBlock
                     Text="The Ai description is not accessible right now."
                     TextWrapping="Wrap"
+                    FontFamily="Roboto"
                     FontSize="14"
+                    LineHeight="24"
+                    LineStackingStrategy="BlockLineHeight"
                     Padding="16"
                     utility:BoldMarkdownExtensions.BoldMarkdownText="{Binding AiDescription}"
                     />
