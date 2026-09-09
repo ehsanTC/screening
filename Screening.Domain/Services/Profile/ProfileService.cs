@@ -48,11 +48,34 @@ public class ProfileService(ISessionStorageService storage) : IProfileService
 
     public async Task<SavableAnswer?> LoadAsync(string key)
     {
-        if (_profile == null || _profile?.Count == 0)
-            await LoadDictionary();
+        await LoadProfileData();
         
         _profile.TryGetValue(key, out var value);
         return value;
+    }
+
+    private async Task LoadProfileData()
+    {
+        if (_profile == null || _profile?.Count == 0)
+            await LoadDictionary();
+    }
+
+    public async Task<IDictionary<string, SavableAnswer>> LoadAllAsync()
+    {
+        await LoadProfileData();
+        
+        var result = new Dictionary<string, SavableAnswer>();
+
+        foreach (var key in _profile.Keys)
+        {
+            if (!string.IsNullOrEmpty(key) &&
+                _profile.TryGetValue(key, out var value))
+            {
+                result.Add(key, value);
+            }
+        }
+        
+        return result;
     }
 
     public SavableAnswer? Load(string key)
