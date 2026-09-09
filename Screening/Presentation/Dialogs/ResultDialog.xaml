@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dialogs="clr-namespace:Screening.Presentation.Dialogs"
+    xmlns:utility="using:Screening.Presentation.Utility"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     BorderThickness="1"
     CornerRadius="16"
@@ -441,10 +442,12 @@
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="500">
                 <TextBlock
-                    Text="{Binding AiDescription}"
+                    Text="The Ai description is not accessible right now."
                     TextWrapping="Wrap"
                     FontSize="14"
-                    Padding="16" />
+                    Padding="16"
+                    utility:BoldMarkdownExtensions.BoldMarkdownText="{Binding AiDescription}"
+                    />
             </ScrollViewer>
 
         </Border>
