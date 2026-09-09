@@ -87,7 +87,7 @@
             <views:DisorderCardView
                 Grid.Column="2"
                 Grid.Row="0"
-                x:Uid="FractureCard"
+                MainLabelText="Fracture"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
