@@ -4,5 +4,5 @@ namespace Screening.Presentation.Dialogs;
 
 public interface IScreeningPromptBuilder
 {
-    string BuildPrompt(QuestionnaireEntity questionnaire);
+    Task<string> BuildPrompt(QuestionnaireEntity questionnaire);
 }

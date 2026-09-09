@@ -49,7 +49,7 @@ namespace Screening.Presentation.Dialogs;
             var cached = await AiDescription;
             if (string.IsNullOrWhiteSpace(cached))
             {
-                var prompt = _promptBuilder.BuildPrompt(_outcome.Questionnaire);
+                var prompt = await _promptBuilder.BuildPrompt(_outcome.Questionnaire);
                 var text = await _aiService.GetDescriptionAsync(prompt, ct);
                 await AiDescription.UpdateAsync(_ => text, ct);
             }
