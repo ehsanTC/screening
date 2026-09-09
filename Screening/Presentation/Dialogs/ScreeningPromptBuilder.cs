@@ -1,14 +1,17 @@
 using Common.Abstraction;
+using Screening.Domain.Extensions;
 using Screening.Domain.Questionnaire;
 using Screening.Domain.Questions;
 using Screening.Domain.Questions.Abstraction;
+using Screening.Domain.Services.Profile;
 using Screening.Domain.Utilities;
 
 namespace Screening.Presentation.Dialogs;
 
 public class ScreeningPromptBuilder(
     IAssetFileProvider assetProvider,
-    ILocalizedFileNameResolver localizedFileNameResolver)
+    ILocalizedFileNameResolver localizedFileNameResolver, 
+    IProfileService  profileService)
     : IScreeningPromptBuilder
 {
     private readonly ILocalizedFileNameResolver _fileNameResolver = localizedFileNameResolver
@@ -17,23 +20,54 @@ public class ScreeningPromptBuilder(
     private readonly IAssetFileProvider _assetProvider = assetProvider
         ?? throw new ArgumentNullException(nameof(assetProvider));
 
-    public string BuildPrompt(QuestionnaireEntity questionnaire)
+    public async Task<string> BuildPrompt(QuestionnaireEntity questionnaire)
     {
         var reader = new QuestionnaireAnswerReader(questionnaire);
+        var userData = await GetMergedUserData(questionnaire.Questions, reader);
 
-        var questionAndAnswers = new List<string>(questionnaire.Questions.Count);
-        foreach (var question in questionnaire.Questions)
-        {
-            if (TryFetchAnswer(question, reader, out string answer))
-            {
-                questionAndAnswers.Add($" - {question.Question.Code}:{answer}");
-            }
-        }
+        var answers = userData
+            .Where(x => !string.IsNullOrEmpty(x.questionCode) &&
+                    !string.IsNullOrEmpty(x.answer))
+            .Select(x => $" - {x.questionCode}:{x.answer}");
 
         var template = FetchPrompt();
-        return string.Format(template, 
+
+        return string.Format(
+            template,
             questionnaire.Title,
-            string.Join(Environment.NewLine, questionAndAnswers));
+            string.Join(Environment.NewLine, answers));
+    }
+
+    private async Task<IEnumerable<(string questionCode, string answer)>> GetMergedUserData(
+        IReadOnlyList<IDisplayableQuestion> questionnaireQuestions,
+        QuestionnaireAnswerReader reader)
+    {
+        var questionnaireAnswers = GetCurrentQuestionnaireData(questionnaireQuestions, reader);
+        var profileData = await profileService.LoadAllAsync();
+
+        var result = questionnaireAnswers
+            .Select(x => (x.Key, x.Value));
+
+        var profileAnswers = profileData
+            .Where(x => !questionnaireAnswers.ContainsKey(x.Key))
+            .Select(x => (x.Key, x.Value.Value.ToAiReadableString()));
+
+        return result.Concat(profileAnswers);
+    }
+
+    private static Dictionary<string, string> GetCurrentQuestionnaireData(
+        IReadOnlyList<IDisplayableQuestion> questions,
+        QuestionnaireAnswerReader reader)
+    {
+        return questions
+            .Where(x => TryFetchAnswer(x, reader, out _))
+            .ToDictionary(
+                x => x.Question.Code,
+                x =>
+                {
+                    TryFetchAnswer(x, reader, out string answer);
+                    return answer;
+                });
     }
 
     private string FetchPrompt()
