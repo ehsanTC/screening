@@ -21,7 +21,10 @@ public class MultiChoiceDisplayableQuestion : IDisplayableQuestion<MultiOptionAn
 
     public void Validate()
     {
-        if (!IsOptional && !IsAnswered)
+        if (IsOptional)
+            return;
+                
+        if (!IsAnswered)
         {
             throw new InvalidOperationException("Multi choice question must have at least one selected option.");
         }

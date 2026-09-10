@@ -4,8 +4,8 @@ namespace Screening.Domain.Parser.Models;
 
 public class YamlListItem : IEquatable<YamlListItem>
 {
-    [YamlMember(Alias = "text")]  public string Text { get; set; }
-    [YamlMember(Alias = "value")] public string Value { get; set; }
+    [YamlMember(Alias = "text")]  public required string Text { get; init; }
+    [YamlMember(Alias = "value")] public required string Value { get; init; }
 
     public bool Equals(YamlListItem? other)
     {
@@ -32,5 +32,6 @@ public class YamlListItem : IEquatable<YamlListItem>
         return Equals((YamlListItem)obj);
     }
 
-    public override int GetHashCode() => Value.GetHashCode();
+    public override int GetHashCode() => 
+        StringComparer.OrdinalIgnoreCase.GetHashCode(Value ?? string.Empty);
 }

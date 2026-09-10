@@ -39,7 +39,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <CheckBox Content="{Binding}"
+                        <CheckBox Content="{Binding Text}"
                                   Style="{StaticResource OptionCheckBoxStyle}"
                                   Loaded="OnOptionLoaded"
                                   Checked="OnOptionChecked"

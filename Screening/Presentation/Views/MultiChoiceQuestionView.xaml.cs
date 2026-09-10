@@ -7,6 +7,8 @@ namespace Screening.Presentation.Views;
 
 public sealed partial class MultiChoiceQuestionView : UserControl
 {
+    private bool _isInitializing;
+
     public MultiChoiceQuestionView() => InitializeComponent();
 
     private void OnOptionLoaded(object sender, RoutedEventArgs e)
@@ -18,12 +20,26 @@ public sealed partial class MultiChoiceQuestionView : UserControl
             return;
         }
 
-        checkBox.IsChecked = question.Answer?.SelectedOptions
-            .Any(so => so.Equals(option));
+        _isInitializing = true;
+
+        try
+        {
+            checkBox.IsChecked =
+                question.Answer?.SelectedOptions.Contains(option) == true;
+        }
+        finally
+        {
+            _isInitializing = false;
+        }
     }
 
-    private void OnOptionChecked(object sender, RoutedEventArgs e)
+    private async void OnOptionChecked(object sender, RoutedEventArgs e)
     {
+        if (_isInitializing)
+        {
+            return;
+        }
+
         if (sender is not CheckBox checkBox ||
             checkBox.DataContext is not YamlListItem option ||
             DataContext is not MultiChoiceDisplayableQuestion question)
@@ -35,21 +51,21 @@ public sealed partial class MultiChoiceQuestionView : UserControl
 
         if (checkBox.IsChecked == true)
         {
-            if (!selectedOptions.Any(so => so.Text.Contains(option.Text)))
+            if (!selectedOptions.Contains(option))
             {
                 selectedOptions.Add(option);
             }
         }
         else
         {
-            // TODO: Needs to check 
             selectedOptions.Remove(option);
         }
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
+
         if (page?.DataContext is QuestionViewModel vm)
         {
-            vm.Model.UpdateAnswer(new MultiOptionAnswer(selectedOptions));
+            await vm.Model.UpdateAnswer(new MultiOptionAnswer(selectedOptions));
         }
     }
 }
