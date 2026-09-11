@@ -27,31 +27,32 @@
                        TextAlignment="Center" />
         </Border>
 
-        <!-- Options -->
         <Grid Grid.Row="1"
-              RowDefinitions="*,Auto,*"
+              RowDefinitions="*"
               HorizontalAlignment="Stretch">
 
-            <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding AvailableOptions}"
-                          HorizontalAlignment="Stretch">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl
+                    ItemsSource="{Binding AvailableOptions}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch">
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
-                        <CheckBox Content="{Binding Text}"
-                                  Style="{StaticResource OptionCheckBoxStyle}"
-                                  Loaded="OnOptionLoaded"
-                                  Checked="OnOptionChecked"
-                                  Unchecked="OnOptionChecked"
-                                  />
+                            <CheckBox Content="{Binding Text}"
+                                      Style="{StaticResource OptionCheckBoxStyle}"
+                                      Loaded="OnOptionLoaded"
+                                      Checked="OnOptionChecked"
+                                      Unchecked="OnOptionChecked" />
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-            </ItemsControl>
+            </ScrollViewer>
 
         </Grid>
-
     </Grid>
 </UserControl>
