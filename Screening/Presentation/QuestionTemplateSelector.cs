@@ -7,7 +7,8 @@ public class QuestionTemplateSelector : DataTemplateSelector
     public DataTemplate? TextInputTemplate { get; set; }
     public DataTemplate? SingleChoiceTemplate { get; set; }
     public DataTemplate? MultiChoiceTemplate { get; set; }
-
+    public DataTemplate? RepeatableKeyValueTemplate { get; set; }
+    
     protected override DataTemplate? SelectTemplateCore(object item) =>
         SelectQuestionTemplate(item);
 
@@ -20,7 +21,7 @@ public class QuestionTemplateSelector : DataTemplateSelector
             TextInputDisplayableQuestion    => TextInputTemplate,
             MultiChoiceDisplayableQuestion  => MultiChoiceTemplate,
             SingleChoiceDisplayableQuestion => SingleChoiceTemplate,
-
+            RepeatableKeyValueDisplayableQuestion => RepeatableKeyValueTemplate,
             _ => null
         };
 }

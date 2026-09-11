@@ -6,5 +6,6 @@ public enum QuestionnaireType
     Diabetes,
     Ascvd,
     Fracture,
-    Obesity
+    Obesity,
+    GeneralEvaluation
 }

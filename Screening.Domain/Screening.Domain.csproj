@@ -30,6 +30,12 @@
         <EmbeddedResource Include="Assets\en\Obesity-questionnaire.yaml"
                           LogicalName="en\Obesity-questionnaire.yaml"/>
 
+        <EmbeddedResource Include="Assets\en\disorder-evaluate-questionnaire.yaml"
+                          LogicalName="en\disorder-evaluate-questionnaire.yaml"/>
+
+        <EmbeddedResource Include="Assets\fa\disorder-evaluate-questionnaire.yaml"
+                          LogicalName="fa\disorder-evaluate-questionnaire.yaml"/>
+
         <!-- Persian Questionnaires -->
         <EmbeddedResource Include="Assets\fa\Diabetes-Type2-questionnaire.yaml"
                           LogicalName="fa\Diabetes-Type2-questionnaire.yaml"/>

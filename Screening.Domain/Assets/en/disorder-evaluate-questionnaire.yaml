@@ -1,0 +1,52 @@
+title: "General disorder evaluation risk assessment"
+version: "1.0"
+
+questions:
+  - id: 1
+    code: "disorders"
+    text: "Which disorders do you select?"
+    type: multi_choice
+    required: false
+    options:
+      - text: Thyroid disorders
+        value: "Thyroid disorders"
+
+      - text: Vitamin D deficiency
+        value: "Vitamin D deficiency"
+
+      - text: Depression and anxiety
+        value: "Depression and anxiety"
+
+  - id: 2
+    code: "cancers"
+    text: "Which cancers do you select for evaluation?"
+    type: multi_choice
+    options:
+      - text: Breast Cancer
+        value: "Breast Cancer"
+
+      - text: Colorectal cancer
+        value: "Colorectal cancer"
+
+      - text: Stomach Cancer
+        value: "Stomach cancer"
+
+      - text: Skin Cancer
+        value: "Skin cancer"
+
+      - text: Lung Cancer
+        value: "Lung cancer"
+
+      - text: Prostate Cancer
+        value: "Prostate cancer"
+
+      - text: Liver Cancer
+        value: "Liver cancer"
+
+  - id: 3
+    code: "user-entered-parameter"
+    text: "Do you have any disorder or lab result you want to enter?"
+    type: repeatable_key_value
+    save:
+      path: "user-entered-parameters"
+      cast: "list"

@@ -8,15 +8,24 @@ public class AnswerJsonConverter : JsonConverter<Answer>
 {
     private const string Discriminator = "type";
 
-    public override void Write(Utf8JsonWriter writer, Answer value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        Answer value,
+        JsonSerializerOptions options)
     {
         writer.WriteStartObject();
+
         writer.WriteString(Discriminator, value.TypeDiscriminator);
+
         value.WriteProperties(writer, options);
+
         writer.WriteEndObject();
     }
 
-    public override Answer Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override Answer Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options)
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
@@ -25,32 +34,61 @@ public class AnswerJsonConverter : JsonConverter<Answer>
             throw new JsonException($"Missing '{Discriminator}' property.");
 
         var type = typeProp.GetString();
+
         if (string.IsNullOrWhiteSpace(type))
             throw new JsonException($"'{Discriminator}' is null or empty.");
 
         return type switch
         {
-            nameof(TextAnswer) => new TextAnswer(
-                root.GetProperty(nameof(TextAnswer.Text)).GetString() ?? string.Empty),
+            nameof(TextAnswer) =>
+                new TextAnswer(
+                    root.GetProperty(nameof(TextAnswer.Text))
+                        .GetString() ?? string.Empty),
 
-            nameof(SingleOptionAnswer) => new SingleOptionAnswer(
-                new YamlListItem()
-                {
-                    Text = root.GetProperty(nameof(YamlListItem.Text)).GetString() ?? string.Empty, 
-                    Value = root.GetProperty(nameof(YamlListItem.Value)).GetString() ?? string.Empty 
-                }),
-
-            nameof(MultiOptionAnswer) => new MultiOptionAnswer(
-                root.GetProperty(nameof(MultiOptionAnswer.SelectedOptions))
-                    .EnumerateArray()
-                    .Select(el => new YamlListItem
+            nameof(SingleOptionAnswer) =>
+                new SingleOptionAnswer(
+                    new YamlListItem
                     {
-                        Text = el.GetProperty(nameof(YamlListItem.Text)).GetString() ?? string.Empty,
-                        Value = el.GetProperty(nameof(YamlListItem.Value)).GetString() ?? string.Empty
-                    })
-                    .ToList()),
+                        Text = root.GetProperty(nameof(YamlListItem.Text))
+                            .GetString() ?? string.Empty,
 
-            _ => throw new JsonException($"Unknown answer type discriminator: '{type}'")
+                        Value = root.GetProperty(nameof(YamlListItem.Value))
+                            .GetString() ?? string.Empty
+                    }),
+
+            nameof(MultiOptionAnswer) =>
+                new MultiOptionAnswer(
+                    root.GetProperty(nameof(MultiOptionAnswer.SelectedOptions))
+                        .EnumerateArray()
+                        .Select(el => new YamlListItem
+                        {
+                            Text = el.GetProperty(nameof(YamlListItem.Text))
+                                .GetString() ?? string.Empty,
+
+                            Value = el.GetProperty(nameof(YamlListItem.Value))
+                                .GetString() ?? string.Empty
+                        })
+                        .ToList()),
+
+            nameof(RepeatableKeyValueAnswer) =>
+                new RepeatableKeyValueAnswer(
+                    root.GetProperty(nameof(RepeatableKeyValueAnswer.LabResults))
+                        .EnumerateArray()
+                        .Select(el => new KeyValueEntry(
+                            Name: el.GetProperty(nameof(KeyValueEntry.Name))
+                                .GetString() ?? string.Empty,
+
+                            Value: el.GetProperty(nameof(KeyValueEntry.Value))
+                                .GetString() ?? string.Empty))
+                        .ToList(),
+
+                    root.GetProperty(nameof(RepeatableKeyValueAnswer.Disorders))
+                        .EnumerateArray()
+                        .Select(el => el.GetString() ?? string.Empty)
+                        .ToList()),
+
+            _ => throw new JsonException(
+                $"Unknown answer type discriminator: '{type}'")
         };
     }
 }

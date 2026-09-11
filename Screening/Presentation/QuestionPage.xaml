@@ -18,10 +18,15 @@
             <views:MultiChoiceQuestionView />
         </DataTemplate>
 
+        <DataTemplate x:Key="RepeatableKeyValueQuestionTemplate">
+            <views:RepeatableKeyValueQuestionView />
+        </DataTemplate>
+
         <presentation:QuestionTemplateSelector x:Key="QuestionTemplateSelector"
                TextInputTemplate="{StaticResource TextInputQuestionTemplate}"
                SingleChoiceTemplate="{StaticResource SingleChoiceQuestionTemplate}"
-               MultiChoiceTemplate="{StaticResource MultiChoiceQuestionTemplate}" />
+               MultiChoiceTemplate="{StaticResource MultiChoiceQuestionTemplate}"
+               RepeatableKeyValueTemplate="{StaticResource RepeatableKeyValueQuestionTemplate}" />
     </Page.Resources>
 
     <Grid utu:SafeArea.Insets="VisibleBounds">

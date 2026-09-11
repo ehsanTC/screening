@@ -20,13 +20,22 @@ public static class QuestionFactory
 
             var questionType when questionType.Equals("number", StringComparison.OrdinalIgnoreCase) =>
                 CreateTextInput(yamlQuestion, true),
-            
+
             var questionType when questionType.Equals("multi_choice", StringComparison.OrdinalIgnoreCase) =>
                 CreateMultiChoice(yamlQuestion),
+
+            var questionType when questionType.Equals("repeatable_key_value", StringComparison.OrdinalIgnoreCase) =>
+                CreateRepeatableQuestion(yamlQuestion),
 
             _ => throw new NotSupportedException("The question type is not supported.")
         };
     }
+
+    private static IDisplayableQuestion CreateRepeatableQuestion(YamlQuestion question) =>
+        new RepeatableKeyValueDisplayableQuestion()
+        {
+            Question = question
+        };
 
     private static IDisplayableQuestion CreateMultiChoice(YamlQuestion question) =>
         new MultiChoiceDisplayableQuestion()

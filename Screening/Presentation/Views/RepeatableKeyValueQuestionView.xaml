@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="Screening.Presentation.Views.RepeatableKeyValueQuestionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+        <Grid Margin="16,0" RowDefinitions="Auto,Auto,Auto,Auto"> <!-- Question -->
+
+            <Border Grid.Row="0"
+                    CornerRadius="20"
+                    Background="#FFFFFF"
+                    HorizontalAlignment="Stretch"
+                    MinHeight="200"
+                    Margin="0,48,0,32">
+
+                <TextBlock Text="{Binding Question.Text}"
+                           FontSize="22"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center" Margin="20" />
+            </Border>
+
+            <!-- Lab results -->
+
+            <ItemsControl Grid.Row="1"
+                x:Name="LabResultsControl"
+                HorizontalAlignment="Stretch">
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border BorderBrush="#D8E0DC"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Background="#FBFCFB"
+                                Padding="12"
+                                Margin="0,0,0,12">
+
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+
+                                <!-- Header -->
+                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                           Text="Result"
+                                           FontSize="12"
+                                           FontWeight="SemiBold"
+                                           Foreground="#4B5B56"
+                                           VerticalAlignment="Center" />
+                                <Button Grid.Row="0"
+                                        Grid.Column="1"
+                                        Content="Remove"
+                                        Tag="{Binding}"
+                                        Click="OnRemoveResultClicked"
+                                        Background="#00000000"
+                                        BorderThickness="0"
+                                        Padding="4,2"
+                                        Foreground="#4B5B56" />
+
+                                <!-- Fields -->
+                                <Grid Grid.Row="1" Grid.ColumnSpan="2" ColumnDefinitions="*,*" ColumnSpacing="10"
+                                      Margin="0,8,0,0">
+                                    <StackPanel Grid.Column="0" Spacing="5">
+                                        <TextBlock
+                                            Text="Parameter"
+                                            FontSize="11"
+                                            Foreground="#4B5B56" />
+
+                                        <TextBox
+                                            Text="{Binding Name, Mode=OneWay}"
+                                            Tag="{Binding}"
+                                            TextChanged="OnResultTextChanged"
+                                            PlaceholderText="e.g. FBS"
+                                            CornerRadius="8"
+                                            HorizontalAlignment="Stretch" />
+
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Spacing="5">
+                                        <TextBlock Text="Value" FontSize="11" Foreground="#4B5B56" />
+                                        <TextBox Text="{Binding Value, Mode=OneWay}" Tag="{Binding}"
+                                                 TextChanged="OnResultTextChanged" PlaceholderText="e.g. 100"
+                                                 CornerRadius="8" HorizontalAlignment="Stretch" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl> <!-- Add result -->
+            <Button Grid.Row="2" Content="＋ Add another result" Click="OnAddResultClicked"
+                    HorizontalAlignment="Stretch" Margin="0,0,0,10" Padding="12" BorderThickness="1"
+                    BorderBrush="#D8E0DC" Background="#00000000"
+                    Foreground="#1B5E4F"
+                    CornerRadius="10"
+                    FontSize="14" />
+            <!-- Disorders --> <StackPanel Grid.Row="3" Spacing="10" Margin="0,16,0,24">
+                <ItemsControl
+                    x:Name="DisordersControl"
+                    HorizontalAlignment="Stretch">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#D8E0DC" BorderThickness="1" CornerRadius="10" Background="#FBFCFB"
+                                    Padding="12" Margin="0,0,0,12">
+                                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Disorder" FontSize="12"
+                                               FontWeight="SemiBold" Foreground="#4B5B56" />
+                                    <Button Grid.Row="0" Grid.Column="1" Content="Remove" Tag="{Binding}"
+                                            Click="OnRemoveDisorderClicked" Background="#00000000"
+                                            BorderThickness="0" Padding="4,2" Foreground="#4B5B56" />
+                                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Spacing="5" Margin="0,8,0,0">
+                                        <TextBlock
+                                            Text="Disorder name"
+                                            FontSize="11"
+                                            Foreground="#4B5B56" />
+
+                                        <TextBox
+                                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Tag="{Binding}"
+                                            TextChanged="OnDisorderTextChanged"
+                                            PlaceholderText="e.g. Diabetes, Cancer" CornerRadius="8"
+                                            HorizontalAlignment="Stretch" />
+
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button
+                    x:Name="AddDisorderButton"
+                    Content="＋ Add Disorder"
+                    Click="OnAddDisorderClicked"
+                    HorizontalAlignment="Stretch"
+                    Padding="12"
+                    BorderThickness="1"
+                    BorderBrush="#D8E0DC"
+                    Background="#00000000"
+                    Foreground="#1B5E4F"
+                    CornerRadius="10"
+                    FontSize="14" />
+                <TextBlock
+                    Text="Enter lab parameters with their values. Add disorders such as diabetes or cancer if relevant."
+                    FontSize="12" Foreground="#8C9A94" TextWrapping="Wrap" Margin="0,4,0,0" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

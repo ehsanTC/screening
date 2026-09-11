@@ -20,7 +20,7 @@ public class QuestionnaireProviderFactory(
             QuestionnaireType.Ascvd =>    "Ascvd-questionnaire.yaml",
             QuestionnaireType.Fracture => "Fracture-questionnaire.yaml",
             QuestionnaireType.Obesity =>  "Obesity-questionnaire.yaml",
-            
+            QuestionnaireType.GeneralEvaluation =>  "disorder-evaluate-questionnaire.yaml",            
             _ => null,
         };
      

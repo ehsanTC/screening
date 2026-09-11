@@ -23,4 +23,5 @@ public partial record MainModel
     public async Task GoToAscvd() => await ShowQuestionnaire(QuestionnaireType.Ascvd);
     public async Task GoToFracture() => await ShowQuestionnaire(QuestionnaireType.Fracture);
     public async Task GoToObesity() => await ShowQuestionnaire(QuestionnaireType.Obesity);
+    public async Task GoToGeneralEvaluation() => await ShowQuestionnaire(QuestionnaireType.GeneralEvaluation);
 }
