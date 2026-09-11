@@ -100,7 +100,7 @@
             <!-- Add result -->
             <Button Grid.Row="2"
                     x:Name="AddResultButton"
-                    Content="＋ Add another result"
+                    Content="➕ Add another result"
                     Click="OnAddResultClicked"
                     HorizontalAlignment="Stretch"
                     Margin="0,0,0,10"
@@ -167,7 +167,7 @@
                 </ItemsControl>
                 <Button
                     x:Name="AddDisorderButton"
-                    Content="＋ Add Disorder"
+                    Content="➕ Add Disorder"
                     Click="OnAddDisorderClicked"
                     HorizontalAlignment="Stretch"
                     Padding="12"
