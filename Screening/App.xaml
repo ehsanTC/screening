@@ -15,6 +15,7 @@
         <ResourceDictionary Source="Styles/PageStyles.xaml" />
         <ResourceDictionary Source="Styles/OptionButtonStyle.xaml" />
         <ResourceDictionary Source="Styles/OptionCheckBoxStyle.xaml" />
+        <ResourceDictionary Source="Styles/OptionButtonButtonStyle.xaml" />
 
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
