@@ -44,14 +44,14 @@
 
                                 <!-- Header -->
                                 <TextBlock Grid.Row="0" Grid.Column="0"
-                                           Text="Result"
+                                           Text="Lab Result"
                                            FontSize="12"
                                            FontWeight="SemiBold"
                                            Foreground="#4B5B56"
                                            VerticalAlignment="Center" />
                                 <Button Grid.Row="0"
                                         Grid.Column="1"
-                                        Content="Remove"
+                                        Content="❌"
                                         Tag="{Binding}"
                                         Click="OnRemoveResultClicked"
                                         Background="#00000000"
@@ -69,9 +69,7 @@
                                             Foreground="#4B5B56" />
 
                                         <TextBox
-                                            Text="{Binding Name, Mode=OneWay}"
-                                            Tag="{Binding}"
-                                            TextChanged="OnResultTextChanged"
+                                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             PlaceholderText="e.g. FBS"
                                             CornerRadius="8"
                                             HorizontalAlignment="Stretch" />
@@ -79,38 +77,76 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Spacing="5">
-                                        <TextBlock Text="Value" FontSize="11" Foreground="#4B5B56" />
-                                        <TextBox Text="{Binding Value, Mode=OneWay}" Tag="{Binding}"
-                                                 TextChanged="OnResultTextChanged" PlaceholderText="e.g. 100"
-                                                 CornerRadius="8" HorizontalAlignment="Stretch" />
+
+                                        <TextBlock
+                                            Text="Value"
+                                            FontSize="11"
+                                            Foreground="#4B5B56" />
+
+                                        <TextBox
+                                            Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            PlaceholderText="e.g. 100"
+                                            CornerRadius="8"
+                                            HorizontalAlignment="Stretch" />
+
                                     </StackPanel>
                                 </Grid>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl> <!-- Add result -->
-            <Button Grid.Row="2" Content="＋ Add another result" Click="OnAddResultClicked"
-                    HorizontalAlignment="Stretch" Margin="0,0,0,10" Padding="12" BorderThickness="1"
-                    BorderBrush="#D8E0DC" Background="#00000000"
-                    Foreground="#1B5E4F"
+            </ItemsControl>
+
+            <!-- Add result -->
+            <Button Grid.Row="2"
+                    x:Name="AddResultButton"
+                    Content="＋ Add another result"
+                    Click="OnAddResultClicked"
+                    HorizontalAlignment="Stretch"
+                    Margin="0,0,0,10"
+                    Padding="12" BorderThickness="1"
                     CornerRadius="10"
-                    FontSize="14" />
-            <!-- Disorders --> <StackPanel Grid.Row="3" Spacing="10" Margin="0,16,0,24">
+                    FontSize="14"
+                    Style="{StaticResource OptionButtonButtonStyle}"/>
+
+            <!-- Disorders -->
+            <StackPanel Grid.Row="3"
+                        Spacing="10"
+                        Margin="0,16,0,24">
+
                 <ItemsControl
                     x:Name="DisordersControl"
                     HorizontalAlignment="Stretch">
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#D8E0DC" BorderThickness="1" CornerRadius="10" Background="#FBFCFB"
+                            <Border BorderBrush="{ThemeResource OptionCheckedBorder}"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    Background="#FBFCFB"
                                     Padding="12" Margin="0,0,0,12">
-                                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Disorder" FontSize="12"
-                                               FontWeight="SemiBold" Foreground="#4B5B56" />
-                                    <Button Grid.Row="0" Grid.Column="1" Content="Remove" Tag="{Binding}"
-                                            Click="OnRemoveDisorderClicked" Background="#00000000"
-                                            BorderThickness="0" Padding="4,2" Foreground="#4B5B56" />
+
+                                <Grid RowDefinitions="Auto,Auto"
+                                      ColumnDefinitions="*,Auto">
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="Disorder"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Foreground="#4B5B56"
+                                               VerticalAlignment="Center"
+                                    />
+
+                                    <Button Grid.Row="0" Grid.Column="1"
+                                            Content="❌"
+                                            Tag="{Binding}"
+                                            Click="OnRemoveDisorderClicked"
+                                            Background="#00000000"
+                                            BorderThickness="0"
+                                            Padding="4,2"
+                                            Foreground="#4B5B56" />
+
                                     <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Spacing="5" Margin="0,8,0,0">
                                         <TextBlock
                                             Text="Disorder name"
@@ -120,7 +156,6 @@
                                         <TextBox
                                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Tag="{Binding}"
-                                            TextChanged="OnDisorderTextChanged"
                                             PlaceholderText="e.g. Diabetes, Cancer" CornerRadius="8"
                                             HorizontalAlignment="Stretch" />
 
@@ -137,11 +172,10 @@
                     HorizontalAlignment="Stretch"
                     Padding="12"
                     BorderThickness="1"
-                    BorderBrush="#D8E0DC"
-                    Background="#00000000"
-                    Foreground="#1B5E4F"
                     CornerRadius="10"
-                    FontSize="14" />
+                    FontSize="14"
+                    Style="{StaticResource OptionButtonButtonStyle}"/>
+
                 <TextBlock
                     Text="Enter lab parameters with their values. Add disorders such as diabetes or cancer if relevant."
                     FontSize="12" Foreground="#8C9A94" TextWrapping="Wrap" Margin="0,4,0,0" />

@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using Screening.Domain.Answers;
 using Screening.Domain.Questions;
 using Screening.Presentation.Model;
@@ -10,10 +12,9 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
 {
     private RepeatableKeyValueDisplayableQuestion? Question => DataContext as RepeatableKeyValueDisplayableQuestion;
 
-    private ObservableCollection<KeyValueEntry> _labResults = new();
+    private ObservableCollection<LabResultEntry> _labResults = new();
     private ObservableCollection<DisorderEntry> _disorders = new();
-    private int? _currentQuestionId;
-    
+
     public RepeatableKeyValueQuestionView()
     {
         InitializeComponent();
@@ -25,12 +26,20 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
         var question = Question;
         if (question is null) return;
 
-        _labResults = new ObservableCollection<KeyValueEntry>(question.Answer?.LabResults ?? []);
+        _labResults = new ObservableCollection<LabResultEntry>(
+            (question.Answer?.LabResults ?? []).Select(r => new LabResultEntry { Name = r.Name, Value = r.Value }));
+
         _disorders = new ObservableCollection<DisorderEntry>(
             (question.Answer?.Disorders ?? []).Select(name => new DisorderEntry { Name = name }));
 
+        HookCollectionEvents(_labResults);
+        HookCollectionEvents(_disorders);
+
         LabResultsControl.ItemsSource = _labResults;
         DisordersControl.ItemsSource = _disorders;
+
+        UpdateAddResultButtonState();
+        UpdateAddDisorderButtonState();
     }
 
     // ------------------------------------------------------------------------
@@ -39,43 +48,26 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
 
     private void OnAddResultClicked(object sender, RoutedEventArgs e)
     {
-        _labResults.Add(new KeyValueEntry(string.Empty, string.Empty));
-        PersistAnswer();
+        // guard: last result must be filled before adding another
+        if (_labResults.Count > 0 && !IsFilled(_labResults[^1]))
+            return;
+        
+        _labResults.Add(new LabResultEntry());
     }
+    private static bool IsFilled(LabResultEntry entry) =>
+        !string.IsNullOrWhiteSpace(entry.Name) && !string.IsNullOrWhiteSpace(entry.Value);
 
+    private void UpdateAddResultButtonState()
+    {
+        AddResultButton.IsEnabled = _labResults.Count == 0 || IsFilled(_labResults[^1]);
+    }
+    
     private void OnRemoveResultClicked(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button button || button.Tag is not KeyValueEntry entry) return;
-        _labResults.Remove(entry);
-        PersistAnswer();
-    }
-
-    private void OnResultTextChanged(object sender, TextChangedEventArgs e)
-    {
-        if (sender is not TextBox textBox ||
-            textBox.DataContext is not KeyValueEntry oldEntry)
+        if (sender is Button { Tag: LabResultEntry entry })
         {
-            return;
+            _labResults.Remove(entry);
         }
-
-        var index = _labResults.IndexOf(oldEntry);
-        if (index < 0) return;
-
-        var field = (string)textBox.Tag; // use Tag purely as a field-name marker now
-        var newEntry = field switch
-        {
-            "Name" => oldEntry with { Name = textBox.Text },
-            "Value" => oldEntry with { Value = textBox.Text },
-            _ => oldEntry
-        };
-
-        // Update item IN PLACE — do not reassign ItemsSource
-        _labResults[index] = newEntry;
-
-        // Re-tag the TextBox's underlying Tag reference isn't needed since
-        // binding is by DataContext, not by Tag now.
-
-        PersistAnswer();
     }
 
     // ------------------------------------------------------------------------
@@ -86,33 +78,60 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
     {
         if (_disorders.Count > 0 && string.IsNullOrWhiteSpace(_disorders[^1].Name))
         {
-            return;
+            return; // guard: last disorder must be filled before adding another
         }
 
         _disorders.Add(new DisorderEntry());
-        UpdateAddDisorderButtonState();
-        PersistAnswer();
     }
 
     private void OnRemoveDisorderClicked(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button button || button.Tag is not DisorderEntry entry) return;
-        _disorders.Remove(entry);
-        UpdateAddDisorderButtonState();
-        PersistAnswer();
+        if (sender is Button { Tag: DisorderEntry entry })
+        {
+            _disorders.Remove(entry);
+        }
     }
 
-    private void OnDisorderTextChanged(object sender, TextChangedEventArgs e)
-    {
-        UpdateAddDisorderButtonState();
-        PersistAnswer();
-    }
-    
     private void UpdateAddDisorderButtonState()
     {
         AddDisorderButton.IsEnabled =
             _disorders.Count == 0 || !string.IsNullOrWhiteSpace(_disorders[^1].Name);
     }
+
+    // ------------------------------------------------------------------------
+    // Centralized change tracking
+    // ------------------------------------------------------------------------
+
+    // Any add, remove, or edit — on either collection — goes through here.
+    // No handler above needs to call PersistAnswer or UpdateAddDisorderButtonState directly.
+    private void HookCollectionEvents(INotifyCollectionChanged collection)
+    {
+        collection.CollectionChanged += (_, args) =>
+        {
+            if (args.NewItems is not null)
+            {
+                foreach (var item in args.NewItems)
+                {
+                    if (item is INotifyPropertyChanged notifying)
+                    {
+                        notifying.PropertyChanged += OnEntryChanged;
+                    }
+                }
+            }
+
+            OnAnyChange();
+        };
+    }
+
+    private void OnEntryChanged(object? sender, PropertyChangedEventArgs e) => OnAnyChange();
+
+    private void OnAnyChange()
+    {
+        UpdateAddResultButtonState();
+        UpdateAddDisorderButtonState();
+        PersistAnswer();
+    }
+
     // ------------------------------------------------------------------------
     // Answer handling
     // ------------------------------------------------------------------------
@@ -123,7 +142,7 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
         if (question is null) return;
 
         var answer = new RepeatableKeyValueAnswer(
-            _labResults.ToList(),
+            _labResults.Select(r => new KeyValueEntry(r.Name, r.Value)).ToList(),
             _disorders.Select(d => d.Name).ToList());
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
