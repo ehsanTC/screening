@@ -94,7 +94,7 @@ questions:
     required: false
 
   - id: 8
-    code: "corticosteroids"
+    code: "taking-corticosteroids"
     text: "آیا در حال حاضر از کورتیکواستروئید استفاده می‌کنید؟"
     type: single_choice
     options:

@@ -65,6 +65,10 @@ questions:
         value: no
     required: false
 
+    save:
+      path: "previous-fracture"
+      cast: bool
+
   - id: 6
     code: "parent-hip-fracture"
     text: "Have you had previous parent fracture hip?"
@@ -76,6 +80,10 @@ questions:
       - text: No
         value: no
     required: false
+
+    save:
+      path: "parent-hip-fracture"
+      cast: bool
 
   - id: 7
     code: "smoking"
@@ -89,11 +97,11 @@ questions:
         value: no
     save:
       path: "smoking"
-      cast: "bool"
+      cast: bool
     required: false
 
   - id: 8
-    code: "corticosteroids"
+    code: "taking-corticosteroids"
     text: "Are you currently taking any corticosteroids?"
     type: single_choice
     options:
@@ -103,6 +111,10 @@ questions:
       - text: No
         value: no
     required: false
+
+    save:
+      path: "taking-corticosteroids"
+      cast: bool
 
   - id: 9
     code: "rheumatoid-arthritis"
@@ -116,6 +128,10 @@ questions:
         value: no
     required: false
 
+    save:
+      path: "have-rheumatoid-arthritis"
+      cast: bool
+
   - id: 10
     code: "secondary-osteoporosis"
     text: "Do you have a bone-weakening condition (diabetes, liver/kidney, thyroid, or early menopause)?"
@@ -128,6 +144,10 @@ questions:
         value: no
     required: false
 
+    save:
+      path: "have-secondary-osteoporosis"
+      cast: bool
+
   - id: 11
     code: "drink-alcohol-over-3-units-daily"
     text: "Do you drink 3 or more units of alcohol per day?"
@@ -139,6 +159,10 @@ questions:
       - text: No
         value: no
     required: false
+
+    save:
+      path: "drink-alcohol-over-3-units-daily"
+      cast: bool
 
 results:
   - value: low

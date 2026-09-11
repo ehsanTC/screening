@@ -23,7 +23,7 @@ public static class QuestionCodes
     public const string WealthLevel = "wealth-level";
     public const string PreviousFracture = "previous-fracture";
     public const string ParentHipFracture = "parent-hip-fracture";
-    public const string Corticosteroids = "corticosteroids";
+    public const string Corticosteroids = "taking-corticosteroids";
     public const string RheumatoidArthritis = "rheumatoid-arthritis";
     public const string SecondaryOsteoporosis = "secondary-osteoporosis";
     public const string AlcoholOver3 = "drink-alcohol-over-3-units-daily";
