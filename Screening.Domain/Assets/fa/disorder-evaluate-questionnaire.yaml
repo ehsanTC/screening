@@ -1,0 +1,52 @@
+title: "ارزیابی عمومی خطر بیماری ها"
+version: "1.0"
+
+questions:
+  - id: 1
+    code: "disorders"
+    text: "کدام اختلالات را انتخاب می‌کنید؟"
+    type: multi_choice
+    required: false
+    options:
+      - text: اختلالات تیروئید
+        value: "Thyroid disorders"
+
+      - text: کمبود ویتامین D
+        value: "Vitamin D deficiency"
+
+      - text: افسردگی و اضطراب
+        value: "Depression and anxiety"
+
+  - id: 2
+    code: "cancers"
+    text: "کدام سرطان‌ها را برای ارزیابی انتخاب می‌کنید؟"
+    type: multi_choice
+    options:
+      - text: سرطان پستان
+        value: "Breast Cancer"
+
+      - text: سرطان روده بزرگ
+        value: "Colorectal cancer"
+
+      - text: سرطان معده
+        value: "Stomach cancer"
+
+      - text: سرطان پوست
+        value: "Skin cancer"
+
+      - text: سرطان ریه
+        value: "Lung cancer"
+
+      - text: سرطان پروستات
+        value: "Prostate cancer"
+
+      - text: سرطان کبد
+        value: "Liver cancer"
+
+  - id: 3
+    code: "user-entered-parameter"
+    text: "آیا بیماری یا نتیجه آزمایشگاهی دارید که بخواهید وارد کنید؟"
+    type: repeatable_key_value
+    save:
+      path: "user-entered-parameters"
+      cast: "list"
