@@ -30,6 +30,9 @@ questions:
         value: Female
       - text: "مرد"
         value: Male
+    save:
+      path: "gender"
+      cast: string
 
   - id: 3
     code: "cholesterol"
@@ -38,6 +41,9 @@ questions:
     unit_options:
       - mg/dL
       - mmol/L
+    save:
+      path: "cholesterol"
+      cast: int
 
   - id: 4
     code: "hdl"
@@ -46,16 +52,22 @@ questions:
     unit_options:
       - mg/dL
       - mmol/L
+    save:
+      path: "hdl"
+      cast: int
 
   - id: 5
-    code: "sbp"
+    code: "systolic-blood-pressure"
     text: "فشار خون سیستولیک (عدد بالایی)"
     type: number
     unit: mmHg
     validation:
-      min: 9
-      max: 20
-    validation_error: "فشار خون سیستولیک شما باید بین 9 تا 20 باشد"
+      min: 90
+      max: 200
+    validation_error: "فشار خون سیستولیک شما باید بین 90 تا 200 باشد"
+    save:
+      path: "systolic-blood-pressure"
+      cast: int
 
   - id: 6
     code: "height"
@@ -92,9 +104,12 @@ questions:
       min: 15
       max: 140
     validation_error: "eGFR باید بین 15 تا 140 باشد"
+    save:
+      path: "egfr"
+      cast: int
 
   - id: 9
-    code: "on-lipid-med"
+    code: "lipid-lowering-medication"
     text: "آیا از داروهای کاهش چربی خون استفاده می‌کنید؟"
     type: single_choice
     options:
@@ -105,7 +120,7 @@ questions:
         value: no
 
   - id: 10
-    code: "on-bp-med"
+    code: "blood-pressure-medication"
     text: "آیا فشار خون دارید؟"
     type: single_choice
     options:
@@ -114,6 +129,9 @@ questions:
 
       - text: "خیر"
         value: no
+    save:
+      path: "blood-pressure-medication"
+      cast: bool
 
   - id: 11
     code: "smoking"
@@ -141,6 +159,10 @@ questions:
       - text: "خیر"
         value: no
 
+    save:
+      path: "diabetes"
+      cast: int
+
   - id: 13
     code: "uacr"
     text: "مقدار UACR خود را وارد کنید"
@@ -152,6 +174,10 @@ questions:
       max: 25000
     validation_error: "مقدار UACR باید بین 0 تا 25000 باشد"
 
+    save:
+      path: "uacr"
+      cast: int
+
   - id: 14
     code: "hba1c"
     text: "مقدار قند سه ماهه (HbA1c) خود را وارد کنید"
@@ -161,11 +187,15 @@ questions:
       min: 3
       max: 15
     validation_error: "مقدار قند سه ماه باید بین 3 تا 15 باشد"
+    save:
+      path: "hba1c"
+      cast: int
 
   - id: 15
     code: "wealth-level"
     text: "میزان درآمد خود را مشخص کنید"
     type: single_choice
+    required: false
     options:
       - text: "بهره‌مند"
         value: "rich"
@@ -175,7 +205,9 @@ questions:
 
       - text: "کم برخوردار"
         value: "poor"
-    required: false
+    save:
+      path: "wealth-level"
+      cast: string
 
 results:
   - value: low
