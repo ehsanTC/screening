@@ -1,5 +1,6 @@
 title: "ارزیابی خطر دیابت"
 version: "1.0"
+type: diabetes
 
 questions:
   - id: 1
@@ -58,7 +59,7 @@ questions:
         value: no
 
   - id: 5
-    code: "on-bp-med"
+    code: "blood-pressure-medication"
     text: "آیا فشار خون دارید؟"
     type: single_choice
     options:

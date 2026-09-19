@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Screening.Domain.Answers;
+using Screening.Domain.Models;
 using Screening.Domain.Questions;
 using Screening.Presentation.Model;
 using Screening.Presentation.Utility;
@@ -27,7 +28,7 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
         if (question is null) return;
 
         _labResults = new ObservableCollection<LabResultEntry>(
-            (question.Answer?.LabResults ?? []).Select(r => new LabResultEntry { Name = r.Name, Value = r.Value }));
+            (question.Answer?.LabResults ?? []).Select(r => new LabResultEntry { Name = r.Key, Value = r.Value }));
 
         _disorders = new ObservableCollection<DisorderEntry>(
             (question.Answer?.Disorders ?? []).Select(name => new DisorderEntry { Name = name }));
@@ -142,8 +143,8 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
         if (question is null) return;
 
         var answer = new RepeatableKeyValueAnswer(
-            _labResults.Select(r => new KeyValueEntry(r.Name, r.Value)).ToList(),
-            _disorders.Select(d => d.Name).ToList());
+            _labResults.Select(r => new KeyValue(r.Name.Trim(), r.Value.Trim())).ToList(),
+            _disorders.Select(d => d.Name.Trim()).ToList());
 
         var page = ControlUtility.FindAncestor<QuestionPage>(this);
         if (page?.DataContext is QuestionViewModel viewModel)

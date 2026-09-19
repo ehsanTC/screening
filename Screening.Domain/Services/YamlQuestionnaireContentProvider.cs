@@ -26,6 +26,7 @@ public class YamlQuestionnaireContentProvider : IQuestionnaireContentProvider
         return new QuestionnaireEntity()
         {
             Title = yamlQuestionnaire.Title,
+            Type = yamlQuestionnaire.Type,
             Version = yamlQuestionnaire.Version,
             ResultCategories = yamlQuestionnaire.Results,
             Questions = [..yamlQuestionnaire.Questions.Select(QuestionFactory.CreateQuestion)]

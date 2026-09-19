@@ -1,4 +1,6 @@
-namespace Screening.Presentation.Utility;
+using Screening.Presentation.Services.Abstraction;
+
+namespace Screening.Presentation.Services;
 
 public sealed class ConnectivityService : IConnectivityService, IDisposable
 {

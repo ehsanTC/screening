@@ -1,5 +1,6 @@
 title: "Baseline Assessment"
 version: "1.0"
+type: baseline
 
 questions:
   - id: 1

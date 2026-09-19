@@ -1,8 +1,9 @@
 using System.Text.Json;
+using Screening.Domain.Models;
 
 namespace Screening.Domain.Answers;
 
-public record RepeatableKeyValueAnswer(List<KeyValueEntry> LabResults, List<string> Disorders)
+public record RepeatableKeyValueAnswer(List<KeyValue> LabResults, List<string> Disorders)
     : Answer
 {
     public override string TypeDiscriminator => nameof(RepeatableKeyValueAnswer);
@@ -18,5 +19,3 @@ public record RepeatableKeyValueAnswer(List<KeyValueEntry> LabResults, List<stri
         writer.WriteEndObject();
     }
 }
-
-public record KeyValueEntry(string Name, string Value);

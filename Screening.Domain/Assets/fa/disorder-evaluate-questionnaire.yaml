@@ -1,5 +1,6 @@
 title: "ارزیابی عمومی خطر بیماری ها"
 version: "1.0"
+type: generalEvaluation
 
 questions:
   - id: 1
@@ -44,7 +45,7 @@ questions:
         value: "Liver cancer"
 
   - id: 3
-    code: "user-entered-parameter"
+    code: "user-entered-parameters"
     text: "آیا بیماری یا نتیجه آزمایشگاهی دارید که بخواهید وارد کنید؟"
     type: repeatable_key_value
     save:

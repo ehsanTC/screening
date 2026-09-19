@@ -4,6 +4,7 @@ purpose:
   Estimates 10-year risk of a first heart attack, stroke, or related cardiovascular
   event using the 2013 ACC/AHA Pooled Cohort Equations. Intended for adults aged
   40–79 years without known cardiovascular disease.
+type: ascvd
 
 condition:
   - question_id: 1

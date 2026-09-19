@@ -1,5 +1,6 @@
 title: "Diabetes Risk Assessment"
 version: "1.0"
+type: diabetes
 
 questions:
   - id: 1
@@ -58,7 +59,7 @@ questions:
         value: no
 
   - id: 5
-    code: "on-bp-med"
+    code: "blood-pressure-medication"
     text: "Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?"
     type: single_choice
     options:

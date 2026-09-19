@@ -11,7 +11,27 @@ public record RiskResult(
     string RiskDescription,
     string Icon,
     string Color,
-    PreventionSteps  PreventionSteps,
+    PreventionSteps? PreventionSteps,
     string NextSteps,
     string FollowUp,
-    string PatientEducation);
+    string PatientEducation)
+{
+    public static RiskResult Empty { get; } = new(
+        string.Empty, default, string.Empty, string.Empty, string.Empty,
+        string.Empty, string.Empty, string.Empty, null, string.Empty,
+        string.Empty, string.Empty);
+    
+    public bool IsEmpty =>
+        string.IsNullOrEmpty(Score) &&
+        Severity == default &&
+        string.IsNullOrEmpty(Summary) &&
+        string.IsNullOrEmpty(Title) &&
+        string.IsNullOrEmpty(SubTitle) &&
+        string.IsNullOrEmpty(RiskDescription) &&
+        string.IsNullOrEmpty(Icon) &&
+        string.IsNullOrEmpty(Color) &&
+        PreventionSteps is null &&
+        string.IsNullOrEmpty(NextSteps) &&
+        string.IsNullOrEmpty(FollowUp) &&
+        string.IsNullOrEmpty(PatientEducation);
+}

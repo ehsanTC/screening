@@ -39,7 +39,7 @@ public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
         var input = new AscvdRiskInput
         {
             Age = reader.GetInt(QuestionCodes.Age).Value,
-            Sex = reader.GetEnum(QuestionCodes.Gender, SexMap),
+            Sex = reader.GetEnum(QuestionCodes.Gender, SexMap) ?? Sex.Male,
             Smoker = reader.GetYesNo(QuestionCodes.Smoking),
             Diabetic = reader.GetYesNo(QuestionCodes.Diabetes),
             SystolicBp = reader.GetDouble(QuestionCodes.SystolicBloodPressure).Value,

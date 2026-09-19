@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <utu:NavigationBar Grid.Row="0"
-            Content="{Binding Title}" />
+                           Content="{Binding Title}" />
 
         <Border Grid.Row="1"
                 CornerRadius="16"
@@ -38,7 +38,7 @@
                            Padding="12"
                            TextWrapping="Wrap">
                     <TextBlock.RenderTransform>
-                        <TranslateTransform  Y="2" />
+                        <TranslateTransform Y="2" />
                     </TextBlock.RenderTransform>
                 </TextBlock>
 
@@ -56,11 +56,11 @@
 
 
         <Grid Grid.Row="2"
-            VerticalAlignment="Top"
-            ColumnSpacing="8"
-            RowSpacing="8"
-            Margin="8"
-            utu:SafeArea.Insets="VisibleBounds">
+              VerticalAlignment="Top"
+              ColumnSpacing="8"
+              RowSpacing="8"
+              Margin="8"
+              utu:SafeArea.Insets="VisibleBounds">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -119,7 +119,7 @@
                 ImageWidth="56"
                 ImageHeight="56"
                 ImageStretch="Uniform"
-                Command="{Binding GoToFracture}"/>
+                Command="{Binding GoToFracture}" />
 
             <views:DisorderCardView
                 Grid.Column="0"
@@ -136,7 +136,7 @@
                 ImageWidth="56"
                 ImageHeight="56"
                 ImageStretch="Uniform"
-                Command="{Binding GoToObesity}"/>
+                Command="{Binding GoToObesity}" />
 
             <views:DisorderCardView
                 Grid.Column="1"
@@ -157,14 +157,23 @@
         </Grid>
 
         <Button Grid.Row="3"
-                Content="Health Analyze with Ai ✨"
                 CornerRadius="17"
-                Height="50"
-                FontSize="16"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
-                Margin="20"
+                Margin="20, 0, 20, 0"
                 Style="{StaticResource OptionButtonButtonStyle}"
-                Command="{Binding GoToGeneralEvaluation}" />
+                Command="{Binding GoToGeneralEvaluation}">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="8"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Health with Ai"
+                           FontSize="16"
+                           VerticalAlignment="Center" />
+                <Image Source="/Assets/Images/bot-head-doctor.png"
+                       Width= "35"
+                       Height="35"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>

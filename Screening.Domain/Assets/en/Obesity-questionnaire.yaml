@@ -1,6 +1,7 @@
 title: "Obesity and Dyslipidemia Risk Assessment"
 version: "1.0"
 purpose: "Screens for obesity and dyslipidemia risk, based on USPSTF and NCEP ATP III guidance."
+type: obesity
 
 questions:
   - id: 1
@@ -74,7 +75,7 @@ questions:
         value: no
 
   - id: 8
-    code: "on-bp-med"
+    code: "blood-pressure-medication"
     text: "Have you ever been diagnosed with high blood pressure or are you on medication for high blood pressure?"
     type: single_choice
     options:

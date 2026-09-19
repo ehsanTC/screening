@@ -12,20 +12,11 @@ public static class QuestionFactory
 
         return yamlQuestion.Type switch
         {
-            var questionType when questionType.Equals("single_choice", StringComparison.OrdinalIgnoreCase) =>
-                CreateSingleChoice(yamlQuestion),
-
-            var questionType when questionType.Equals("string", StringComparison.OrdinalIgnoreCase) =>
-                CreateTextInput(yamlQuestion, false),
-
-            var questionType when questionType.Equals("number", StringComparison.OrdinalIgnoreCase) =>
-                CreateTextInput(yamlQuestion, true),
-
-            var questionType when questionType.Equals("multi_choice", StringComparison.OrdinalIgnoreCase) =>
-                CreateMultiChoice(yamlQuestion),
-
-            var questionType when questionType.Equals("repeatable_key_value", StringComparison.OrdinalIgnoreCase) =>
-                CreateRepeatableQuestion(yamlQuestion),
+            YamlQuestionType.Number => CreateTextInput(yamlQuestion, true),
+            YamlQuestionType.String => CreateTextInput(yamlQuestion, false),
+            YamlQuestionType.SingleOption => CreateSingleChoice(yamlQuestion),
+            YamlQuestionType.MultiOption => CreateMultiChoice(yamlQuestion),
+            YamlQuestionType.RepeatableKeyValue => CreateRepeatableQuestion(yamlQuestion),
 
             _ => throw new NotSupportedException("The question type is not supported.")
         };

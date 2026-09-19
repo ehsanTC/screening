@@ -177,5 +177,8 @@
     <value>نمایش نتیجه ↩️</value>
   </data>
 
+  <data name="ResultDialog_NoResultMessage" xml:space="preserve">
+    <value>موارد زیر داده‌های سلامت شما تا کنون هستند:</value>
+  </data>
 
 </root>

@@ -228,4 +228,8 @@
     <value>Show Result ↩️</value>
   </data>
 
+  <data name="ResultDialog_NoResultMessage" xml:space="preserve">
+    <value>These are all data we have about your health:</value>
+  </data>
+
 </root>

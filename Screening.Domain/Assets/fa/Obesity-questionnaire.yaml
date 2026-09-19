@@ -1,6 +1,7 @@
 title: "Obesity and Dyslipidemia Risk Assessment"
 version: "1.0"
 purpose: "غربالگری برای چاقی و خطر دیس‌لیپیدمی، بر اساس راهنمای USPSTF و NCEP ATP III."
+type: obesity
 
 questions:
   - id: 1
@@ -85,7 +86,7 @@ questions:
         value: no
 
   - id: 8
-    code: "on-bp-med"
+    code: "blood-pressure-medication"
     text: "آیا فشار خون دارید؟"
     type: single_choice
     options:

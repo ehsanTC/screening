@@ -1,6 +1,6 @@
 using Screening.Domain.Questions;
 
-namespace Screening.Presentation.Dialogs;
+namespace Screening.Presentation.Services.Abstraction;
 
 public interface IScreeningPromptBuilder
 {

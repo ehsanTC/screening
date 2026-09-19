@@ -1,5 +1,6 @@
 using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
+using Screening.Domain.Models;
 using Screening.Domain.Parser.Models;
 using Screening.Domain.Questions.Abstraction;
 
@@ -11,6 +12,7 @@ namespace Screening.Domain.Questions;
 public class QuestionnaireEntity
 {
     public string? Title { get; set; }
+    public QuestionnaireType Type { get; set; }
     public IReadOnlyList<IDisplayableQuestion> Questions { get; init; } = [];
     public float Version { get; set; }
     public List<YamlResultCategory> ResultCategories { get; set; }

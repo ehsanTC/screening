@@ -27,7 +27,7 @@
         <!-- ============================= -->
         <Grid Grid.Row="0"
               Padding="16,8,16,16"
-              Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
+              Visibility="{Binding ShowStructuredResult, Converter={StaticResource BoolToVisibilityConverter}}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -71,7 +71,7 @@
         <Border Grid.Row="1"
                 Background="#FFFFFF"
                 CornerRadius="16"
-                Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
+                Visibility="{Binding ShowStructuredResult, Converter={StaticResource BoolToVisibilityConverter}}">
 
             <ScrollViewer
                 VerticalScrollBarVisibility="Auto"
@@ -438,19 +438,17 @@
         <Border Grid.Row="1"
                 Background="#FFFFFF"
                 CornerRadius="16"
-                Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                Visibility="{Binding ShowAiPanel, Converter={StaticResource BoolToVisibilityConverter}}">
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="500">
                 <TextBlock
-                    Text="The Ai description is not accessible right now."
                     TextWrapping="Wrap"
                     FontFamily="Roboto"
                     FontSize="14"
                     LineHeight="24"
                     LineStackingStrategy="BlockLineHeight"
                     Padding="16"
-                    utility:BoldMarkdownExtensions.BoldMarkdownText="{Binding AiDescription}"
-                    />
+                    utility:BoldMarkdownExtensions.BoldMarkdownText="{Binding AiPanelText, Mode=OneWay}" />
             </ScrollViewer>
 
         </Border>
@@ -466,10 +464,10 @@
 
             <Grid>
                 <TextBlock x:Uid="ResultDialog_DescribeWithAi"
-                           Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
+                           Visibility="{Binding CanGoBackToResult, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
 
                 <TextBlock x:Uid="ResultDialog_ShowResult"
-                           Visibility="{Binding IsAiDescriptionVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                           Visibility="{Binding CanGoBackToResult, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Grid>
 
         </Button>

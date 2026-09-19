@@ -30,9 +30,9 @@ public class ProfileService(ISessionStorageService storage) : IProfileService
         }
     }
 
-    public async Task SaveAsync(string key, SavableAnswer value)
+    public async Task SaveAsync(string key, SavableAnswer answer)
     {
-        _profile.AddOrUpdate(key, value, (k, v) => value);
+        _profile.AddOrUpdate(key, answer, (k, v) => answer);
         
         var serializedData = JsonSerializer.Serialize(_profile, Options);
         await storage.SaveAsync(ApplicationFiles.UserProfile, serializedData);

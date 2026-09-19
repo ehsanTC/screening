@@ -10,6 +10,7 @@ public class YamlQuestionnaireParser : IQuestionnaireParser
     private readonly IDeserializer _deserializer = new DeserializerBuilder()
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .WithTypeConverter(new UnitYamlTypeConverter())
+        .WithTypeConverter(new YamlQuestionTypeConverter())
         .IgnoreUnmatchedProperties()
         .Build();
     

@@ -48,11 +48,17 @@
         <Content Include="Assets\Icons\obesity.png" />
         <Content Include="Assets\Images\questionnaire-finished.png" />
         <Content Include="Assets\Images\questionnaire-abandoned.png" />
+        <Content Include="Assets\Images\bot-head-doctor.png" />
 
         <EmbeddedResource Include="Assets\Prompts\en\AssessmentExplainPrompt.txt"
                           LogicalName="en\AssessmentExplainPrompt.txt"/>
         <EmbeddedResource Include="Assets\Prompts\fa\AssessmentExplainPrompt.txt"
                           LogicalName="fa\AssessmentExplainPrompt.txt"/>
+
+        <EmbeddedResource Include="Assets\Prompts\en\GeneralHealthAssessmentPrompt.txt"
+                          LogicalName="en\GeneralHealthAssessmentPrompt.txt"/>
+        <EmbeddedResource Include="Assets\Prompts\fa\GeneralHealthAssessmentPrompt.txt"
+                          LogicalName="fa\GeneralHealthAssessmentPrompt.txt"/>
 
         <EmbeddedResource Include="Assets\AiCredentials.json"
                           LogicalName="AiCredentials.json" />
@@ -72,7 +78,6 @@
     <ItemGroup>
       <Folder Include="Assets\Icons\" />
       <Folder Include="Assets\Images\" />
-      <Folder Include="Assets\Prompts\en\" />
       <Folder Include="Assets\Prompts\fa\" />
       <Folder Include="Platforms\Android\Assets\" />
     </ItemGroup>

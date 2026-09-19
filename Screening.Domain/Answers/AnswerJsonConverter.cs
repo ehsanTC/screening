@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Screening.Domain.Models;
 using Screening.Domain.Parser.Models;
 
 namespace Screening.Domain.Answers;
@@ -74,11 +75,11 @@ public class AnswerJsonConverter : JsonConverter<Answer>
                 new RepeatableKeyValueAnswer(
                     root.GetProperty(nameof(RepeatableKeyValueAnswer.LabResults))
                         .EnumerateArray()
-                        .Select(el => new KeyValueEntry(
-                            Name: el.GetProperty(nameof(KeyValueEntry.Name))
+                        .Select(el => new KeyValue(
+                            Key: el.GetProperty(nameof(KeyValue.Key))
                                 .GetString() ?? string.Empty,
 
-                            Value: el.GetProperty(nameof(KeyValueEntry.Value))
+                            Value: el.GetProperty(nameof(KeyValue.Value))
                                 .GetString() ?? string.Empty))
                         .ToList(),
 

@@ -1,5 +1,6 @@
 title: "برآورد احتمال شکستگی طی ۱۰ سال"
 version: "1.0"
+type: fracture
 
 questions:
   - id: 1

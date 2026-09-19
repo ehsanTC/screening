@@ -1,6 +1,6 @@
 using Screening.Presentation.Model;
 
-namespace Screening.Presentation.Utility;
+namespace Screening.Presentation.Services.Abstraction;
 
 public interface IChatService
 {

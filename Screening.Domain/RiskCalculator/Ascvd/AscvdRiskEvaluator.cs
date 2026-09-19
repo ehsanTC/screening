@@ -30,16 +30,16 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         if (score == null)
             return null;
         
-        var ascvd10YearScore = (float) score.Ascvd10Yr;
-        var category = questionnaire.GetCategory(ascvd10YearScore);
+        var cvd10YearScore = (float) score.Cvd10Yr;
+        var category = questionnaire.GetCategory(cvd10YearScore);
         
         if (category == null)
             return null;
         
         var severity = category.GetSeverity();
-        return new RiskResult(ascvd10YearScore.ToString("F1"), 
+        return new RiskResult(cvd10YearScore.ToString("F1"), 
             severity, 
-            Summary: string.Format(category.Summary, score),
+            Summary: string.Format(category.Summary, cvd10YearScore),
             Title: category.Text,
             SubTitle: category.Subtitle,
             RiskDescription: category.Description,
@@ -67,7 +67,6 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         if (input.SystolicBp is < 9 or > 20) return null;
         if (input.Egfr <= 0) return null;
 
-        input.SystolicBp *= 10;
         bool validForHf = input.Bmi is >= 18.5 and < 40;
 
         // 3. Determine model (exact AHA logic)

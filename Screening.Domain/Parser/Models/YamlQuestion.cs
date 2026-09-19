@@ -16,7 +16,7 @@ public class YamlQuestion
     public string Text { get; set; }
     
     [YamlMember(Alias = "type")]
-    public string Type { get; set; }
+    public YamlQuestionType Type { get; set; }
     
     [YamlMember(Alias = "options")]
     public List<YamlListItem>? Options { get; set; }

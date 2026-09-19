@@ -4,7 +4,7 @@ namespace Screening.Domain.Services.Profile;
 
 public interface IProfileService
 {
-    Task SaveAsync(string key, SavableAnswer value);
+    Task SaveAsync(string key, SavableAnswer answer);
     Task DeleteAsync(string key);
     Task <SavableAnswer?> LoadAsync(string key);
     Task<IDictionary<string,SavableAnswer>> LoadAllAsync();

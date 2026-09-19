@@ -1,5 +1,6 @@
 title: "Estimated 10-year fracture probability Risk Assessment"
 version: "1.0"
+type: fracture
 
 questions:
   - id: 1

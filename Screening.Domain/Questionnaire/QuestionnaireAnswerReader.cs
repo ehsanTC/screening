@@ -50,13 +50,16 @@ public class QuestionnaireAnswerReader
             ? Enum.Parse<TEnum>(selection.Value)
             : default;
 
-    public TEnum GetEnum<TEnum>(string code, IReadOnlyDictionary<string, TEnum> optionMap)
+    public TEnum? GetEnum<TEnum>(string code, IReadOnlyDictionary<string, TEnum> optionMap)
         where TEnum : struct, Enum
     {
         var selected = GetSingleItem(code);
+
+        if (selected == null)
+            return null;
         
         if (!optionMap.TryGetValue(selected?.Value ?? string.Empty, out var value))
-            throw new NotSupportedException(string.Concat(code, selected));
+            return null;
 
         return value;
     }

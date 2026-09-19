@@ -2,8 +2,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Screening.Presentation.Model;
+using Screening.Presentation.Services.Abstraction;
 
-namespace Screening.Presentation.Utility;
+namespace Screening.Presentation.Services;
 
 public class ChatService : IChatService
 {

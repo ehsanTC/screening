@@ -1,5 +1,6 @@
 title: "General disorder evaluation risk assessment"
 version: "1.0"
+type: generalEvaluation
 
 questions:
   - id: 1
@@ -44,7 +45,7 @@ questions:
         value: "Liver cancer"
 
   - id: 3
-    code: "user-entered-parameter"
+    code: "user-entered-parameters"
     text: "Do you have any disorder or lab result you want to enter?"
     type: repeatable_key_value
     save:

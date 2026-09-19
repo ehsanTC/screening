@@ -1,4 +1,4 @@
-namespace Screening.Presentation.Utility;
+namespace Screening.Presentation.Services.Abstraction;
 
 public interface IConnectivityService
 {

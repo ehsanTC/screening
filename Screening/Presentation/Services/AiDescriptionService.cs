@@ -1,8 +1,9 @@
 using System.Text.Json;
 using Common.Abstraction;
 using Screening.Presentation.Model;
+using Screening.Presentation.Services.Abstraction;
 
-namespace Screening.Presentation.Utility;
+namespace Screening.Presentation.Services;
 
 public class AiDescriptionService : IAiDescriptionService
 {
@@ -23,6 +24,7 @@ public class AiDescriptionService : IAiDescriptionService
             keyValues["model"].GetString() ?? string.Empty);
         
         return await _chatService.GetChatResponseAsync(prompt, config, ct);
+        // return "this is a **bold** text.";
     }
 
     private Dictionary<string, JsonElement> GetAiCredentials(string file)
