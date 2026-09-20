@@ -66,6 +66,10 @@ questions:
         value: no
     required: false
 
+    save:
+      path: "previous-fracture"
+      cast: bool
+
   - id: 6
     code: "parent-previous-fracture"
     text: "آیا یکی از والدین شما قبلاً شکستگی لگن داشته است؟"
@@ -77,6 +81,10 @@ questions:
       - text: خیر
         value: no
     required: false
+
+    save:
+      path: "parent-hip-fracture"
+      cast: bool
 
   - id: 7
     code: "smoking"
@@ -91,7 +99,7 @@ questions:
 
     save:
       path: "smoking"
-      cast: "bool"
+      cast: bool
     required: false
 
   - id: 8
@@ -106,6 +114,10 @@ questions:
         value: no
     required: false
 
+    save:
+      path: "taking-corticosteroids"
+      cast: bool
+
   - id: 9
     code: "rheumatoid-arthritis"
     text: "آیا روماتیسم مفصلی دارید؟"
@@ -117,6 +129,10 @@ questions:
       - text: خیر
         value: no
     required: false
+
+    save:
+      path: "have-rheumatoid-arthritis"
+      cast: bool
 
   - id: 10
     code: "secondary-osteoporosis"
@@ -130,6 +146,10 @@ questions:
         value: no
     required: false
 
+    save:
+      path: "have-secondary-osteoporosis"
+      cast: bool
+
   - id: 11
     code: "drink-alcohol-over-3-units-daily"
     text: "آیا روزانه ۳ واحد یا بیشتر الکل می‌نوشید؟"
@@ -141,6 +161,10 @@ questions:
       - text: "خیر"
         value: no
     required: false
+
+    save:
+      path: "drink-alcohol-over-3-units-daily"
+      cast: bool
 
 results:
   - value: low

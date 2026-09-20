@@ -9,7 +9,7 @@ questions:
     type: Number
     save:
       path: "age"
-      cast: "int"
+      cast: int
     validation:
       min: 40
       max: 90
@@ -26,7 +26,7 @@ questions:
         value: Male
     save:
       path: "gender"
-      cast: "string"
+      cast: string
 
   - id: 3
     code: "height"

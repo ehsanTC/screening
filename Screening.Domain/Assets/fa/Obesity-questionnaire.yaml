@@ -10,7 +10,7 @@ questions:
     type: Number
     save:
       path: "age"
-      cast: "int"
+      cast: int
     validation:
       min: 10
     validation_error: "سن شما باید بیش از 20 سال باشد."
@@ -26,7 +26,7 @@ questions:
         value: Male
     save:
       path: "gender"
-      cast: "string"
+      cast: string
 
   - id: 3
     code: "height"
@@ -74,6 +74,10 @@ questions:
       - text: "خیر"
         value: no
 
+    save:
+      path: "dyslipidemia-family-history"
+      cast: bool
+
   - id: 7
     code: "diabetes"
     text: "آیا دیابت دارید؟"
@@ -84,6 +88,10 @@ questions:
 
       - text: "خیر"
         value: no
+
+    save:
+      path: "diabetes"
+      cast: bool
 
   - id: 8
     code: "blood-pressure-medication"
@@ -111,6 +119,10 @@ questions:
       - text: "خیر"
         value: no
 
+    save:
+      path: "smoking"
+      cast: bool
+
   - id: 10
     code: "past-smoking"
     text: "آیا در گذشته سیگار می‌کشیده‌اید یا از تنباکو استفاده می‌کرده‌اید؟"
@@ -121,6 +133,10 @@ questions:
 
       - text: "خیر"
         value: no
+
+    save:
+      path: "past-smoking"
+      cast: bool
 
 results:
   - value: low

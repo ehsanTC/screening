@@ -164,7 +164,7 @@ questions:
 
     save:
       path: "diabetes"
-      cast: int
+      cast: bool
 
   - id: 13
     code: "uacr"
