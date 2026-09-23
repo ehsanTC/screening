@@ -1,0 +1,296 @@
+title: "Liver / MASLD Risk Assessment"
+version: "1.0"
+purpose: "Screening for metabolic dysfunction-associated steatotic liver disease (MASLD, formerly called NAFLD) risk and non-invasive assessment of advanced fibrosis risk based on FIB-4 and NFS."
+type: liver
+
+questions:
+  - id: 1
+    code: "gender"
+    text: "What is your gender?"
+    type: single_choice
+    options:
+      - text: "Male"
+        value: Male
+      - text: "Female"
+        value: Female
+    save:
+      path: "gender"
+      cast: string
+
+  - id: 2
+    code: "age"
+    text: "What is your age?"
+    type: number
+    validation:
+      min: 18
+      max: 120
+    validation_error: "Age must be between 18 and 120 years."
+    save:
+      path: "age"
+      cast: int
+
+  - id: 3
+    code: "diabetes"
+    text: "Do you have diabetes?"
+    type: single_choice
+    options:
+      - text: "Yes"
+        value: yes
+      - text: "No"
+        value: no
+    save:
+      path: "diabetes"
+      cast: bool
+
+  - id: 4
+    code: "height"
+    text: "What is your height in meters?"
+    type: number
+    unit: "m"
+    validation:
+      min: 1.5
+      max: 2.2
+    validation_error: "Height must be between 1.5 and 2.2 meters."
+    save:
+      path: "height"
+      cast: float
+      unit: "m"
+
+  - id: 5
+    code: "weight"
+    text: "What is your weight in kilograms?"
+    type: number
+    unit: "kg"
+    validation:
+      min: 25
+      max: 300
+    validation_error: "Weight must be between 25 and 300 kg."
+    save:
+      path: "weight"
+      cast: float
+      unit: "kg"
+
+  - id: 6
+    code: "metabolic-syndrome"
+    text: "Have you been diagnosed with metabolic syndrome?"
+    type: single_choice
+    options:
+      - text: "Yes"
+        value: yes
+      - text: "No"
+        value: no
+    save:
+      path: "metabolic-syndrome"
+      cast: bool
+
+  - id: 7
+    code: "abdominal-ultrasound-done"
+    text: "Have you had an abdominal ultrasound within the last year?"
+    type: single_choice
+    options:
+      - text: "Yes"
+        value: yes
+      - text: "No"
+        value: no
+
+  - id: 8
+    code: "fatty-liver-on-ultrasound"
+    text: "Did the ultrasound show fatty liver?"
+    type: single_choice
+    required: false
+    options:
+      - text: "Yes"
+        value: yes
+      - text: "No"
+        value: no
+    condition:
+      - question_id: 7
+        operator: equals
+        value: yes
+    default_answer:
+      text: "No"
+      value: no
+
+  - id: 9
+    code: "alt"
+    text: "Enter your ALT test result if tested within the past 12 months"
+    type: number
+    unit: "U/L"
+    required: false
+    validation:
+      min: 0.1
+      max: 2000
+    validation_error: "ALT must be between 0.1 and 2000 U/L."
+    save:
+      path: "alt"
+      cast: float
+      unit: "U/L"
+
+  - id: 10
+    code: "ast"
+    text: "Enter your AST test result if tested within the past 12 months"
+    type: number
+    unit: "U/L"
+    required: false
+    validation:
+      min: 0.1
+      max: 2000
+    validation_error: "AST must be between 0.1 and 2000 U/L."
+    save:
+      path: "ast"
+      cast: float
+      unit: "U/L"
+
+  - id: 11
+    code: "platelet-count"
+    text: "What was your platelet count?"
+    type: number
+    unit: "×10⁹/L"
+    required: false
+    validation:
+      min: 10
+      max: 1000
+    validation_error: "Platelet count must be between 10 and 1000 ×10⁹/L."
+    save:
+      path: "platelet-count"
+      cast: float
+      unit: "×10⁹/L"
+
+  - id: 12
+    code: "albumin"
+    text: "What was your albumin level?"
+    type: number
+    unit: "g/dL"
+    required: false
+    validation:
+      min: 1
+      max: 7
+    validation_error: "Albumin must be between 1 and 7 g/dL."
+    save:
+      path: "albumin"
+      cast: float
+      unit: "g/dL"
+
+results:
+  - value: low
+    text: "Low Risk"
+    subtitle: "Low risk of advanced fibrosis"
+    conditions:
+      - operator: lessThan
+        value: 1.30
+    description: "Both non-invasive fibrosis scores are below their low-risk thresholds in the evaluator."
+    color: "#4CAF50"
+    icon: "🟢"
+    prevention:
+      primordial:
+        - "Maintain a healthy weight and avoid excess weight gain"
+        - "Follow a balanced diet with appropriate portions and limited added sugars"
+        - "Engage in regular physical activity"
+      primary:
+        - "Monitor weight and metabolic risk factors periodically"
+        - "Discuss diabetes, blood pressure and lipid management with your healthcare provider"
+      secondary:
+        - "Continue clinical follow-up if liver abnormalities or metabolic risk factors persist"
+        - "Repeat fibrosis assessment according to your healthcare provider's advice"
+    summary: "The available non-invasive fibrosis assessment suggests a low risk of advanced fibrosis."
+    next_steps: |
+      ۱. Continue healthy eating and regular physical activity
+      ۲. Maintain or work toward a healthy weight
+      ۳. Discuss routine follow-up with your healthcare provider
+    follow_up: "Follow up according to your healthcare provider's recommendation and repeat assessment if risk factors change."
+    patient_education: |
+      • Liver enzyme tests can be normal even when fatty liver is present.
+      • Healthy weight, physical activity and management of metabolic risk factors are important for liver health.
+      • This screening result does not diagnose or exclude liver disease by itself.
+
+  - value: indeterminate
+    text: "Indeterminate Risk"
+    subtitle: "Further assessment may be needed"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 1.30
+
+      - operator: lessThan
+        value: 2.67
+
+    description: "The available fibrosis scores are incomplete, indeterminate or discordant, so the risk of advanced fibrosis cannot be classified confidently from this screening alone."
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "Maintain a healthy weight and regular physical activity"
+        - "Follow a balanced diet and limit excess added sugars"
+      primary:
+        - "Review metabolic risk factors with your healthcare provider"
+        - "Complete missing laboratory tests when appropriate"
+      secondary:
+        - "Discuss additional non-invasive fibrosis assessment such as transient elastography"
+        - "Consider specialist consultation when clinically indicated"
+    summary: "The available information does not allow the risk of advanced fibrosis to be classified confidently."
+    next_steps: |
+      ۱. Review the result with your healthcare provider
+      ۲. Complete missing AST, ALT, platelet and/or albumin testing if appropriate
+      ۳. Discuss whether transient elastography or specialist assessment is needed
+    follow_up: "Follow up after completion of the recommended laboratory or non-invasive fibrosis assessment."
+    patient_education: |
+      • FIB-4 and NFS are screening tools, not definitive diagnoses.
+      • Discordant or incomplete results may require another non-invasive test.
+      • Do not change prescribed treatment based on this screening result without discussing it with your healthcare provider.
+
+  - value: high
+    text: "High Risk"
+    subtitle: "Higher risk of advanced fibrosis"
+    conditions:
+      - operator: greaterThanOrEquals
+        value: 2.67
+    description: "Both non-invasive fibrosis scores are above their high-risk thresholds in the evaluator."
+    color: "#F44336"
+    icon: "🔴"
+    prevention:
+      primordial:
+        - "Avoid excess weight gain and work toward a healthy weight"
+        - "Maintain regular physical activity"
+      primary:
+        - "Address diabetes and other metabolic risk factors with your healthcare provider"
+        - "Review liver-related laboratory abnormalities with your healthcare provider"
+      secondary:
+        - "Arrange further liver fibrosis assessment with a healthcare professional"
+        - "Consider specialist liver evaluation as clinically appropriate"
+    summary: "The available non-invasive fibrosis assessment indicates increased risk of advanced fibrosis and requires further clinical evaluation."
+    next_steps: |
+      ۱. Arrange an appointment with your healthcare provider
+      ۲. Discuss further non-invasive fibrosis assessment, such as transient elastography
+      ۳. Discuss whether specialist liver evaluation is appropriate
+    follow_up: "Follow up promptly with your healthcare provider for further fibrosis assessment."
+    patient_education: |
+      • A high screening result does not by itself establish a diagnosis of advanced fibrosis or cirrhosis.
+      • Further assessment is needed to clarify the level of liver fibrosis.
+      • Continue healthy lifestyle measures while arranging medical follow-up.
+
+  - value: insufficient-data
+    text: "Insufficient Data"
+    subtitle: "More information is needed"
+    conditions:
+      - operator: lessThan
+        value: 0
+    description: "There is not enough information to calculate the required non-invasive fibrosis scores."
+    color: "#9E9E9E"
+    icon: "⚪"
+    prevention:
+      primordial:
+        - "Maintain a healthy diet and regular physical activity"
+        - "Maintain a healthy weight"
+      primary:
+        - "Discuss missing liver-related laboratory tests with your healthcare provider"
+      secondary:
+        - "Complete fibrosis assessment when the required data are available"
+        - "Consider additional non-invasive assessment if recommended"
+    summary: "There is not enough information to calculate the required fibrosis scores."
+    next_steps: |
+      ۱. Discuss the missing laboratory information with your healthcare provider
+      ۲. Obtain AST, ALT and platelet results when appropriate
+      ۳. Obtain albumin if NFS is also required
+    follow_up: "Repeat the assessment when the required information becomes available."
+    patient_education: |
+      • Missing laboratory values do not mean that your liver is healthy or unhealthy.
+      • The screening can be completed when the required results are available.
