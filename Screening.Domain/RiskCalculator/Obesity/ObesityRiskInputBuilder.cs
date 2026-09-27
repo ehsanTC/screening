@@ -26,11 +26,11 @@ public sealed class ObesityRiskInputBuilder : IRiskInputBuilder<ObesityRiskInput
         
         return new ObesityRiskInput
         {
-            Age = reader.GetInt(QuestionCodes.Age) ?? 0,
+            Age = reader.GetInt(QuestionCodes.Age),
             Sex = reader.GetBinarySelection<Sex>(QuestionCodes.Gender),
-            HeightCm = reader.GetDouble(QuestionCodes.Height).Value * 100,
-            WeightKg = reader.GetDouble(QuestionCodes.Weight) ?? 0,
-            WaistCm = reader.GetDouble(QuestionCodes.WaistCircumference),
+            HeightCm = reader.GetDouble(QuestionCodes.Height) * 100,
+            WeightKg = reader.GetDoubleOrNull(QuestionCodes.Weight) ?? 0,
+            WaistCm = reader.GetDoubleOrNull(QuestionCodes.WaistCircumference),
             HasFamilyHistory = reader.GetBoolean(QuestionCodes.DyslipidemiaFamilyHistory) ?? false,
             HasDiabetes = reader.GetBoolean(QuestionCodes.Diabetes) ?? false,
             HasHighBloodPressure = reader.GetBoolean(QuestionCodes.HighBloodPressure) ?? false,
