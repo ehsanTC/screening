@@ -12,7 +12,7 @@ namespace Screening.Domain.RiskCalculator.Ascvd;
 public class AscvdRiskEvaluator : IRiskEvaluator
 {
     private readonly IRiskInputBuilder<AscvdRiskInput> _inputBuilder;
-    private IReadOnlyDictionary<(PreventModel, Sex, Outcome), PreventCoefficients> _coeffs;
+    private readonly IReadOnlyDictionary<(PreventModel, Sex, Outcome), PreventCoefficients> _coeffs;
 
     public AscvdRiskEvaluator(IRiskInputBuilder<AscvdRiskInput> inputBuilder)
     {
@@ -209,9 +209,6 @@ public class AscvdRiskEvaluator : IRiskEvaluator
             Hf30Yr    = (over59 || !validForHf) ? null : result[Outcome.ThirtyYearHf]
         };
     }
-
-    private string GetMessage(YamlResultCategory category, double score) =>
-        $"{string.Format(category.Summary, score)}{Environment.NewLine}{category.NextSteps}";
 
     private static double ToMmol(double mgPerDl) => 0.02586 * mgPerDl;
 
