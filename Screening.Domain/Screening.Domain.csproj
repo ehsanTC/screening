@@ -33,8 +33,8 @@
         <EmbeddedResource Include="Assets\en\disorder-evaluate-questionnaire.yaml"
                           LogicalName="en\disorder-evaluate-questionnaire.yaml"/>
 
-        <EmbeddedResource Include="Assets\fa\disorder-evaluate-questionnaire.yaml"
-                          LogicalName="fa\disorder-evaluate-questionnaire.yaml"/>
+        <EmbeddedResource Include="Assets\en\Liver-questionnaire.yaml"
+                          LogicalName="en\Liver-questionnaire.yaml"/>
 
         <!-- Persian Questionnaires -->
         <EmbeddedResource Include="Assets\fa\Diabetes-Type2-questionnaire.yaml"
@@ -51,6 +51,12 @@
 
         <EmbeddedResource Include="Assets\fa\Obesity-questionnaire.yaml"
                           LogicalName="fa\Obesity-questionnaire.yaml"/>
+
+        <EmbeddedResource Include="Assets\fa\disorder-evaluate-questionnaire.yaml"
+                          LogicalName="fa\disorder-evaluate-questionnaire.yaml"/>
+
+        <EmbeddedResource Include="Assets\fa\Liver-questionnaire.yaml"
+                          LogicalName="fa\Liver-questionnaire.yaml"/>
 
     </ItemGroup>
 

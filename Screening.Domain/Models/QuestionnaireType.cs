@@ -7,5 +7,6 @@ public enum QuestionnaireType
     Ascvd,
     Fracture,
     Obesity,
+    Liver,
     GeneralEvaluation
 }

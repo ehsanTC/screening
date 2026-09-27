@@ -6,5 +6,10 @@ public enum RiskSeverity
     BorderLine,
     Medium,
     High,
+    
+    NotEligibleForAssessment,
+    NoIndicationForFurtherAssessment,
+    InsufficientData,
+    
     Unknown
 }

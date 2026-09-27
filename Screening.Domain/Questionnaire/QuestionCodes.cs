@@ -43,4 +43,10 @@ public static class QuestionCodes
     public const string LungCancer = "Lung cancer";
     public const string ProstateCancer = "Prostate cancer";
     public const string LiverCancer = "Liver cancer";
+    public const string MetabolicSyndrome = "metabolic-syndrome";
+    public const string Alt = "alt";
+    public const string Ast = "ast";
+    public const string PlateletCount = "platelet-count";
+    public const string Albumin = "albumin";
+    public const string UltrasonicFattyLiver = "fatty-liver-on-ultrasound";
 }

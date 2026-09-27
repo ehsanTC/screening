@@ -1,12 +1,12 @@
 using Common.Abstraction;
 using Common.Services;
 using Screening.Domain.Questionnaire.Abstraction;
-using Screening.Domain.Questionnaire.InputBuilders;
 using Screening.Domain.RiskCalculator.Abstraction;
 using Screening.Domain.RiskCalculator.Ascvd;
 using Screening.Domain.RiskCalculator.Diabetes;
 using Screening.Domain.RiskCalculator.Fracture;
 using Screening.Domain.RiskCalculator.General;
+using Screening.Domain.RiskCalculator.Liver;
 using Screening.Domain.RiskCalculator.Obesity;
 using Screening.Domain.Services;
 using Screening.Domain.Services.Abstraction;
@@ -44,12 +44,14 @@ public static class DiExtensions
         .AddSingleton<IRiskEvaluator, AscvdRiskEvaluator>()
         .AddSingleton<IRiskEvaluator, HeuristicRiskEvaluator>()
         .AddSingleton<IRiskEvaluator, ObesityRiskEvaluator>()
-        .AddSingleton<IRiskEvaluator, GeneralRiskEvaluator>();
+        .AddSingleton<IRiskEvaluator, GeneralRiskEvaluator>()
+        .AddSingleton<IRiskEvaluator, LiverRiskEvaluator>();
 
     private static IServiceCollection AddRiskEvaluators(this IServiceCollection services) => services
         .AddSingleton<IRiskInputBuilder<AscvdRiskInput>, AscvdRiskInputBuilder>()
         .AddSingleton<IRiskInputBuilder<DiabetesRiskInput>, DiabetesRiskInputBuilder>()
         .AddSingleton<IRiskInputBuilder<FractureRiskInput>, FractureRiskInputBuilder>()
         .AddSingleton<IRiskInputBuilder<ObesityRiskInput>, ObesityRiskInputBuilder>()
-        .AddSingleton<IRiskInputBuilder<GeneralRiskInput>, GeneralRiskInputBuilder>();
+        .AddSingleton<IRiskInputBuilder<GeneralRiskInput>, GeneralRiskInputBuilder>()
+        .AddSingleton<IRiskInputBuilder<LiverRiskInput>, LiverRiskInputBuilder>();
 }
