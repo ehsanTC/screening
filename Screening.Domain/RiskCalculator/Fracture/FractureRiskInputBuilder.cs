@@ -21,10 +21,10 @@ public class FractureRiskInputBuilder : IRiskInputBuilder<FractureRiskInput>
 
         var input = new FractureRiskInput()
         {
-            Age = reader.GetInt(QuestionCodes.Age).Value,
+            Age = reader.GetInt(QuestionCodes.Age),
             Sex = reader.GetBinarySelection<Sex>(QuestionCodes.Gender),
-            HeightCm = reader.GetFloat(QuestionCodes.Height).Value * 100,
-            WeightKg = reader.GetInt(QuestionCodes.Weight).Value,
+            HeightCm = reader.GetFloat(QuestionCodes.Height) * 100,
+            WeightKg = reader.GetInt(QuestionCodes.Weight),
             PreviousFracture = reader.GetBoolean(QuestionCodes.PreviousFracture) ?? false,
             ParentFracturedHip = reader.GetBoolean(QuestionCodes.ParentHipFracture) ?? false,
             Smoking = reader.GetBoolean(QuestionCodes.Smoking) ?? false,
@@ -32,7 +32,7 @@ public class FractureRiskInputBuilder : IRiskInputBuilder<FractureRiskInput>
             HaveRheumatoidArthritis = reader.GetBoolean(QuestionCodes.RheumatoidArthritis) ?? false,
             HaveSecondaryOsteoporosis =  reader.GetBoolean(QuestionCodes.SecondaryOsteoporosis) ?? false,
             DrinkExcessAlcohol = reader.GetBoolean(QuestionCodes.AlcoholOver3) ?? false,
-            BmdValue = reader.GetFloat(QuestionCodes.Bmd), 
+            BmdValue = reader.GetFloatOrNull(QuestionCodes.Bmd), 
             BmdMeasure = GetMeasure(reader.GetSingleItem(QuestionCodes.FemoralNeckMeasure))
         };
 
