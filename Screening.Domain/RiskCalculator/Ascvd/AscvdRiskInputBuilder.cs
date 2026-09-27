@@ -1,8 +1,8 @@
+using Screening.Domain.Questionnaire;
 using Screening.Domain.Questionnaire.Abstraction;
-using Screening.Domain.RiskCalculator.Ascvd;
 using Screening.Domain.RiskCalculator.Models;
 
-namespace Screening.Domain.Questionnaire.InputBuilders;
+namespace Screening.Domain.RiskCalculator.Ascvd;
 
 public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
 {
@@ -29,7 +29,9 @@ public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
         QuestionCodes.Egfr,
         QuestionCodes.HighBloodPressure,
         QuestionCodes.Smoking,
-        QuestionCodes.Diabetes
+        QuestionCodes.Diabetes,
+        QuestionCodes.Height,
+        QuestionCodes.Weight
     ];
 
     public AscvdRiskInput Build(QuestionnaireAnswerReader reader)
@@ -38,20 +40,20 @@ public class AscvdRiskInputBuilder : IRiskInputBuilder<AscvdRiskInput>
 
         var input = new AscvdRiskInput
         {
-            Age = reader.GetInt(QuestionCodes.Age).Value,
+            Age = reader.GetInt(QuestionCodes.Age),
             Sex = reader.GetEnum(QuestionCodes.Gender, SexMap) ?? Sex.Male,
             Smoker = reader.GetYesNo(QuestionCodes.Smoking),
             Diabetic = reader.GetYesNo(QuestionCodes.Diabetes),
-            SystolicBp = reader.GetDouble(QuestionCodes.SystolicBloodPressure).Value,
-            HdlCholesterol = reader.GetDouble(QuestionCodes.Hdl).Value,
-            TotalCholesterol = reader.GetDouble(QuestionCodes.Cholesterol).Value,
+            SystolicBp = reader.GetDouble(QuestionCodes.SystolicBloodPressure),
+            HdlCholesterol = reader.GetDouble(QuestionCodes.Hdl),
+            TotalCholesterol = reader.GetDouble(QuestionCodes.Cholesterol),
             HypertensionTreated = reader.GetYesNo(QuestionCodes.HighBloodPressure),
-            HeightCm = reader.GetFloat(QuestionCodes.Height).Value,
-            WeightKg = reader.GetFloat(QuestionCodes.Weight).Value,
-            Egfr = reader.GetFloat(QuestionCodes.Egfr).Value,
+            HeightCm = reader.GetFloat(QuestionCodes.Height),
+            WeightKg = reader.GetFloat(QuestionCodes.Weight),
+            Egfr = reader.GetFloat(QuestionCodes.Egfr),
             LipidLowering = reader.GetYesNo(QuestionCodes.HighLipid),
-            HbA1c = reader.GetFloat(QuestionCodes.HbA1c),
-            Uacr = reader.GetFloat(QuestionCodes.Uacr),
+            HbA1c = reader.GetFloatOrNull(QuestionCodes.HbA1c),
+            Uacr = reader.GetFloatOrNull(QuestionCodes.Uacr),
             SdiCategory = reader.GetEnum(QuestionCodes.WealthLevel, WealthCategory)
         };
 
