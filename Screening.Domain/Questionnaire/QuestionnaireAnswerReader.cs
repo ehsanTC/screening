@@ -33,13 +33,40 @@ public class QuestionnaireAnswerReader
         return answer;
     }
 
-    public int? GetInt(string code) =>
+    public int GetInt(string code)
+    {
+        var answer = GetAnswer(code);
+        if (answer is not TextAnswer textAnswer)
+            throw new ArgumentException($"Question with code `{nameof(code)}` not found", nameof(code));
+        
+        return int.Parse(textAnswer.Text);
+    }
+
+    public int? GetIntOrNull(string code) =>
         int.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ? result : null;
 
-    public double? GetDouble(string code) =>
+    public double GetDouble(string code)
+    {
+        var answer = GetAnswer(code);
+        if (answer is not TextAnswer textAnswer)
+            throw new ArgumentException($"Question with code `{nameof(code)}` not found", nameof(code));
+        
+        return double.Parse(textAnswer.Text);
+    }
+
+    public double? GetDoubleOrNull(string code) =>
         double.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ? result : null;
 
-    public float? GetFloat(string code) =>
+    public float GetFloat(string code)
+    {
+        var answer = GetAnswer(code);
+        if (answer is not TextAnswer textAnswer)
+            throw new ArgumentException($"Question with code `{nameof(code)}` not found", nameof(code));
+        
+        return float.Parse(textAnswer.Text);
+    }
+
+    public float? GetFloatOrNull(string code) =>
         float.TryParse(((TextAnswer)GetAnswer(code))?.Text, out var result) ? result : null;
 
     public bool GetYesNo(string code) =>
