@@ -14,6 +14,16 @@ public class YamlQuestionnaireParser : IQuestionnaireParser
         .IgnoreUnmatchedProperties()
         .Build();
     
-    public YamlQuestionnaire Parse(string content) => // TODO: Convert to stream 
-        _deserializer.Deserialize<YamlQuestionnaire>(content);
+    public YamlQuestionnaire Parse(string content)
+    {
+        try
+        {
+            return _deserializer.Deserialize<YamlQuestionnaire>(content);
+        }
+        catch (Exception e)
+        {
+            Console.Error.WriteLine(e);
+            throw;
+        }
+    }
 }
