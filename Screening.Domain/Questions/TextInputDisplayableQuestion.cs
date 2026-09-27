@@ -38,7 +38,11 @@ public class TextInputDisplayableQuestion : IDisplayableQuestion<TextAnswer>
 
     public void OnSkipped()
     {
-        Answer = (TextAnswer) GetDefaultAnswer();
+        var answer = GetDefaultAnswer();
+        if (answer is not TextAnswer textAnswer)
+            return;
+        
+        Answer = textAnswer;
     }
 
     public Answer? GetDefaultAnswer() => new TextAnswer(string.Empty);
