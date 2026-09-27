@@ -38,4 +38,7 @@ public class YamlQuestion
     
     [YamlMember(Alias = "required")]
     public bool? IsRequired { get; set; }
+    
+    [YamlMember(Alias = "unit")]
+    public string? Unit { get; set; }
 }
