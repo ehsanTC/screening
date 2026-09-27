@@ -1,3 +1,4 @@
+using System.Globalization;
 using Windows.Globalization;
 using Screening.Domain.Models;
 using Screening.Presentation.Dialogs;
@@ -7,9 +8,11 @@ namespace Screening;
 
 public partial class App : Application
 {
+    private const string LanguageTag = "fa";
+
     public App()
     {
-        ApplicationLanguages.PrimaryLanguageOverride = "en";
+        ApplyLanguage(LanguageTag);
         this.InitializeComponent();
     }
 
@@ -31,7 +34,6 @@ public partial class App : Application
                         .SetMinimumLevel(
                             context.HostingEnvironment.IsDevelopment() ? LogLevel.Information : LogLevel.Warning)
                         .CoreLogLevel(LogLevel.Warning);
-
                 }, enableUnoLogging: true)
                 .UseConfiguration(configure: configBuilder =>
                     configBuilder
@@ -59,8 +61,14 @@ public partial class App : Application
         MainWindow.UseStudio();
 #endif
         MainWindow.SetWindowIcon();
-        
+
         Host = await builder.NavigateAsync<Shell>();
+        
+        if (builder.Window.Content is FrameworkElement rootElement)
+        {
+            ApplyLanguage(LanguageTag, rootElement);
+        }
+
         Services = Host.Services;
     }
 
@@ -77,13 +85,26 @@ public partial class App : Application
             new RouteMap("", View: views.FindByViewModel<ShellModel>(),
                 Nested:
                 [
-                    new RouteMap("Main", 
-                        View: views.FindByViewModel<MainModel>(), 
+                    new RouteMap("Main",
+                        View: views.FindByViewModel<MainModel>(),
                         IsDefault: true),
-                    new RouteMap("Questions", 
+                    new RouteMap("Questions",
                         View: views.FindByViewModel<QuestionModel>()),
                 ]
             )
         );
+    }
+
+    private static void ApplyLanguage(string languageTag, FrameworkElement? rootElement = null)
+    {
+        ApplicationLanguages.PrimaryLanguageOverride = languageTag;
+
+        if (rootElement is null)
+            return;
+
+        var isRtl = new CultureInfo(languageTag).TextInfo.IsRightToLeft;
+        rootElement.FlowDirection = isRtl
+            ? FlowDirection.RightToLeft
+            : FlowDirection.LeftToRight;
     }
 }
