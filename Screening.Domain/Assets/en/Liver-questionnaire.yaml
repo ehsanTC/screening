@@ -103,7 +103,7 @@ questions:
         value: yes
       - text: "No"
         value: no
-    condition:
+    show_if:
       - question_id: 7
         operator: equals
         value: yes
@@ -124,7 +124,6 @@ questions:
     save:
       path: "alt"
       cast: float
-      unit: "U/L"
 
   - id: 10
     code: "ast"
@@ -139,7 +138,6 @@ questions:
     save:
       path: "ast"
       cast: float
-      unit: "U/L"
 
   - id: 11
     code: "platelet-count"
@@ -154,7 +152,6 @@ questions:
     save:
       path: "platelet-count"
       cast: float
-      unit: "×10⁹/L"
 
   - id: 12
     code: "albumin"
@@ -169,15 +166,75 @@ questions:
     save:
       path: "albumin"
       cast: float
-      unit: "g/dL"
 
 results:
+  - value: notEligibleForAssessment
+    text: "Assessment Not Indicated"
+    subtitle: "The initial screening criteria for this assessment are not met"
+    conditions:
+      - operator: equals
+        value: NotEligibleForAssessment
+    description: "The initial screening criteria for further liver fibrosis assessment are not met. This result does not indicate the presence or absence of liver disease."
+    color: "#9E9E9E"
+    icon: "⚪"
+    prevention:
+      primordial:
+        - "Maintain a healthy weight and avoid excess weight gain"
+        - "Follow a balanced diet with appropriate portions and limited added sugars"
+        - "Engage in regular physical activity"
+      primary:
+        - "Maintain healthy blood glucose, blood pressure and lipid levels"
+        - "Discuss metabolic risk factors with your healthcare provider when appropriate"
+      secondary:
+        - "Seek medical evaluation if liver-related symptoms, abnormal laboratory results or new metabolic risk factors develop"
+    summary: "The initial screening criteria for further liver fibrosis assessment are not met."
+    next_steps: |
+      ۱. Continue healthy eating and regular physical activity
+      ۲. Maintain or work toward a healthy weight
+      ۳. Continue routine healthcare according to your individual risk factors
+    follow_up: "Further liver fibrosis assessment may be considered if relevant risk factors or clinical findings change."
+    patient_education: |
+      • This screening result does not diagnose or exclude liver disease.
+      • Liver disease can sometimes be present without obvious symptoms.
+      • Continue routine healthcare and discuss new or persistent liver-related concerns with your healthcare provider.
+
+  - value: noIndicationForFurtherAssessment
+    text: "No Indication for Further Assessment"
+    subtitle: "No current screening indication for fibrosis assessment"
+    conditions:
+      - operator: equals
+        value: NoIndicationForFurtherAssessment
+    description: "The initial screening does not identify sufficient evidence to proceed with non-invasive liver fibrosis assessment at this time."
+    color: "#9E9E9E"
+    icon: "⚪"
+    prevention:
+      primordial:
+        - "Maintain a healthy weight and avoid excess weight gain"
+        - "Follow a balanced diet with appropriate portions and limited added sugars"
+        - "Engage in regular physical activity"
+      primary:
+        - "Maintain healthy blood glucose, blood pressure and lipid levels"
+        - "Monitor metabolic risk factors periodically"
+      secondary:
+        - "Discuss persistent liver enzyme abnormalities or new liver-related findings with your healthcare provider"
+        - "Repeat assessment if relevant clinical or metabolic risk factors change"
+    summary: "The initial screening does not identify a current indication for further liver fibrosis assessment."
+    next_steps: |
+      ۱. Continue healthy eating and regular physical activity
+      ۲. Maintain or work toward a healthy weight
+      ۳. Discuss persistent liver-related abnormalities with your healthcare provider
+    follow_up: "Further assessment can be reconsidered if new clinical findings, abnormal laboratory results or relevant risk factors develop."
+    patient_education: |
+      • This screening result does not diagnose or exclude fatty liver or other liver disease.
+      • Liver enzyme tests can be normal even when fatty liver is present.
+      • New or persistent liver-related abnormalities should be discussed with your healthcare provider.
+
   - value: low
     text: "Low Risk"
     subtitle: "Low risk of advanced fibrosis"
     conditions:
-      - operator: lessThan
-        value: 1.30
+      - operator: equals
+        value: Low
     description: "Both non-invasive fibrosis scores are below their low-risk thresholds in the evaluator."
     color: "#4CAF50"
     icon: "🟢"
@@ -203,17 +260,13 @@ results:
       • Healthy weight, physical activity and management of metabolic risk factors are important for liver health.
       • This screening result does not diagnose or exclude liver disease by itself.
 
-  - value: indeterminate
-    text: "Indeterminate Risk"
+  - value: borderline
+    text: "Borderline Risk"
     subtitle: "Further assessment may be needed"
     conditions:
-      - operator: greaterThanOrEquals
-        value: 1.30
-
-      - operator: lessThan
-        value: 2.67
-
-    description: "The available fibrosis scores are incomplete, indeterminate or discordant, so the risk of advanced fibrosis cannot be classified confidently from this screening alone."
+      - operator: equals
+        value: BorderLine
+    description: "The non-invasive fibrosis scores do not meet the criteria for a clearly low- or high-risk classification. Further assessment may be appropriate based on the clinical context."
     color: "#FF9800"
     icon: "🟠"
     prevention:
@@ -222,27 +275,57 @@ results:
         - "Follow a balanced diet and limit excess added sugars"
       primary:
         - "Review metabolic risk factors with your healthcare provider"
-        - "Complete missing laboratory tests when appropriate"
+        - "Maintain appropriate control of diabetes, blood pressure and lipid abnormalities"
+      secondary:
+        - "Discuss whether additional non-invasive fibrosis assessment is appropriate"
+        - "Consider specialist consultation when clinically indicated"
+    summary: "The available non-invasive assessment does not establish a clearly low- or high-risk classification."
+    next_steps: |
+      ۱. Review the result with your healthcare provider
+      ۲. Discuss whether additional non-invasive fibrosis assessment is appropriate
+      ۳. Consider repeat assessment according to your healthcare provider's advice
+    follow_up: "Follow up according to your healthcare provider's recommendation and repeat assessment when clinically appropriate."
+    patient_education: |
+      • FIB-4 and NFS are screening tools, not definitive diagnoses.
+      • Results that do not fall clearly into low- or high-risk ranges may require additional assessment.
+      • Do not change prescribed treatment based on this screening result without discussing it with your healthcare provider.
+
+  - value: medium
+    text: "Intermediate Risk"
+    subtitle: "Further assessment may be needed"
+    conditions:
+      - operator: equals
+        value: Medium
+    description: "The non-invasive fibrosis scores do not both meet the criteria for a clearly low- or high-risk classification. Further assessment may be appropriate."
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "Maintain a healthy weight and regular physical activity"
+        - "Follow a balanced diet and limit excess added sugars"
+      primary:
+        - "Review metabolic risk factors with your healthcare provider"
+        - "Address diabetes and other metabolic risk factors when appropriate"
       secondary:
         - "Discuss additional non-invasive fibrosis assessment such as transient elastography"
         - "Consider specialist consultation when clinically indicated"
-    summary: "The available information does not allow the risk of advanced fibrosis to be classified confidently."
+    summary: "The available non-invasive assessment indicates an intermediate or unresolved risk of advanced fibrosis."
     next_steps: |
       ۱. Review the result with your healthcare provider
-      ۲. Complete missing AST, ALT, platelet and/or albumin testing if appropriate
-      ۳. Discuss whether transient elastography or specialist assessment is needed
-    follow_up: "Follow up after completion of the recommended laboratory or non-invasive fibrosis assessment."
+      ۲. Discuss whether transient elastography or another non-invasive assessment is appropriate
+      ۳. Discuss whether specialist liver evaluation is needed
+    follow_up: "Follow up according to your healthcare provider's recommendation for further fibrosis assessment."
     patient_education: |
       • FIB-4 and NFS are screening tools, not definitive diagnoses.
-      • Discordant or incomplete results may require another non-invasive test.
+      • Intermediate or discordant results may require another non-invasive assessment.
       • Do not change prescribed treatment based on this screening result without discussing it with your healthcare provider.
 
   - value: high
     text: "High Risk"
     subtitle: "Higher risk of advanced fibrosis"
     conditions:
-      - operator: greaterThanOrEquals
-        value: 2.67
+      - operator: equals
+        value: High
     description: "Both non-invasive fibrosis scores are above their high-risk thresholds in the evaluator."
     color: "#F44336"
     icon: "🔴"
@@ -267,12 +350,12 @@ results:
       • Further assessment is needed to clarify the level of liver fibrosis.
       • Continue healthy lifestyle measures while arranging medical follow-up.
 
-  - value: insufficient-data
+  - value: insufficientData
     text: "Insufficient Data"
     subtitle: "More information is needed"
     conditions:
-      - operator: lessThan
-        value: 0
+      - operator: equals
+        value: InsufficientData
     description: "There is not enough information to calculate the required non-invasive fibrosis scores."
     color: "#9E9E9E"
     icon: "⚪"

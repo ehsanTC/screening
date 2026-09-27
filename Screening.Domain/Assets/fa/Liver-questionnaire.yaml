@@ -1,0 +1,379 @@
+title: "ارزیابی خطر کبد / MASLD"
+version: "1.0"
+purpose: "غربالگری خطر بیماری کبد چرب استئاتوتیک مرتبط با اختلال متابولیک (MASLD، که پیش‌تر NAFLD نامیده می‌شد) و ارزیابی غیرتهاجمی خطر فیبروز پیشرفته بر اساس FIB-4 و NFS."
+type: liver
+
+questions:
+  - id: 1
+    code: "gender"
+    text: "جنسیت شما چیست؟"
+    type: single_choice
+    options:
+      - text: "مرد"
+        value: Male
+      - text: "زن"
+        value: Female
+    save:
+      path: "gender"
+      cast: string
+
+  - id: 2
+    code: "age"
+    text: "سن شما چند سال است؟"
+    type: number
+    validation:
+      min: 18
+      max: 120
+    validation_error: "سن باید بین ۱۸ تا ۱۲۰ سال باشد."
+    save:
+      path: "age"
+      cast: int
+
+  - id: 3
+    code: "diabetes"
+    text: "آیا دیابت دارید؟"
+    type: single_choice
+    options:
+      - text: "بله"
+        value: yes
+      - text: "خیر"
+        value: no
+    save:
+      path: "diabetes"
+      cast: bool
+
+  - id: 4
+    code: "height"
+    text: "قد شما چند متر است؟"
+    type: number
+    unit: "m"
+    validation:
+      min: 1.5
+      max: 2.2
+    validation_error: "قد باید بین ۱٫۵ تا ۲٫۲ متر باشد."
+    save:
+      path: "height"
+      cast: float
+      unit: "m"
+
+  - id: 5
+    code: "weight"
+    text: "وزن شما چند کیلوگرم است؟"
+    type: number
+    unit: "kg"
+    validation:
+      min: 25
+      max: 300
+    validation_error: "وزن باید بین ۲۵ تا ۳۰۰ کیلوگرم باشد."
+    save:
+      path: "weight"
+      cast: float
+      unit: "kg"
+
+  - id: 6
+    code: "metabolic-syndrome"
+    text: "آیا سندرم متابولیک در شما تشخیص داده شده است؟"
+    type: single_choice
+    options:
+      - text: "بله"
+        value: yes
+      - text: "خیر"
+        value: no
+    save:
+      path: "metabolic-syndrome"
+      cast: bool
+
+  - id: 7
+    code: "abdominal-ultrasound-done"
+    text: "آیا در یک سال گذشته سونوگرافی شکم انجام داده‌اید؟"
+    type: single_choice
+    options:
+      - text: "بله"
+        value: yes
+      - text: "خیر"
+        value: no
+
+  - id: 8
+    code: "fatty-liver-on-ultrasound"
+    text: "آیا سونوگرافی کبد چرب را نشان داده است؟"
+    type: single_choice
+    required: false
+    options:
+      - text: "بله"
+        value: yes
+      - text: "خیر"
+        value: no
+    show_if:
+      - question_id: 7
+        operator: equals
+        value: yes
+    default_answer:
+      text: "خیر"
+      value: no
+
+  - id: 9
+    code: "alt"
+    text: "اگر در ۱۲ ماه گذشته آزمایش ALT داده‌اید، نتیجه آزمایش را وارد کنید."
+    type: number
+    unit: "U/L"
+    required: false
+    validation:
+      min: 0.1
+      max: 2000
+    validation_error: "ALT باید بین ۰٫۱ تا ۲۰۰۰ U/L باشد."
+    save:
+      path: "alt"
+      cast: float
+
+  - id: 10
+    code: "ast"
+    text: "اگر در ۱۲ ماه گذشته آزمایش AST داده‌اید، نتیجه آزمایش را وارد کنید."
+    type: number
+    unit: "U/L"
+    required: false
+    validation:
+      min: 0.1
+      max: 2000
+    validation_error: "AST باید بین ۰٫۱ تا ۲۰۰۰ U/L باشد."
+    save:
+      path: "ast"
+      cast: float
+
+  - id: 11
+    code: "platelet-count"
+    text: "تعداد پلاکت خون شما چقدر بوده است؟"
+    type: number
+    unit: "×10⁹/L"
+    required: false
+    validation:
+      min: 10
+      max: 1000
+    validation_error: "تعداد پلاکت باید بین ۱۰ تا ۱۰۰۰ ×10⁹/L باشد."
+    save:
+      path: "platelet-count"
+      cast: float
+
+  - id: 12
+    code: "albumin"
+    text: "سطح آلبومین شما چقدر بوده است؟"
+    type: number
+    unit: "g/dL"
+    required: false
+    validation:
+      min: 1
+      max: 7
+    validation_error: "آلبومین باید بین ۱ تا ۷ g/dL باشد."
+    save:
+      path: "albumin"
+      cast: float
+
+results:
+  - value: not-eligible-for-assessment
+    text: "ارزیابی در حال حاضر توصیه نمی‌شود"
+    subtitle: "معیارهای غربالگری اولیه برای این ارزیابی برقرار نیستند"
+    conditions:
+      - operator: equals
+        value: NotEligibleForAssessment
+    description: "معیارهای غربالگری اولیه برای ارزیابی بیشتر فیبروز کبدی برقرار نیستند. این نتیجه نشان‌دهنده وجود یا عدم وجود بیماری کبدی نیست."
+    color: "#9E9E9E"
+    icon: "⚪"
+    prevention:
+      primordial:
+        - "وزن سالم را حفظ کنید و از افزایش وزن بیش از حد جلوگیری کنید"
+        - "رژیم غذایی متعادل با وعده‌های مناسب و قندهای افزوده محدود داشته باشید"
+        - "فعالیت بدنی منظم داشته باشید"
+      primary:
+        - "قند خون، فشار خون و سطح چربی‌های خون را در محدوده سالم حفظ کنید"
+        - "در صورت لزوم درباره عوامل خطر متابولیک با پزشک یا ارائه‌دهنده خدمات سلامت خود مشورت کنید"
+      secondary:
+        - "در صورت بروز علائم مرتبط با کبد، نتایج غیرطبیعی آزمایشگاهی یا عوامل خطر متابولیک جدید، ارزیابی پزشکی انجام دهید"
+    summary: "معیارهای غربالگری اولیه برای ارزیابی بیشتر فیبروز کبدی برقرار نیستند."
+    next_steps: |
+      ۱. Continue healthy eating and regular physical activity
+      ۲. Maintain or work toward a healthy weight
+      ۳. Continue routine healthcare according to your individual risk factors
+    follow_up: "در صورت تغییر عوامل خطر مرتبط یا یافته‌های بالینی، می‌توان ارزیابی بیشتر فیبروز کبدی را در نظر گرفت."
+    patient_education: |
+      • این نتیجه غربالگری بیماری کبدی را تشخیص نمی‌دهد و آن را رد نیز نمی‌کند.
+      • بیماری کبدی گاهی می‌تواند بدون علائم آشکار وجود داشته باشد.
+      • مراقبت‌های معمول سلامت را ادامه دهید و هرگونه نگرانی جدید یا پایدار مرتبط با کبد را با پزشک یا ارائه‌دهنده خدمات سلامت خود در میان بگذارید.
+
+  - value: no-indication-for-further-assessment
+    text: "در حال حاضر نیازی به ارزیابی بیشتر نیست"
+    subtitle: "در حال حاضر بر اساس غربالگری، اندیکاسیونی برای ارزیابی فیبروز وجود ندارد"
+    conditions:
+      - operator: equals
+        value: NoIndicationForFurtherAssessment
+    description: "غربالگری اولیه در حال حاضر شواهد کافی برای ادامه ارزیابی غیرتهاجمی فیبروز کبدی نشان نمی‌دهد."
+    color: "#9E9E9E"
+    icon: "⚪"
+    prevention:
+      primordial:
+        - "وزن سالم را حفظ کنید و از افزایش وزن بیش از حد جلوگیری کنید"
+        - "رژیم غذایی متعادل با وعده‌های مناسب و قندهای افزوده محدود داشته باشید"
+        - "فعالیت بدنی منظم داشته باشید"
+      primary:
+        - "قند خون، فشار خون و سطح چربی‌های خون را در محدوده سالم حفظ کنید"
+        - "عوامل خطر متابولیک را به‌صورت دوره‌ای پایش کنید"
+      secondary:
+        - "درباره تداوم اختلالات آنزیم‌های کبدی یا یافته‌های جدید مرتبط با کبد با پزشک یا ارائه‌دهنده خدمات سلامت خود مشورت کنید"
+        - "در صورت تغییر عوامل خطر بالینی یا متابولیک مرتبط، ارزیابی را تکرار کنید"
+    summary: "غربالگری اولیه در حال حاضر اندیکاسیونی برای ارزیابی بیشتر فیبروز کبدی نشان نمی‌دهد."
+    next_steps: |
+      ۱. Continue healthy eating and regular physical activity
+      ۲. Maintain or work toward a healthy weight
+      ۳. Discuss persistent liver-related abnormalities with your healthcare provider
+    follow_up: "در صورت بروز یافته‌های بالینی جدید، نتایج غیرطبیعی آزمایشگاهی یا عوامل خطر مرتبط، می‌توان ارزیابی بیشتر را دوباره در نظر گرفت."
+    patient_education: |
+      • این نتیجه غربالگری کبد چرب یا سایر بیماری‌های کبدی را تشخیص نمی‌دهد و آن‌ها را رد نیز نمی‌کند.
+      • حتی در صورت وجود کبد چرب، آزمایش‌های آنزیم‌های کبدی می‌توانند طبیعی باشند.
+      • هرگونه اختلال جدید یا پایدار مرتبط با کبد باید با پزشک یا ارائه‌دهنده خدمات سلامت در میان گذاشته شود.
+
+  - value: low
+    text: "خطر پایین"
+    subtitle: "خطر پایین فیبروز پیشرفته"
+    conditions:
+      - operator: equals
+        value: Low
+    description: "هر دو امتیاز غیرتهاجمی فیبروز در ارزیاب پایین‌تر از آستانه‌های خطر پایین قرار دارند."
+    color: "#4CAF50"
+    icon: "🟢"
+    prevention:
+      primordial:
+        - "وزن سالم را حفظ کنید و از افزایش وزن بیش از حد جلوگیری کنید"
+        - "رژیم غذایی متعادل با وعده‌های مناسب و قندهای افزوده محدود داشته باشید"
+        - "فعالیت بدنی منظم داشته باشید"
+      primary:
+        - "وزن و عوامل خطر متابولیک را به‌صورت دوره‌ای پایش کنید"
+        - "درباره مدیریت دیابت، فشار خون و چربی‌های خون با پزشک یا ارائه‌دهنده خدمات سلامت خود مشورت کنید"
+      secondary:
+        - "در صورت تداوم اختلالات کبدی یا عوامل خطر متابولیک، پیگیری پزشکی را ادامه دهید"
+        - "ارزیابی فیبروز را طبق توصیه پزشک یا ارائه‌دهنده خدمات سلامت خود تکرار کنید"
+    summary: "ارزیابی غیرتهاجمی فیبروز موجود، خطر پایین فیبروز پیشرفته را نشان می‌دهد."
+    next_steps: |
+      ۱. Continue healthy eating and regular physical activity
+      ۲. Maintain or work toward a healthy weight
+      ۳. Discuss routine follow-up with your healthcare provider
+    follow_up: "طبق توصیه پزشک یا ارائه‌دهنده خدمات سلامت خود پیگیری کنید و در صورت تغییر عوامل خطر، ارزیابی را تکرار کنید."
+    patient_education: |
+      • حتی در صورت وجود کبد چرب، آزمایش‌های آنزیم‌های کبدی می‌توانند طبیعی باشند.
+      • Healthy weight, physical activity and management of metabolic risk factors are important for liver health.
+      • This screening result does not diagnose or exclude liver disease by itself.
+
+  - value: borderline
+    text: "خطر مرزی"
+    subtitle: "ممکن است ارزیابی بیشتر لازم باشد"
+    conditions:
+      - operator: equals
+        value: BorderLine
+    description: "امتیازهای غیرتهاجمی فیبروز معیارهای لازم برای قرار گرفتن در گروه خطر کاملاً پایین یا بالا را ندارند. با توجه به شرایط بالینی، ممکن است ارزیابی بیشتر مناسب باشد."
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "وزن سالم و فعالیت بدنی منظم را حفظ کنید"
+        - "رژیم غذایی متعادل داشته باشید و قندهای افزوده بیش از حد را محدود کنید"
+      primary:
+        - "عوامل خطر متابولیک را با پزشک یا ارائه‌دهنده خدمات سلامت خود بررسی کنید"
+        - "کنترل مناسب دیابت، فشار خون و اختلالات چربی خون را حفظ کنید"
+      secondary:
+        - "درباره مناسب بودن ارزیابی غیرتهاجمی بیشتر فیبروز با پزشک یا ارائه‌دهنده خدمات سلامت خود مشورت کنید"
+        - "در صورت وجود اندیکاسیون بالینی، مشاوره با پزشک متخصص را در نظر بگیرید"
+    summary: "ارزیابی غیرتهاجمی موجود، طبقه‌بندی کاملاً مشخصی در گروه خطر پایین یا بالا ایجاد نمی‌کند."
+    next_steps: |
+      ۱. Review the result with your healthcare provider
+      ۲. Discuss whether additional non-invasive fibrosis assessment is appropriate
+      ۳. Consider repeat assessment according to your healthcare provider's advice
+    follow_up: "طبق توصیه پزشک یا ارائه‌دهنده خدمات سلامت خود پیگیری کنید و در زمان مناسب از نظر بالینی، ارزیابی را تکرار کنید."
+    patient_education: |
+      • FIB-4 و NFS ابزارهای غربالگری هستند و تشخیص قطعی محسوب نمی‌شوند.
+      • نتایجی که به‌طور واضح در محدوده خطر پایین یا بالا قرار نمی‌گیرند ممکن است به ارزیابی بیشتر نیاز داشته باشند.
+      • بدون مشورت با پزشک یا ارائه‌دهنده خدمات سلامت خود، بر اساس این نتیجه غربالگری درمان تجویزشده را تغییر ندهید.
+
+  - value: medium
+    text: "خطر متوسط"
+    subtitle: "ممکن است ارزیابی بیشتر لازم باشد"
+    conditions:
+      - operator: equals
+        value: Medium
+    description: "هر دو امتیاز غیرتهاجمی فیبروز معیارهای لازم برای قرار گرفتن در گروه خطر کاملاً پایین یا بالا را ندارند. ممکن است ارزیابی بیشتر مناسب باشد."
+    color: "#FF9800"
+    icon: "🟠"
+    prevention:
+      primordial:
+        - "وزن سالم و فعالیت بدنی منظم را حفظ کنید"
+        - "رژیم غذایی متعادل داشته باشید و قندهای افزوده بیش از حد را محدود کنید"
+      primary:
+        - "عوامل خطر متابولیک را با پزشک یا ارائه‌دهنده خدمات سلامت خود بررسی کنید"
+        - "در صورت لزوم، دیابت و سایر عوامل خطر متابولیک را مدیریت کنید"
+      secondary:
+        - "درباره ارزیابی غیرتهاجمی بیشتر فیبروز، مانند الاستوگرافی گذرا، مشورت کنید"
+        - "در صورت وجود اندیکاسیون بالینی، مشاوره با پزشک متخصص را در نظر بگیرید"
+    summary: "ارزیابی غیرتهاجمی موجود نشان‌دهنده خطر متوسط یا نامشخص فیبروز پیشرفته است."
+    next_steps: |
+      ۱. Review the result with your healthcare provider
+      ۲. Discuss whether transient elastography or another non-invasive assessment is appropriate
+      ۳. Discuss whether specialist liver evaluation is needed
+    follow_up: "Follow up according to your healthcare provider's recommendation for further fibrosis assessment."
+    patient_education: |
+      • FIB-4 و NFS ابزارهای غربالگری هستند و تشخیص قطعی محسوب نمی‌شوند.
+      • نتایج متوسط یا متناقض ممکن است به یک ارزیابی غیرتهاجمی دیگر نیاز داشته باشند.
+      • بدون مشورت با پزشک یا ارائه‌دهنده خدمات سلامت خود، بر اساس این نتیجه غربالگری درمان تجویزشده را تغییر ندهید.
+
+  - value: high
+    text: "خطر بالا"
+    subtitle: "خطر بالاتر فیبروز پیشرفته"
+    conditions:
+      - operator: equals
+        value: High
+    description: "هر دو امتیاز غیرتهاجمی فیبروز در ارزیاب بالاتر از آستانه‌های خطر بالا قرار دارند."
+    color: "#F44336"
+    icon: "🔴"
+    prevention:
+      primordial:
+        - "از افزایش وزن بیش از حد جلوگیری کنید و برای رسیدن به وزن سالم تلاش کنید"
+        - "فعالیت بدنی منظم را حفظ کنید"
+      primary:
+        - "دیابت و سایر عوامل خطر متابولیک را با کمک پزشک یا ارائه‌دهنده خدمات سلامت خود مدیریت کنید"
+        - "اختلالات آزمایشگاهی مرتبط با کبد را با پزشک یا ارائه‌دهنده خدمات سلامت خود بررسی کنید"
+      secondary:
+        - "برای ارزیابی بیشتر فیبروز کبدی با یک متخصص یا ارائه‌دهنده خدمات سلامت هماهنگ کنید"
+        - "در صورت مناسب بودن از نظر بالینی، ارزیابی تخصصی کبد را در نظر بگیرید"
+    summary: "ارزیابی غیرتهاجمی موجود نشان‌دهنده افزایش خطر فیبروز پیشرفته است و به ارزیابی بالینی بیشتر نیاز دارد."
+    next_steps: |
+      ۱. Arrange an appointment with your healthcare provider
+      ۲. Discuss further non-invasive fibrosis assessment, such as transient elastography
+      ۳. Discuss whether specialist liver evaluation is appropriate
+    follow_up: "برای ارزیابی بیشتر فیبروز، در اسرع وقت با پزشک یا ارائه‌دهنده خدمات سلامت خود پیگیری کنید."
+    patient_education: |
+      • نتیجه بالای غربالگری به‌تنهایی تشخیص فیبروز پیشرفته یا سیروز را قطعی نمی‌کند.
+      • برای مشخص شدن میزان فیبروز کبدی، ارزیابی بیشتری لازم است.
+      • هم‌زمان با هماهنگی برای پیگیری پزشکی، اقدامات مربوط به سبک زندگی سالم را ادامه دهید.
+
+  - value: insufficient-data
+    text: "داده‌های ناکافی"
+    subtitle: "اطلاعات بیشتری مورد نیاز است"
+    conditions:
+      - operator: equals
+        value: InsufficientData
+    description: "اطلاعات کافی برای محاسبه امتیازهای غیرتهاجمی موردنیاز فیبروز وجود ندارد."
+    color: "#9E9E9E"
+    icon: "⚪"
+    prevention:
+      primordial:
+        - "رژیم غذایی سالم و فعالیت بدنی منظم را حفظ کنید"
+        - "وزن سالم را حفظ کنید"
+      primary:
+        - "درباره آزمایش‌های آزمایشگاهی مرتبط با کبد که انجام نشده‌اند با پزشک یا ارائه‌دهنده خدمات سلامت خود مشورت کنید"
+      secondary:
+        - "پس از در دسترس قرار گرفتن داده‌های موردنیاز، ارزیابی فیبروز را تکمیل کنید"
+        - "در صورت توصیه پزشک، ارزیابی غیرتهاجمی بیشتری را در نظر بگیرید"
+    summary: "اطلاعات کافی برای محاسبه امتیازهای موردنیاز فیبروز وجود ندارد."
+    next_steps: |
+      ۱. Discuss the missing laboratory information with your healthcare provider
+      ۲. Obtain AST, ALT and platelet results when appropriate
+      ۳. Obtain albumin if NFS is also required
+    follow_up: "پس از در دسترس قرار گرفتن اطلاعات موردنیاز، ارزیابی را تکرار کنید."
+    patient_education: |
+      • نبود مقادیر آزمایشگاهی به این معنا نیست که کبد شما سالم یا ناسالم است.
+      • پس از در دسترس قرار گرفتن نتایج موردنیاز، می‌توان غربالگری را تکمیل کرد.
