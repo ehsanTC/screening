@@ -1,3 +1,4 @@
+using System.Globalization;
 using Screening.Domain.Answers;
 using Screening.Domain.Exceptions;
 using Screening.Domain.Parser.Models;
@@ -62,8 +63,16 @@ public class QuestionnaireAnswerReader
         var answer = GetAnswer(code);
         if (answer is not TextAnswer textAnswer)
             throw new ArgumentException($"Question with code `{nameof(code)}` not found", nameof(code));
-        
-        return float.Parse(textAnswer.Text);
+
+        try
+        {
+            return float.Parse(textAnswer.Text, CultureInfo.InvariantCulture);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public float? GetFloatOrNull(string code) =>

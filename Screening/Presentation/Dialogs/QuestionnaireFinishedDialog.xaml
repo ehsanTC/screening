@@ -18,20 +18,25 @@
                Width="200" Height="200" Stretch="Uniform"
                HorizontalAlignment="Center" Margin="0,0,0,16" />
 
-        <TextBlock Grid.Row="1" Text="Questionnaire Completed"
-                   FontSize="18" FontWeight="Bold"
+        <TextBlock Grid.Row="1"
+                   x:Uid="QuestionnaireFinishedDialog_QuestionnaireCompleted"
+                   FontSize="18"
+                   FontWeight="Bold"
                    Padding="20 30 20 20"
-                   TextWrapping="Wrap" HorizontalAlignment="Center" />
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center" />
 
-        <TextBlock Grid.Row="2" Text="Your results have been saved."
+        <TextBlock Grid.Row="2"
+                   x:Uid="QuestionnaireFinishedDialog_ResultsSaved"
                    Foreground="#808080"
-                   FontSize="14" TextWrapping="Wrap"
+                   FontSize="14"
+                   TextWrapping="Wrap"
                    Padding="0 0 0 30"
                    HorizontalAlignment="Center"
                    />
 
         <Button Grid.Row="3"
-                Content="OK"
+                x:Uid="QuestionnaireFinishedDialog_ShowResult"
                 CornerRadius="16"
                 Padding="0"
                 HorizontalContentAlignment="Center"

@@ -5,6 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="HorizontalTextAlignment" Value="Right" />
+        </Style>
+    </UserControl.Resources>
+
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
         <Grid Margin="16,0" RowDefinitions="Auto,Auto,Auto,Auto"> <!-- Question -->
@@ -44,7 +51,7 @@
 
                                 <!-- Header -->
                                 <TextBlock Grid.Row="0" Grid.Column="0"
-                                           Text="Lab Result"
+                                           x:Uid="RepeatableKeyValueQuestionView_LabResult"
                                            FontSize="12"
                                            FontWeight="SemiBold"
                                            Foreground="#4B5B56"
@@ -64,13 +71,13 @@
                                       Margin="0,8,0,0">
                                     <StackPanel Grid.Column="0" Spacing="5">
                                         <TextBlock
-                                            Text="Parameter"
+                                            x:Uid="RepeatableKeyValueQuestionView_LabResultParameter"
                                             FontSize="11"
                                             Foreground="#4B5B56" />
 
                                         <TextBox
+                                            x:Uid="RepeatableKeyValueQuestionView_LabResultParameterPlaceholder"
                                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            PlaceholderText="e.g. FBS"
                                             CornerRadius="8"
                                             HorizontalAlignment="Stretch" />
 
@@ -79,13 +86,13 @@
                                     <StackPanel Grid.Column="1" Spacing="5">
 
                                         <TextBlock
-                                            Text="Value"
+                                            x:Uid="RepeatableKeyValueQuestionView_LabResultValue"
                                             FontSize="11"
                                             Foreground="#4B5B56" />
 
                                         <TextBox
                                             Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            PlaceholderText="e.g. 100"
+                                            x:Uid="RepeatableKeyValueQuestionView_LabResultValuePlaceholder"
                                             CornerRadius="8"
                                             HorizontalAlignment="Stretch" />
 
@@ -100,7 +107,7 @@
             <!-- Add result -->
             <Button Grid.Row="2"
                     x:Name="AddResultButton"
-                    Content="➕ Add another result"
+                    x:Uid="RepeatableKeyValueQuestionView_AddAnotherResult"
                     Click="OnAddResultClicked"
                     HorizontalAlignment="Stretch"
                     Margin="0,0,0,10"
@@ -131,12 +138,11 @@
 
                                     <TextBlock Grid.Row="0"
                                                Grid.Column="0"
-                                               Text="Disorder"
+                                               x:Uid="RepeatableKeyValueQuestionView_Disorder"
                                                FontSize="12"
                                                FontWeight="SemiBold"
                                                Foreground="#4B5B56"
-                                               VerticalAlignment="Center"
-                                    />
+                                               VerticalAlignment="Center"/>
 
                                     <Button Grid.Row="0" Grid.Column="1"
                                             Content="❌"
@@ -149,14 +155,15 @@
 
                                     <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Spacing="5" Margin="0,8,0,0">
                                         <TextBlock
-                                            Text="Disorder name"
+                                            x:Uid="RepeatableKeyValueQuestionView_DisorderName"
                                             FontSize="11"
                                             Foreground="#4B5B56" />
 
                                         <TextBox
                                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Tag="{Binding}"
-                                            PlaceholderText="e.g. Diabetes, Cancer" CornerRadius="8"
+                                            x:Uid="RepeatableKeyValueQuestionView_DisorderPlaceholder"
+                                            CornerRadius="8"
                                             HorizontalAlignment="Stretch" />
 
                                     </StackPanel>
@@ -167,7 +174,7 @@
                 </ItemsControl>
                 <Button
                     x:Name="AddDisorderButton"
-                    Content="➕ Add Disorder"
+                    x:Uid="RepeatableKeyValueQuestionView_AddDisorder"
                     Click="OnAddDisorderClicked"
                     HorizontalAlignment="Stretch"
                     Padding="12"
@@ -177,7 +184,7 @@
                     Style="{StaticResource OptionButtonButtonStyle}"/>
 
                 <TextBlock
-                    Text="Enter lab parameters with their values. Add disorders such as diabetes or cancer if relevant."
+                    x:Uid="RepeatableKeyValueQuestionView_LabEntryHint"
                     FontSize="12" Foreground="#8C9A94" TextWrapping="Wrap" Margin="0,4,0,0" />
             </StackPanel>
         </Grid>

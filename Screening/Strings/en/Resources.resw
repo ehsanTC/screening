@@ -173,7 +173,27 @@
   </data>
 
   <data name="FractureCard.BottomLabelText" xml:space="preserve">
-    <value>6 questions</value>
+    <value>11 questions</value>
+  </data>
+
+  <data name="ّObesityCard.MainLabelText" xml:space="preserve">
+    <value>Obesity</value>
+  </data>
+
+  <data name="ObesityCard.BottomLabelText" xml:space="preserve">
+    <value>10 questions</value>
+  </data>
+
+  <data name="FattyLiverCard.MainLabelText" xml:space="preserve">
+    <value>Fatty Liver</value>
+  </data>
+
+  <data name="FattyLiverCard.BottomLabelText" xml:space="preserve">
+    <value>12 questions</value>
+  </data>
+
+  <data name="MainPage_HealthAiButton.Text" xml:space="preserve">
+    <value>Health with Ai</value>
   </data>
 
   <data name="TextInputQuestionView_NotANumber" xml:space="preserve">
@@ -230,6 +250,66 @@
 
   <data name="ResultDialog_NoResultMessage" xml:space="preserve">
     <value>These are all data we have about your health:</value>
+  </data>
+
+  <data name="QuestionPage_BackButton.Content" xml:space="preserve">
+    <value>Back</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResult.Text" xml:space="preserve">
+    <value>Lab Result</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultParameter.Text" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultParameterPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>e.g. FBS</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultValue.Text" xml:space="preserve">
+    <value>Value</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultValuePlaceholder.PlaceholderText" xml:space="preserve">
+    <value>e.g. 100</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_AddAnotherResult.Content" xml:space="preserve">
+    <value>➕ Add another result</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_Disorder.Text" xml:space="preserve">
+    <value>Disorder</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_DisorderName.Text" xml:space="preserve">
+    <value>Disorder name</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_DisorderPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>e.g. Diabetes, Cancer</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_AddDisorder.Content" xml:space="preserve">
+    <value>➕ Add Disorder</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabEntryHint.Text" xml:space="preserve">
+    <value>Enter lab parameters with their values. Add disorders such as diabetes or cancer if relevant.</value>
+  </data>
+
+  <data name="QuestionnaireFinishedDialog_QuestionnaireCompleted.Text" xml:space="preserve">
+    <value>Questionnaire Completed</value>
+  </data>
+
+  <data name="QuestionnaireFinishedDialog_ResultsSaved.Text" xml:space="preserve">
+    <value>Your results have been saved</value>
+  </data>
+
+  <data name="QuestionnaireFinishedDialog_ShowResult.Content" xml:space="preserve">
+    <value>Show Result</value>
   </data>
 
 </root>

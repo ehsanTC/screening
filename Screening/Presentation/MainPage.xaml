@@ -108,7 +108,7 @@
             <views:DisorderCardView
                 Grid.Column="2"
                 Grid.Row="0"
-                MainLabelText="Fracture"
+                x:Uid="FractureCard"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -124,8 +124,7 @@
             <views:DisorderCardView
                 Grid.Column="0"
                 Grid.Row="1"
-                MainLabelText="Obesity"
-                BottomLabelText="7 Questions"
+                x:Uid="ObesityCard"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -141,8 +140,7 @@
             <views:DisorderCardView
                 Grid.Column="1"
                 Grid.Row="1"
-                MainLabelText="Fatty Liver"
-                BottomLabelText="5 Questions"
+                x:Uid="FattyLiverCard"
                 BottomLabelFontSize="12"
                 BottomLabelFontFamily="Arial"
                 BottomLabelForeground="#4A5568"
@@ -167,7 +165,8 @@
             <StackPanel Orientation="Horizontal"
                         Spacing="8"
                         HorizontalAlignment="Center">
-                <TextBlock Text="Health with Ai"
+                <TextBlock
+                    x:Uid="MainPage_HealthAiButton"
                            FontSize="16"
                            VerticalAlignment="Center" />
                 <Image Source="/Assets/Images/bot-head-doctor.png"

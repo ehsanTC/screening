@@ -122,7 +122,27 @@
   </data>
 
   <data name="FractureCard.BottomLabelText" xml:space="preserve">
-    <value>6 سوال</value>
+    <value>11 سوال</value>
+  </data>
+
+  <data name="ّObesityCard.MainLabelText" xml:space="preserve">
+    <value>چاقی</value>
+  </data>
+
+  <data name="ObesityCard.BottomLabelText" xml:space="preserve">
+    <value>10 سوال</value>
+  </data>
+
+  <data name="FattyLiverCard.MainLabelText" xml:space="preserve">
+    <value>کبد چرب</value>
+  </data>
+
+  <data name="FattyLiverCard.BottomLabelText" xml:space="preserve">
+    <value>12 سوال</value>
+  </data>
+
+  <data name="MainPage_HealthAiButton.Text" xml:space="preserve">
+    <value>ازریابی با هوش مصنوعی</value>
   </data>
 
   <data name="TextInputQuestionView_NotANumber" xml:space="preserve">
@@ -179,6 +199,66 @@
 
   <data name="ResultDialog_NoResultMessage" xml:space="preserve">
     <value>موارد زیر داده‌های سلامت شما تا کنون هستند:</value>
+  </data>
+
+  <data name="QuestionPage_BackButton.Content" xml:space="preserve">
+    <value>قبلی</value>
+    </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResult.Text" xml:space="preserve">
+    <value>تست آزمایشگاه</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultParameter.Text" xml:space="preserve">
+    <value>آزمایش</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultParameterPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>مثلا FBS</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultValue.Text" xml:space="preserve">
+    <value>مقدار</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabResultValuePlaceholder.PlaceholderText" xml:space="preserve">
+    <value>مثلا 100</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_AddAnotherResult.Content" xml:space="preserve">
+    <value>➕ افزودن نتیجه آزمایش</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_Disorder.Text" xml:space="preserve">
+    <value>بیماری</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_DisorderName.Text" xml:space="preserve">
+    <value>نام بیماری</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_DisorderPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>مثلا دیابت، سرطان</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_AddDisorder.Content" xml:space="preserve">
+    <value>➕ افزودن بیماری</value>
+  </data>
+
+  <data name="RepeatableKeyValueQuestionView_LabEntryHint.Text" xml:space="preserve">
+    <value>نتیجه تست آزمایشگاهی و یا بیماری را که دارید، وارد کنید</value>
+  </data>
+
+  <data name="QuestionnaireFinishedDialog_QuestionnaireCompleted.Text" xml:space="preserve">
+    <value>پرسشنامه با موفقیت پایان یافت</value>
+  </data>
+
+  <data name="QuestionnaireFinishedDialog_ResultsSaved.Text" xml:space="preserve">
+    <value>جواب‌های سوالات ذخیره شدند</value>
+  </data>
+
+  <data name="QuestionnaireFinishedDialog_ShowResult.Content" xml:space="preserve">
+    <value>نمایش نتیجه</value>
   </data>
 
 </root>

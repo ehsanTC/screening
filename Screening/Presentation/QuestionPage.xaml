@@ -61,7 +61,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0"
-                    Content="Back"
+                    x:Uid="QuestionPage_BackButton"
                     CornerRadius="17"
                     Height="60"
                     FontSize="16"
