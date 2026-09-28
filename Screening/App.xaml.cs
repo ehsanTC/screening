@@ -1,8 +1,8 @@
-using System.Globalization;
 using Windows.Globalization;
 using Screening.Domain.Models;
 using Screening.Presentation.Dialogs;
 using Screening.Presentation.Model;
+using Screening.Presentation.Utility;
 
 namespace Screening;
 
@@ -66,7 +66,7 @@ public partial class App : Application
         
         if (builder.Window.Content is FrameworkElement rootElement)
         {
-            ApplyLanguage(LanguageTag, rootElement);
+            rootElement.FlowDirection = DirectionHelper.Direction;
         }
 
         Services = Host.Services;
@@ -98,13 +98,6 @@ public partial class App : Application
     private static void ApplyLanguage(string languageTag, FrameworkElement? rootElement = null)
     {
         ApplicationLanguages.PrimaryLanguageOverride = languageTag;
-
-        if (rootElement is null)
-            return;
-
-        var isRtl = new CultureInfo(languageTag).TextInfo.IsRightToLeft;
-        rootElement.FlowDirection = isRtl
-            ? FlowDirection.RightToLeft
-            : FlowDirection.LeftToRight;
+        DirectionHelper.Initialize(languageTag); 
     }
 }

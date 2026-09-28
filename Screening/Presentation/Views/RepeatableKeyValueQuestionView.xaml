@@ -5,13 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-    <UserControl.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="TextAlignment" Value="Right" />
-            <Setter Property="HorizontalTextAlignment" Value="Right" />
-        </Style>
-    </UserControl.Resources>
-
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
         <Grid Margin="16,0" RowDefinitions="Auto,Auto,Auto,Auto"> <!-- Question -->

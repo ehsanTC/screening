@@ -8,15 +8,10 @@
     BorderThickness="1"
     CornerRadius="16"
     MaxWidth="360"
-    FlowDirection="RightToLeft"
     HorizontalAlignment="Center">
 
     <ContentDialog.Resources>
         <dialogs:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <Style TargetType="TextBlock">
-            <Setter Property="TextAlignment" Value="Right" />
-            <Setter Property="HorizontalTextAlignment" Value="Right" />
-        </Style>
     </ContentDialog.Resources>
 
     <Grid>

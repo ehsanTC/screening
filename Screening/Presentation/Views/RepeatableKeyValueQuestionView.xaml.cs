@@ -19,6 +19,7 @@ public sealed partial class RepeatableKeyValueQuestionView : UserControl
     public RepeatableKeyValueQuestionView()
     {
         InitializeComponent();
+        FlowDirection = DirectionHelper.Direction;
         DataContextChanged += OnDataContextChanged;
     }
 
