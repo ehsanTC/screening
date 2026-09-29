@@ -1,4 +1,8 @@
 <Project Sdk="Uno.Sdk">
+    <PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+        <UseDefaultPublishRuntimeIdentifier>false</UseDefaultPublishRuntimeIdentifier>
+    </PropertyGroup>
+
     <PropertyGroup>
         <TargetFrameworks>net9.0-android;net9.0-ios;net9.0</TargetFrameworks>
         <DefineConstants>$(DefineConstants);DISABLE_GENERATED_UNHANDLED_EXCEPTION_HANDLER</DefineConstants>
