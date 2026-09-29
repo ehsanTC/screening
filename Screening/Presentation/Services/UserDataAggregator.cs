@@ -22,7 +22,7 @@ public class UserDataAggregator(IProfileService profileService) : IUserDataAggre
         return questions.ToDictionary(x => x.Question.Code, x => x.Answer!);
     }
 
-    public IReadOnlyDictionary<string, Answer>? MergeData(params IReadOnlyDictionary<string, Answer>[] questions)
+    public IReadOnlyDictionary<string, Answer> MergeData(params IReadOnlyDictionary<string, Answer>[] questions)
     {
         ArgumentNullException.ThrowIfNull(questions);
 
