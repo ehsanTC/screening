@@ -23,6 +23,9 @@ questions:
       min: 10
       max: 79
     validation_error: "Age must be between 10 and 79 years"
+    save:
+      path: "age"
+      cast: "int"
 
   - id: 2
     code: "gender"

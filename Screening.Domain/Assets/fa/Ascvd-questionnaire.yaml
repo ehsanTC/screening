@@ -22,6 +22,9 @@ questions:
       min: 10
       max: 79
     validation_error: "سن باید بین 10 تا 79 سال باشد"
+    save:
+      path: "age"
+      cast: "int"
 
   - id: 2
     code: "gender"
