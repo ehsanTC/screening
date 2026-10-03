@@ -1,6 +1,5 @@
 using Screening.Domain.Extensions;
 using Screening.Domain.Models;
-using Screening.Domain.Parser.Models;
 using Screening.Domain.Questionnaire;
 using Screening.Domain.Questionnaire.Abstraction;
 using Screening.Domain.Questions;
@@ -64,7 +63,7 @@ public class AscvdRiskEvaluator : IRiskEvaluator
         if (input.Age is < 30 or > 79) return null;
         if (input.TotalCholesterol is < 130 or > 320) return null;
         if (input.HdlCholesterol is < 20 or > 100) return null;
-        if (input.SystolicBp is < 9 or > 20) return null;
+        if (input.SystolicBp is < 90 or > 200) return null;
         if (input.Egfr <= 0) return null;
 
         bool validForHf = input.Bmi is >= 18.5 and < 40;
