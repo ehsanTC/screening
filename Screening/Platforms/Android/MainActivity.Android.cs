@@ -9,7 +9,9 @@ namespace Screening.Droid;
 [Activity(
     MainLauncher = true,
     ConfigurationChanges = global::Uno.UI.ActivityHelper.AllConfigChanges,
-    WindowSoftInputMode = SoftInput.AdjustNothing | SoftInput.StateHidden
+    // Ensure the layout is resized when the soft keyboard opens so that
+    // bottom controls (Next/Back) are not covered by the keyboard on Android.
+    WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden
 )]
 public class MainActivity : Microsoft.UI.Xaml.ApplicationActivity
 {

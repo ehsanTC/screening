@@ -29,7 +29,10 @@
                RepeatableKeyValueTemplate="{StaticResource RepeatableKeyValueQuestionTemplate}" />
     </Page.Resources>
 
-    <Grid utu:SafeArea.Insets="VisibleBounds">
+    <Grid x:Name="RootGrid" utu:SafeArea.Insets="VisibleBounds">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="RootTranslate" />
+        </Grid.RenderTransform>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />   <!-- Nav bar -->
             <RowDefinition Height="Auto" />   <!-- Progress bar -->
