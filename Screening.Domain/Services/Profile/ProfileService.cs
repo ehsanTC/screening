@@ -7,43 +7,49 @@ namespace Screening.Domain.Services.Profile;
 
 public class ProfileService(ISessionStorageService storage) : IProfileService
 {
-    private static ConcurrentDictionary<string, SavableAnswer>? _profile = new();
-    private static readonly JsonSerializerOptions? Options = new()
+    private static bool _isLoaded;
+    private static readonly SemaphoreSlim Lock = new(1, 1);
+    private static ConcurrentDictionary<string, SavableAnswer> _profile = new();
+
+    private async Task EnsureLoadedAsync()
     {
-        PropertyNameCaseInsensitive = true,
-        WriteIndented = true
-    };
-    
-    private async Task LoadDictionary()
-    {
+        if (_isLoaded) return;
+
+        await Lock.WaitAsync();
         try
         {
-            var fileContent = await storage.LoadAsync<string>(ApplicationFiles.UserProfile);
-            _profile = JsonSerializer.Deserialize<ConcurrentDictionary<string, SavableAnswer>>(
-                fileContent ?? string.Empty,
-                Options);
+            if (_isLoaded) return;
+
+            var loaded = await storage.LoadAsync<ConcurrentDictionary<string, SavableAnswer>>(
+                ApplicationFiles.UserProfile);
+
+            _profile = loaded ?? new ConcurrentDictionary<string, SavableAnswer>();
+            _isLoaded = true;
         }
-        catch (Exception e)
+        catch (JsonException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine(ex);
+            _profile = new();
+        }
+        finally
+        {
+            Lock.Release();
         }
     }
 
     public async Task SaveAsync(string key, SavableAnswer answer)
     {
+        await LoadProfileData();
+
         _profile.AddOrUpdate(key, answer, (k, v) => answer);
-        
-        var serializedData = JsonSerializer.Serialize(_profile, Options);
-        await storage.SaveAsync(ApplicationFiles.UserProfile, serializedData);
+        await storage.SaveAsync(ApplicationFiles.UserProfile, _profile);
     }
 
     public async Task DeleteAsync(string key)
     {
+        await LoadProfileData();
         _profile.TryRemove(key, out _);
-        
-        var serializedData = JsonSerializer.Serialize(_profile);
-        await storage.SaveAsync(ApplicationFiles.UserProfile, serializedData);
+        await storage.SaveAsync(ApplicationFiles.UserProfile, _profile);
     }
 
     public async Task<SavableAnswer?> LoadAsync(string key)
@@ -57,7 +63,7 @@ public class ProfileService(ISessionStorageService storage) : IProfileService
     private async Task LoadProfileData()
     {
         if (_profile == null || _profile?.Count == 0)
-            await LoadDictionary();
+            await EnsureLoadedAsync();
     }
 
     public async Task<IDictionary<string, SavableAnswer>> LoadAllAsync()
@@ -68,8 +74,7 @@ public class ProfileService(ISessionStorageService storage) : IProfileService
 
         foreach (var key in _profile.Keys)
         {
-            if (!string.IsNullOrEmpty(key) &&
-                _profile.TryGetValue(key, out var value))
+            if (!string.IsNullOrEmpty(key) && _profile.TryGetValue(key, out var value))
             {
                 result.Add(key, value);
             }

@@ -1,3 +1,4 @@
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using Windows.Storage;
 
@@ -5,6 +6,13 @@ namespace Screening.Domain.Services.FileStorage;
 
 public class SessionStorageService : ISessionStorageService
 {
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+    };
+
     public async Task SaveAsync<T>(string fileName, T data)
     {
         StorageFolder folder = ApplicationData.Current.LocalFolder;
@@ -12,7 +20,7 @@ public class SessionStorageService : ISessionStorageService
             $"{fileName}.json",
             CreationCollisionOption.ReplaceExisting);
 
-        string json = JsonSerializer.Serialize(data);
+        string json = JsonSerializer.Serialize(data, Options);
         await FileIO.WriteTextAsync(file, json);
     }
 
@@ -24,7 +32,7 @@ public class SessionStorageService : ISessionStorageService
         {
             StorageFile file = await folder.GetFileAsync($"{fileName}.json");
             string json = await FileIO.ReadTextAsync(file);
-            return JsonSerializer.Deserialize<T>(json);
+            return JsonSerializer.Deserialize<T>(json, Options);
         }
         catch (FileNotFoundException)
         {
