@@ -33,7 +33,9 @@
                      AcceptsReturn="False"
                      TextAlignment="Center"
                      TextWrapping="NoWrap"
-                     CornerRadius="20"/>
+                     CornerRadius="20"
+                     InputScope="Number" 
+                     />
 
             <TextBlock Grid.Row="3"
                        x:Name="ErrorTextBlock"
