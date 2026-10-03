@@ -92,7 +92,7 @@ public partial class App : Application
         );
     }
 
-    private static void ApplyLanguage(string languageTag, FrameworkElement? rootElement = null)
+    private static void ApplyLanguage(string languageTag)
     {
         ApplicationLanguages.PrimaryLanguageOverride = languageTag;
         DirectionHelper.Initialize(languageTag); 
