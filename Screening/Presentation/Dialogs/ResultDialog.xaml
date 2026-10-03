@@ -443,7 +443,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="500">
                 <TextBlock
                     TextWrapping="Wrap"
-                    FontFamily="Roboto"
+                    FontFamily="ms-appx:///Assets/Fonts/YEKANBAKHFANUM-SEMIBOLD.TTF#YEKANBAKHFANUM"
                     FontSize="14"
                     LineHeight="24"
                     LineStackingStrategy="BlockLineHeight"

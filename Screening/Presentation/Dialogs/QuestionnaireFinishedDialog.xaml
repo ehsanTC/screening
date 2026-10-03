@@ -39,9 +39,7 @@
                 x:Uid="QuestionnaireFinishedDialog_ShowResult"
                 CornerRadius="16"
                 Padding="0"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                HorizontalAlignment="Stretch"
+                Style="{StaticResource OptionButtonButtonStyle}"
                 Click="ActionButton_Click"/>
     </Grid>
 

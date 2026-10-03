@@ -66,6 +66,7 @@
                     Height="60"
                     FontSize="16"
                     HorizontalAlignment="Stretch"
+                    FontFamily="ms-appx:///Assets/Fonts/YEKANBAKHFANUM-SEMIBOLD.TTF#YEKANBAKHFANUM"
                     IsEnabled="{Binding State.CanGoBack, Mode=OneWay}"
                     Command="{Binding Back}" />
 
@@ -74,6 +75,7 @@
                     CornerRadius="17"
                     Height="60"
                     FontSize="16"
+                    FontFamily="ms-appx:///Assets/Fonts/YEKANBAKHFANUM-SEMIBOLD.TTF#YEKANBAKHFANUM"
                     HorizontalAlignment="Stretch"
                     IsEnabled="{Binding State.CanGoNext, Mode=OneWay}"
                     Command="{Binding Next}" />
