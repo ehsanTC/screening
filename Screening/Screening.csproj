@@ -4,7 +4,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFrameworks>net9.0-android;net9.0-ios;net9.0</TargetFrameworks>
+        <TargetFrameworks>net9.0-android;net9.0</TargetFrameworks>
         <DefineConstants>$(DefineConstants);DISABLE_GENERATED_UNHANDLED_EXCEPTION_HANDLER</DefineConstants>
         <BreakOnUnhandledExceptions>true</BreakOnUnhandledExceptions>
 
@@ -21,10 +21,6 @@
         <!-- Package Publisher -->
         <ApplicationPublisher>O=Screening</ApplicationPublisher>
 
-        <!--
-          UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
-          https://aka.platform.uno/singleproject-features
-        -->
         <UnoFeatures>
             Material;
             Dsp;
@@ -53,6 +49,10 @@
         <Content Include="Assets\Images\questionnaire-finished.png" />
         <Content Include="Assets\Images\questionnaire-abandoned.png" />
         <Content Include="Assets\Images\bot-head-doctor.png" />
+
+        <Content Include="Assets\Fonts\YEKANBAKHFANUM-BOLD.TTF" />
+        <Content Include="Assets\Fonts\YEKANBAKHFANUM-REGULAR.TTF" />
+        <Content Include="Assets\Fonts\YEKANBAKHFANUM-SEMIBOLD.TTF" />
 
         <EmbeddedResource Include="Assets\Prompts\en\AssessmentExplainPrompt.txt"
                           LogicalName="en\AssessmentExplainPrompt.txt"/>
