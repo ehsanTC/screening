@@ -8,9 +8,7 @@ public record SingleOptionAnswer(YamlListItem Item) : Answer
     public override string TypeDiscriminator => nameof(SingleOptionAnswer);
     public override void WriteProperties(Utf8JsonWriter writer, JsonSerializerOptions options)
     {
-        writer.WriteStartObject();
-        writer.WriteString(nameof(YamlListItem.Text),  Item.Text);
+        writer.WriteString(nameof(YamlListItem.Text), Item.Text);
         writer.WriteString(nameof(YamlListItem.Value), Item.Value);
-        writer.WriteEndObject();
     }
 }

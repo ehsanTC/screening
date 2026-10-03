@@ -10,12 +10,10 @@ public record RepeatableKeyValueAnswer(List<KeyValue> LabResults, List<string> D
 
     public override void WriteProperties(Utf8JsonWriter writer, JsonSerializerOptions options)
     {
-        writer.WriteStartObject(nameof(RepeatableKeyValueAnswer));
         writer.WritePropertyName(nameof(LabResults));
         JsonSerializer.Serialize(writer, LabResults, options);
-        
+
         writer.WritePropertyName(nameof(Disorders));
         JsonSerializer.Serialize(writer, Disorders, options);
-        writer.WriteEndObject();
     }
 }
