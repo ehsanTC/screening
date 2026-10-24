@@ -1,5 +1,6 @@
 # Screening
 
+![Application pages](images/health_screening.png)
 Screening is a cross-platform Uno Platform mobile application designed to help users assess the likelihood of common health risks and disorders through guided questionnaires, risk scoring, and educational explanations.
 
 The app currently supports screenings for:
